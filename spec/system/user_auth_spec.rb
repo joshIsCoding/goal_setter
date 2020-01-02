@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "User Authentication", type: :system do
    describe "User Registration" do
       it "has a registration page" do
-      visit(new_user_url)
+      visit(new_user_path)
       expect(page).to have_content("Sign Up Here!")
    end
 

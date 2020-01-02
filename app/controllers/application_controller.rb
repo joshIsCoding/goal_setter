@@ -12,4 +12,12 @@ class ApplicationController < ActionController::Base
    def login_user!(user)
       session[:session_token] = user.reset_session_token! unless user == current_user
    end
+
+   def ensure_login
+      if !is_logged_in?
+         flash[:errors] ||= []
+         flash[:errors] << "Please login to view this page"
+         redirect_to new_session_url
+      end
+   end
 end

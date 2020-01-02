@@ -99,7 +99,7 @@ RSpec.describe "User Authentication", type: :system do
          before { click_on("Logout") }
 
          it "strips their privileges" do
-            expect(page).not_to have_content(user.user_username)
+            expect(page).not_to have_content(user.username)
             visit(user_path(user))
             expect(page).to have_content("Please login to view this page")
 

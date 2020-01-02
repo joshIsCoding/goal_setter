@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   subject(:user) { User.new(username: "test_user", password: "test_pass") }
-  
+
   describe "validations" do
     it { should validate_presence_of(:username) }
     it { should validate_uniqueness_of(:username) }
@@ -48,7 +48,7 @@ RSpec.describe User, type: :model do
 
     describe "#is_password?(password)" do
       it "returns true when the provided password matches the user's password" do
-        expect(user.is_password?("test_password")).to be true
+        expect(user.is_password?("test_pass")).to be true
       end
 
       it "returns false when the provided password doesn't match the user's password" do

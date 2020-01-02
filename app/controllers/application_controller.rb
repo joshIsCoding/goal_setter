@@ -14,6 +14,12 @@ class ApplicationController < ActionController::Base
       session[:session_token] = user.reset_session_token! 
    end
 
+   def logout!
+      current_user.reset_session_token!
+      @current_user = nil
+      session[:session_token] = nil
+   end
+
    def ensure_login
       if !is_logged_in?
          flash[:errors] ||= []

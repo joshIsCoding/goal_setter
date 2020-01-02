@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "User Authentication", type: :system do
-      
+   let(:user) { User.create!(username: "faked_user", password: "geronimo")}
+   let(:other_user) { User.create!(username: "other_user", password: "drastic")}
+   
    describe "User Registration" do
       before(:each) { visit(new_user_path) }
 
@@ -33,7 +35,6 @@ RSpec.describe "User Authentication", type: :system do
    end
 
    describe "User Login" do
-      let(:user) { User.create!(username: "faked_user", password: "geronimo")}
       before(:each) { visit(new_session_path) }
 
       it "has a login page" do
@@ -63,5 +64,31 @@ RSpec.describe "User Authentication", type: :system do
       end
 
    end
+
+   describe "User Privileges" do
+      before do 
+         visit(new_session_path)
+         fill_in("user_username", with: user.username)
+         fill_in("user_password", with: user.password)
+         click_on("Sign In")
+      end
+
+      it "prevents any user from viewing another user's private content" do
+         visit(user_path(other_user))
+         expect(page).not_to have_content(other_user.username)
+      end
+
+      context "when a user logs out" do
+         before { click_on("Logout") }
+
+         it "strips their privileges" do
+            expect(page).not_to have_content(user.user_username)
+            visit(user_path(user))
+            expect(page).to have_content("Please login to view this page")
+
+         end
+      end
+   end
+         
 
 end

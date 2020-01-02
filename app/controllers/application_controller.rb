@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
    helper_method :current_user, :is_logged_in?
    
    def current_user
-      User.find_by(session_token: session[:session_token])
+      @current_user ||= User.find_by(session_token: session[:session_token])
    end
 
    def is_logged_in?
@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
    end
 
    def login_user!(user)
-      session[:session_token] = user.reset_session_token! unless user == current_user
+      @current_user = user
+      session[:session_token] = user.reset_session_token! 
    end
 
    def ensure_login

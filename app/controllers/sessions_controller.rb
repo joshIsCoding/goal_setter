@@ -15,6 +15,11 @@ class SessionsController < ApplicationController
          render :new
       end
    end
+
+   def destroy
+      logout! if is_logged_in?
+      redirect_to new_session_url
+   end
    
    private
    def user_params

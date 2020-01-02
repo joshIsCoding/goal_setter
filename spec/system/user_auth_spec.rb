@@ -73,7 +73,7 @@ RSpec.describe "User Authentication", type: :system do
    end
 
    describe "User Privileges" do
-      before do 
+      before(:each) do 
          visit(new_session_path)
          fill_in("user_username", with: user.username)
          fill_in("user_password", with: user.password)
@@ -83,6 +83,16 @@ RSpec.describe "User Authentication", type: :system do
       it "prevents any user from viewing another user's private content" do
          visit(user_path(other_user))
          expect(page).not_to have_content(other_user.username)
+      end
+
+      it "redirects to the user's page if a user tries to re-register without logging out first" do
+         visit(new_user_path)
+         expect(page).not_to have_content("Sign Up Here!")
+      end
+
+      it "redirects to the user's page if a user tries to re-login without logging out first" do
+         visit(new_session_path)
+         expect(page).not_to have_content("Login to Your Account")
       end
 
       context "when a user logs out" do

@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
    end
 
    def is_logged_in?
-      current_user.exists?
+      !current_user.nil?
    end
 
    def login_user!(user)

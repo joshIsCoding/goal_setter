@@ -4,6 +4,13 @@ RSpec.describe "User Authentication", type: :system do
    let(:user) { User.create!(username: "faked_user", password: "geronimo")}
    let(:other_user) { User.create!(username: "other_user", password: "drastic")}
    
+   context "before registration" do
+      it "asks the user to login if they try to access private content" do
+         visit(user_path(user))
+         expect(page).to have_content("Please login to view this page")
+      end
+   end
+
    describe "User Registration" do
       before(:each) { visit(new_user_path) }
 

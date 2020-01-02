@@ -10,7 +10,8 @@ class SessionsController < ApplicationController
          login_user!(@user)
          redirect_to user_url(@user)
       else
-         flash.now[:errrors] = "Sorry, those credentials weren't valid."
+         flash.now[:errors] ||= []
+         flash.now[:errors] << "Sorry, those credentials weren't valid."
          render :new
       end
    end

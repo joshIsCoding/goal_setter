@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
    before_action :ensure_login, only: [:show]
+   before_action :already_logged_in, except: [:show]
    def new
       @user = User.new
       render :new

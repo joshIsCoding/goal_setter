@@ -21,4 +21,10 @@ class ApplicationController < ActionController::Base
          redirect_to new_session_url
       end
    end
+
+   def already_logged_in
+      if is_logged_in?
+         redirect_to user_url(current_user)
+      end
+   end
 end

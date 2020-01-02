@@ -1,2 +1,3 @@
 <h1>Login to Your Account</h1>
+<%= render "shared/notices", notices: flash[:errors], type: "errors" %>
 <%= render "users/form", mode: :log_in %>

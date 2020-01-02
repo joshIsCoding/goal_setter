@@ -18,7 +18,11 @@ class UsersController < ApplicationController
 
    def show
       @user = User.find_by_id(params[:id])
-      render :show
+      if @user.id == current_user.id
+         render :show
+      else
+         render plain: "You cannot access this content", status: 404
+      end
    end
 
    private

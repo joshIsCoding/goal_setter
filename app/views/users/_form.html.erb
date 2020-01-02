@@ -1,5 +1,6 @@
 
 <form action="<%= user.persisted? ? session_url : users_url  %>" method="post">
+   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" >
    <label for="user_username">Username:</label>
    <input id="user_username" type="text" name="user[username]">
 

@@ -6,4 +6,6 @@ class Goal < ApplicationRecord
    ]
    validates :title, uniqueness: { scope: :user_id },  presence: true
    validates :status, inclusion: { in: STATUSES }
+
+   belongs_to :user
 end

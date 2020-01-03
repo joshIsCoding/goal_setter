@@ -11,6 +11,10 @@ RSpec.describe User, type: :model do
     it { should allow_value(nil).for(:password) }
   end
 
+  describe "associations" do
+    it { should have_many(:goals)}
+  end
+
   describe "model methods" do
     before(:each) { user.save!}
     

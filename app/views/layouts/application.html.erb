@@ -15,8 +15,8 @@
         <h4><%= current_user.username %></h4>
         <%= button_to "Logout", session_url, method: :delete, class: "logout"  %>
       <% else %>
-        <%= button_to "Register", new_user_url, class: "sign-up"%>
-        <%= button_to "Login", new_session_url, class: "login"%>
+        <%= button_to "Register", new_user_url, method: :get, class: "sign-up"%>
+        <%= button_to "Login", new_session_url, method: :get, class: "login"%>
       <% end %>
     </header>
     <%= yield %>

@@ -3,7 +3,7 @@ FactoryBot.define do
     title { "MyString" }
     details { "MyText" }
     status { "MyString" }
-    public? { false }
+    public { false }
     user_id { "MyString" }
   end
 end

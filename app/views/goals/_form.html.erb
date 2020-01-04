@@ -12,6 +12,7 @@
          <label for="<%= "goal_status_#{i}" %>" ><%= status %></label>
          <input id="<%= "goal_status_#{i}" %>"
             name="goal[status]"
+            value="<%= status %>"
             type="radio"
             <%= "checked" if status == goal.status %>>
       <% end  %>
@@ -20,6 +21,8 @@
    <label for="goal_public">Public Goal?</label>
    <input id="goal_public"
       name="goal[public?]"
+      value="true"
+      default="false"
       type="checkbox"
       <%= "checked" if goal.public? %>>
 

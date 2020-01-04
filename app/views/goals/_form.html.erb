@@ -1,0 +1,30 @@
+<form action="<%= goal.persisted? ? goal_url(goal) : goals_url %>" method="post">
+   <%= auth_token %>
+   <label for="goal_title">Title:</label>
+   <input id="goal_title"
+      name="goal[title]"
+      value="<%= goal.title %>"
+      type="text">
+
+   <label for="goal_status">Status:</label>
+   <div class="goal_status">
+      <% Goal::STATUSES.each_with_index do |status, i| %>
+         <label for="<%= "goal_status_#{i}" %>" ><%= status %></label>
+         <input id="<%= "goal_status_#{i}" %>"
+            name="goal[status]"
+            type="radio"
+            <%= "checked" if status == goal.status %>>
+      <% end  %>
+   </div>
+
+   <label for="goal_public">Public Goal?</label>
+   <input id="goal_public"
+      name="goal[public?]"
+      type="checkbox"
+      <%= "checked" if goal.public? %>>
+
+   <label for="goal_details">Details:</label>
+   <textarea id="goal_details" name="goal[details]"><%= goal.details %></textarea>
+
+   <input type="submit">
+</form>

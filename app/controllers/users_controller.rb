@@ -19,7 +19,8 @@ class UsersController < ApplicationController
 
    def show
       @user = User.find_by_id(params[:id])
-      if @user.id == current_user.id
+      @sorted_goals = @user.goals.order(:created_at)
+      if @user
          render :show
       else
          render plain: "You cannot access this content", status: 404

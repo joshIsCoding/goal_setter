@@ -2,8 +2,9 @@ class Goal < ApplicationRecord
    STATUSES = [
       "Not Started",
       "In Progress",
-      "Complete",
-   ]
+      "Complete"
+   ].freeze
+   
    validates :title, uniqueness: { scope: :user_id },  presence: true
    validates :status, inclusion: { in: STATUSES }
 

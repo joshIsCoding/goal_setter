@@ -26,5 +26,5 @@
    <label for="goal_details">Details:</label>
    <textarea id="goal_details" name="goal[details]"><%= goal.details %></textarea>
 
-   <input type="submit">
+   <input type="submit", value="<%= goal.persisted? ? "Update!" : "Set!" %>">
 </form>

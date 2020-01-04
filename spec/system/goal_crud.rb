@@ -24,22 +24,21 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
          visit(new_user_goal_path(main_user))
          fill_in("goal[title]", with: "Write more specs!")
          fill_in("goal[details]", with: "Use model and integration tests when creating your web apps.")
-         click_on("Add Goal!")
+         click_on("Set!")
          expect(page).to have_content(user.username)
          expect(page).to have_content("Write more specs!")
       end
 
       it "doesn't let users create goals for other users" do
          visit(new_user_goal_path(other_user))
-         expect(page).not_to have_content("Add Goal!")
+         expect(page).not_to have_content("Set!")
       end
 
-      it "lets a user see all their goals public and private" do
+      it "lets a user see all their goals, public and private" do
          visit(user_path(main_user))
          expect(page).to have_content(goal_1.title)
          expect(page).to have_content(goal_2.title)         
       end
    end
-
 
 end

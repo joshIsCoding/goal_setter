@@ -1,2 +1,3 @@
 <h1>Set a new goal!</h1>
+<%= render "shared/notices", notices: flash[:errors], type: "errors" %>
 <%= render "goals/form", goal: @goal %>

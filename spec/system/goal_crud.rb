@@ -25,7 +25,7 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
          fill_in("goal[title]", with: "Write more specs!")
          fill_in("goal[details]", with: "Use model and integration tests when creating your web apps.")
          click_on("Set!")
-         expect(page).to have_content(user.username)
+         expect(page).to have_content(main_user.username)
          expect(page).to have_content("Write more specs!")
       end
 

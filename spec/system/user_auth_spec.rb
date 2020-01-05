@@ -80,19 +80,26 @@ RSpec.describe "User Authentication", type: :system do
          click_on("Sign In")
       end
 
-      it "prevents any user from viewing another user's private content" do
-         visit(user_path(other_user))
-         expect(page).not_to have_content(other_user.username)
-      end
+      context "When logged in" do
+      
+         it "allows a user to see another user's public content only" do
+            Goal.create!(title: "Private Goal", details: "Smashing life", user: other_user, public: false)
+            Goal.create!(title: "Public Goal", details: "Smashing pumpkins", user: other_user, public: true)
+            visit(user_path(other_user))
+            expect(page).not_to have_content("Smashing life")
+            expect(page).to have_content("Smashing pumpkins")
+         end
 
-      it "redirects to the user's page if a user tries to re-register without logging out first" do
-         visit(new_user_path)
-         expect(page).not_to have_content("Sign Up Here!")
-      end
+         it "redirects to the user's page if a user tries to re-register without logging out first" do
+            visit(new_user_path)
+            expect(page).not_to have_content("Sign Up Here!")
+         end
 
-      it "redirects to the user's page if a user tries to re-login without logging out first" do
-         visit(new_session_path)
-         expect(page).not_to have_content("Login to Your Account")
+         it "redirects to the user's page if a user tries to re-login without logging out first" do
+            visit(new_session_path)
+            expect(page).not_to have_content("Login to Your Account")
+         end
+
       end
 
       context "when a user logs out" do

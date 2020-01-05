@@ -43,4 +43,38 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
       end
    end
 
+   describe "Goal Updates" do
+      let!(:main_users_goal) { Goal.create!(title: "New Goal", details: "Smashing life", user_id: main_user.id, public: true)}
+      let!(:other_users_goal) { Goal.create!(title: "Other Goal", details: "Smashing pumpkins", user_id: other_user.id, public: true)}
+
+      it "allows the user to update their own goals from their page" do 
+         visit(user_path(main_user))
+         click_on("Update")
+         fill_in("goal[title]", with: "Updated Goal")
+         click_on("Save!")
+         expect(page).to have_content("Updated Goal")
+      end
+
+      it "allows the user to update their own goals from the goal page" do 
+         visit(goal_path(main_users_goal))
+         click_on("Update")
+         fill_in("goal[title]", with: "Updated Goal")
+         click_on("Save!")
+         expect(page).to have_content("Updated Goal")
+      end
+
+
+      it "doesn't allow users to edit other users' goals" do
+         visit(user_path(other_user))
+         expect(page).not_to have_content("Update")
+      end
+
+
+      it "doesn't allow users to edit other users' goals" do
+         visit(goal_path(other_goal))
+         expect(page).not_to have_content("Update")
+      end
+
+   end
+
 end

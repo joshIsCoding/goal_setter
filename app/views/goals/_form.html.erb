@@ -20,11 +20,11 @@
 
    <label for="goal_public">Public Goal?</label>
    <input id="goal_public"
-      name="goal[public?]"
+      name="goal[public]"
       value="true"
       default="false"
       type="checkbox"
-      <%= "checked" if goal.public? %>>
+      <%= "checked" if goal.public %>>
 
    <label for="goal_details">Details:</label>
    <textarea id="goal_details" name="goal[details]"><%= goal.details %></textarea>

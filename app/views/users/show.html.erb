@@ -1,1 +1,41 @@
-<h1><%= @user.username %>'s Goals</h1>
+<% is_current_user = (current_user == @user) ? true : false %>
+<% curr_user_headings = ["Goal", "Status", "public", "Created", "Details" ] %>
+<% other_user_headings = ["Goal", "Status", "Created", "Details"] %>
+<h1><%= is_current_user ? "Your" : @user.username + "'s" %> Goals</h1>
+
+<table>
+   <thead>
+      <tr>
+         <% (current_user ? curr_user_headings : other_user_headings)
+            .each do |heading| %>
+               <th><%= heading %></th>
+            <% end %>
+      </tr>
+   </thead>
+   <tbody>
+      <% @sorted_goals.each do |goal| %>
+         <% if is_current_user || goal.public %>
+            <tr name="<%= goal.id %>">
+               <td>
+                  <%= goal.title %>
+               </td>   
+               <td>
+                  <%= goal.status %>
+               </td>
+               <% if is_current_user %>
+                  <td>
+                     <%= "&#10004;".html_safe if goal.public %>
+                  </td>
+               <% end %>
+               <td>
+                  <%= goal.created_at %>
+               </td>   
+               <td>
+                  <%= goal.details %>
+               </td>   
+            </tr>
+         <% end %>
+      <% end %>
+   </tbody>
+
+</table>

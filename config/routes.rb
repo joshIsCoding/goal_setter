@@ -4,6 +4,6 @@ Rails.application.routes.draw do
     resources :goals, only: [:index, :new]
   end
   resource :session, only: [:create, :new, :destroy]
-  resources :goals, only: [:create, :update, :destroy]
+  resources :goals, only: [:create, :edit, :update, :destroy]
 
 end

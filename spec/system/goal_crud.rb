@@ -32,7 +32,7 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
          let!(:goal_2) { Goal.create!(title: "Mini Goal", details: "Smashing pumpkins", user_id: main_user.id, public: true)}
          it "doesn't let users create goals for other users" do
             visit(new_user_goal_path(other_user))
-            expect(page).not_to have_content("Set!")
+            expect(page).not_to have_button("Set!")
          end
 
          it "lets a user see all their goals, public and private" do
@@ -64,15 +64,15 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
       end
 
 
-      it "doesn't allow users to edit other users' goals" do
+      it "doesn't allow users to edit other users' goals from the users' pages" do
          visit(user_path(other_user))
-         expect(page).not_to have_content("Update")
+         expect(page).not_to have_button("Update")
       end
 
 
-      it "doesn't allow users to edit other users' goals" do
+      it "doesn't allow users to edit other users' goals from the goal pages" do
          visit(goal_path(other_goal))
-         expect(page).not_to have_content("Update")
+         expect(page).not_to have_button("Update")
       end
 
    end

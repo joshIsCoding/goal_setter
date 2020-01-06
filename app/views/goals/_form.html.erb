@@ -1,5 +1,8 @@
 <form action="<%= goal.persisted? ? goal_url(goal) : goals_url %>" method="post">
    <%= auth_token %>
+   <% if goal.persisted? %>
+      <input type="hidden" name="_method" value="patch">
+   <% end %>
    <label for="goal_title">Title:</label>
    <input id="goal_title"
       name="goal[title]"

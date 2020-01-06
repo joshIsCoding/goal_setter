@@ -14,7 +14,7 @@
    </thead>
    <tbody>
       <% @sorted_goals.each do |goal| %>
-         <% if is_current_user || goal.public %>
+         <% if is_current_user %>
             <tr name="<%= goal.id %>">
                <td>
                   <%= goal.title %>
@@ -22,11 +22,30 @@
                <td>
                   <%= goal.status %>
                </td>
-               <% if is_current_user %>
-                  <td>
-                     <%= "&#10004;".html_safe if goal.public %>
-                  </td>
-               <% end %>
+               <td>
+                  <%= "&#10004;".html_safe if goal.public %>
+               </td>
+               <td>
+                  <%= goal.created_at %>
+               </td>   
+               <td>
+                  <%= goal.details %>
+               </td>
+               <td>
+                  <%= button_to "Update", edit_goal_url(goal), method: "get" %>
+               </td>
+               <td>
+                  <%= button_to "Delete", goal_url(goal), method: "delete" %>
+               </td>
+            </tr>
+         <% elsif goal.public %>
+            <tr name="<%= goal.id %>">
+               <td>
+                  <%= goal.title %>
+               </td>   
+               <td>
+                  <%= goal.status %>
+               </td>
                <td>
                   <%= goal.created_at %>
                </td>   

@@ -34,6 +34,11 @@ class GoalsController < ApplicationController
       end
    end
 
+   def show
+      @goal = Goal.find_by_id(params[:id])
+      render :show
+   end
+
 
    private
    def goal_params

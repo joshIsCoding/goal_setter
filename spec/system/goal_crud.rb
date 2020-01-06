@@ -71,8 +71,14 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
 
 
       it "doesn't allow users to edit other users' goals from the goal pages" do
-         visit(goal_path(other_goal))
-         expect(page).not_to have_button("Update")
+         visit(goal_path(other_users_goal))
+         expect(page).not_to have_button("Update Goal")
+      end
+
+      it "doesn't allow users to edit other users' goals with the direct, edit-goal url" do
+         visit(edit_goal_path(other_users_goal))
+         expect(page).not_to have_current_path(edit_goal_path(other_users_goal))
+         expect(page).not_to have_button("Update Goal")
       end
 
    end

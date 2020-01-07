@@ -33,4 +33,8 @@ class ApplicationController < ActionController::Base
          redirect_to user_url(current_user)
       end
    end
+
+   def render_not_found
+      raise ActionController::RoutingError.new('Page not found')
+   end
 end

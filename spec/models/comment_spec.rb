@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "Validations" do
+    it { should validate_presence_of(:contents) }
+    it { should validate_length_of(:contents).is_at_most(1000) }
+  end
 end

@@ -1,4 +1,5 @@
 class GoalsController < ApplicationController
+   before_action :find_and_validate_goal, only: [:edit, :update]
    def new
       @goal = Goal.new
       render :new
@@ -16,16 +17,10 @@ class GoalsController < ApplicationController
    end
 
    def edit
-      @goal = Goal.find_by_id(params[:id])
-      if @goal.user == current_user
-         render :edit
-      else
-         redirect_to goal_url(@goal)
-      end
+      render :edit
    end
 
    def update
-      @goal = Goal.find_by_id(params[:id])
       if @goal.update(goal_params)
          redirect_to user_url(current_user, anchor: @goal.id)
       else
@@ -43,9 +38,14 @@ class GoalsController < ApplicationController
       end
    end
 
-
+   
    private
    def goal_params
       params.require(:goal).permit(:title, :details, :status, :public)
+   end
+
+   def find_and_validate_goal
+      @goal = Goal.find_by_id(params[:id])
+      redirect_to goal_url(@goal) unless @goal.user == current_user
    end
 end

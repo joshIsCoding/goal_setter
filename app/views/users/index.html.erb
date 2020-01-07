@@ -1,0 +1,20 @@
+<h1>Resolute - the goal setting app</h1>
+
+<h4>Our Users</h4>
+<table>
+   <thead>
+      <tr>
+         <% ["Username", "Joined On", "Goal Count", "Total Cheers"].each do |heading| %>
+            <th><%= heading %></th>
+         <% end %>
+      </tr>
+   </thead>
+   <tbody>
+      <% @users.each do |user| %>
+         <td><%= link_to user.username, user_url(user) %></td>
+         <td><%= user.created_at %></td>
+         <td><%= user.goal_count %></td>
+         <td>###</td>
+      <% end %>
+   </tbody>
+</table>

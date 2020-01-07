@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
    before_action :ensure_login, only: [:show]
    before_action :already_logged_in, except: [:show]
+   
    def new
       @user = User.new
       render :new
@@ -19,12 +20,17 @@ class UsersController < ApplicationController
 
    def show
       @user = User.find_by_id(params[:id])
-      @sorted_goals = @user.goals.order(:created_at)
       if @user
+         @sorted_goals = @user.goals ? @user.goals.order(:created_at) : []
          render :show
       else
-         render plain: "You cannot access this content", status: 404
+         redirect_to :index
       end
+   end
+
+   def index
+      @users = User.select("users.*, COUNT(goals.id) AS \"goal_count\"").joins(:goals).group(:id)
+      render :index
    end
 
    private

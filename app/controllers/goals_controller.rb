@@ -36,7 +36,11 @@ class GoalsController < ApplicationController
 
    def show
       @goal = Goal.find_by_id(params[:id])
-      render :show
+      if @goal
+         render :show
+      else
+         render_not_found
+      end
    end
 
 

@@ -38,6 +38,16 @@ class GoalsController < ApplicationController
       end
    end
 
+   def destroy
+      @goal = Goal.find_by_id(params[:id])
+      if @goal.destroy
+         redirect_to controller: :users, action: :show, id: @goal.user_id
+      else
+         flash.now[:errors] = @goal.errors.full_messages
+         render goal_url(@goal)
+      end
+   end
+
    
    private
    def goal_params

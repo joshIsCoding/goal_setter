@@ -83,4 +83,35 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
 
    end
 
+   describe "Goal Deletion" do
+      let!(:main_users_goal) { Goal.create!(title: "New Goal", details: "Smashing life", user_id: main_user.id, public: true)}
+      let!(:other_users_goal) { Goal.create!(title: "Other Goal", details: "Smashing pumpkins", user_id: other_user.id, public: true)}
+      
+      it "allows a user to delete their own goal from the goal page" do
+         visit(goal_path(main_users_goal))
+         click_on("Delete Goal")
+         expect(page).not_to have_content(main_users_goal.title)
+         visit(goal_path(main_users_goal))
+         expect{page}.to raise_error(ActionController::RoutingError)
+      end
+
+      it "also allows a user to delete goals from their own page" do
+         visit(user_path(main_user))
+         click_on("Delete")
+         expect(page).to have_current_path(user_path(main_user))
+         expect(page).not_to have_content(main_users_goal.title)
+      end
+
+      it "doesn't allow a user to delete another user's goal from the goal page" do
+         visit(goal_path(other_users_goal))
+         expect(page).not_to have_button("Delete Goal")
+      end
+
+      it "doesn't allow a user to delete another user's goal from the user's page" do
+         visit(user_path(other_user))
+         expect(page).to have_content(other_users_goal.title)
+         expect(page).not_to have_button("Delete")
+      end
+   end
+
 end

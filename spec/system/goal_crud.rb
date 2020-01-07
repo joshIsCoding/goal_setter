@@ -27,13 +27,18 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
          expect(page).to have_content("Write more specs!")
       end
 
+      it "doesn't let users create goals for other users" do
+            visit(new_user_goal_path(other_user))
+            fill_in("goal[title]", with: "Write more specs!")
+            fill_in("goal[details]", with: "Use model and integration tests when creating your web apps.")
+            click_on("Set!")
+            expect(page).to have_current_path(user_path(main_user))
+            expect(page).to have_content("Write more specs!")
+      end
+
       context "Goal Privacy" do
          let!(:goal_1) { Goal.create!(title: "Big Goal", details: "Smashing life", user_id: main_user.id, public: false)}
          let!(:goal_2) { Goal.create!(title: "Mini Goal", details: "Smashing pumpkins", user_id: main_user.id, public: true)}
-         it "doesn't let users create goals for other users" do
-            visit(new_user_goal_path(other_user))
-            expect(page).not_to have_button("Set!")
-         end
 
          it "lets a user see all their goals, public and private" do
             visit(user_path(main_user))
@@ -90,9 +95,8 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
       it "allows a user to delete their own goal from the goal page" do
          visit(goal_path(main_users_goal))
          click_on("Delete Goal")
+         expect(page).to have_current_path(user_path(main_user))
          expect(page).not_to have_content(main_users_goal.title)
-         visit(goal_path(main_users_goal))
-         expect{page}.to raise_error(ActionController::RoutingError)
       end
 
       it "also allows a user to delete goals from their own page" do

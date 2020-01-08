@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+   include Commentable
    validates :username, presence: true, uniqueness: true
    validates :password_digest, presence: true
    validates :password, length: { minimum: 5, allow_nil: true } 
@@ -7,7 +8,7 @@ class User < ApplicationRecord
    attr_reader :password
 
    has_many :goals
-   has_many :comments, as: :commentable
+   
 
    def self.generate_session_token
       SecureRandom::urlsafe_base64(16)

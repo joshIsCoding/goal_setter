@@ -1,4 +1,5 @@
 class Goal < ApplicationRecord
+   include Commentable
    STATUSES = [
       "Not Started",
       "In Progress",
@@ -8,6 +9,5 @@ class Goal < ApplicationRecord
    validates :title, uniqueness: { scope: :user_id },  presence: true
    validates :status, inclusion: { in: STATUSES }
 
-   has_many :comments, as: :commentable
    belongs_to :user
 end

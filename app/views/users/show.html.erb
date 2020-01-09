@@ -59,3 +59,4 @@
 </table>
 
 <%= render "comments/comments", comments: @user.sorted_authored_comments %>
+<%= render "comments/form", type: "User", target_id: @user.id %>

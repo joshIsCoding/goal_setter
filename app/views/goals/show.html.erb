@@ -26,4 +26,5 @@
    <% end %>
 
    <%= render "comments/comments", comments: @goal.sorted_authored_comments %>
+   <%= render "comments/form", type: "Goal", target_id: @goal.id %>
 </div>

@@ -32,6 +32,14 @@ class GoalsController < ApplicationController
    def show
       @goal = Goal.find_by_id(params[:id])
       if @goal
+         @goal_comments = @goal.comments
+         .select(<<-SQL)
+            comments.*, 
+            users.username AS "author_name", 
+            users.id AS "author_id"
+         SQL
+         .joins(:author)
+         
          render :show
       else
          render_not_found

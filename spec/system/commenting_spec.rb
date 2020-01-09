@@ -36,7 +36,7 @@ RSpec.describe "Adding, Viewing and Deleting Comments", type: :system do
          visit(user_path(other_user))
          fill_in("comment_contents", with: "I just added a comment!")
          click_on("Comment")
-         expect(page).to have_url(user_path(other_user))
+         expect(page).to have_current_path(user_path(other_user))
          expect(page).to have_content("I just added a comment!")
       end
 
@@ -44,7 +44,7 @@ RSpec.describe "Adding, Viewing and Deleting Comments", type: :system do
          visit(goal_path(token_goal))
          fill_in("comment_contents", with: "I just added a comment!")
          click_on("Comment")
-         expect(page).to have_url(goal_path(token_goal))
+         expect(page).to have_current_path(goal_path(token_goal))
          expect(page).to have_content("I just added a comment!")
       end
 
@@ -57,7 +57,7 @@ RSpec.describe "Adding, Viewing and Deleting Comments", type: :system do
             visit(user_path(other_user))
             expect(page).to have_content(user_comment.contents)
             click_on("Delete Comment")
-            expect(page).to have_url(user_path(other_user))
+            expect(page).to have_current_path(user_path(other_user))
             expect(page).not_to have_content(user_comment.contents)
          end
       end
@@ -67,7 +67,7 @@ RSpec.describe "Adding, Viewing and Deleting Comments", type: :system do
             visit(goal_path(token_goal))
             expect(page).to have_content(goal_comment.contents)
             click_on("Delete Comment")
-            expect(page).to have_url(goal_path(token_goal))
+            expect(page).to have_current_path(goal_path(token_goal))
             expect(page).not_to have_content(goal_comment.contents)
          end
       end

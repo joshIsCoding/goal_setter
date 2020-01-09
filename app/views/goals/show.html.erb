@@ -1,27 +1,29 @@
 <div class="<%= "background #{@goal.status}" %>">
-<h1><%= @goal.title %></h1>
-<% is_current_user = @goal.user == current_user %>
-<h4><%= is_current_user ? "Your goal" : "A goal by #{@goal.user.username}" %></h4>
-<h3><%= @goal.status %></h3>
-<table>
-   <% if is_current_user %>
+   <h1><%= @goal.title %></h1>
+   <% is_current_user = @goal.user == current_user %>
+   <h4><%= is_current_user ? "Your goal" : "A goal by #{@goal.user.username}" %></h4>
+   <h3><%= @goal.status %></h3>
+   <table>
+      <% if is_current_user %>
+         <tr>
+            <th>Public Goal?</th> <td><%= "&#10004;".html_safe if @goal.public %></td>
+         </tr>
+      <% end %>
       <tr>
-         <th>Public Goal?</th> <td><%= "&#10004;".html_safe if @goal.public %></td>
+         <th>Created Time:</th> <td><%= @goal.created_at %></td>
       </tr>
+      <tr>
+         <th>Updated Time:</th> <td><%= @goal.updated_at %></td>
+      </tr>
+   </table>
+   <h5>Details:</h5>
+   <p><%= @goal.details %></p>
+   <% if is_current_user %>
+      <div class="controls">
+         <%= button_to "Update Goal", edit_goal_url(@goal), method: "get" %>
+         <%= button_to "Delete Goal", goal_url(@goal), method: "delete" %>
+      </div>
    <% end %>
-   <tr>
-      <th>Created Time:</th> <td><%= @goal.created_at %></td>
-   </tr>
-   <tr>
-      <th>Updated Time:</th> <td><%= @goal.updated_at %></td>
-   </tr>
-</table>
-<h5>Details:</h5>
-<p><%= @goal.details %></p>
-<% if is_current_user %>
-   <div class="controls">
-      <%= button_to "Update Goal", edit_goal_url(@goal), method: "get" %>
-      <%= button_to "Delete Goal", goal_url(@goal), method: "delete" %>
-   </div>
-<% end %>
+
+   <%= render "comments/comments", comments: @goal_comments %>
 </div>

@@ -1,0 +1,12 @@
+<section class="comments">
+   <% comments.each do |comment| %>
+   <article class="comment">
+      <header>
+         <h6><%= link_to comment.author_name, user_url(comment.author_id) %> commented <%= comment.created_at %></h6>
+      </header>
+      <p><%= comment.contents %></p>
+      <footer>
+      </footer>
+   </article>
+   <% end %>
+</section>

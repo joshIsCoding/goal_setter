@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+   before_action :ensure_log_in
    def create
       @comment = Comment.new(comment_params.permit(:contents, :commentable_type, :commentable_id))
       @comment.author = current_user

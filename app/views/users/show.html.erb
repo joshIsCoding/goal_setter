@@ -1,5 +1,5 @@
 <% is_current_user = (current_user == @user) ? true : false %>
-<% curr_user_headings = ["Goal", "Status", "public", "Created", "Details" ] %>
+<% curr_user_headings = ["Goal", "Status", "Public?", "Created", "Details" ] %>
 <% other_user_headings = ["Goal", "Status", "Created", "Details"] %>
 <h1><%= is_current_user ? "Your" : @user.username + "'s" %> Goals</h1>
 
@@ -56,5 +56,6 @@
          <% end %>
       <% end %>
    </tbody>
-
 </table>
+
+<%= render "comments/comments", comments: @user.sorted_authored_comments %>

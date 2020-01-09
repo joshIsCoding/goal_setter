@@ -25,5 +25,5 @@
       </div>
    <% end %>
 
-   <%= render "comments/comments", comments: @goal_comments %>
+   <%= render "comments/comments", comments: @goal.sorted_authored_comments %>
 </div>

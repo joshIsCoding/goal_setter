@@ -8,7 +8,12 @@ class User < ApplicationRecord
    attr_reader :password
 
    has_many :goals
-   
+   has_many( :authored_comments, 
+      class_name: "Comment",
+      foreign_key: :author_id,
+      primary_key: :id,
+      dependent: :destroy
+  )
 
    def self.generate_session_token
       SecureRandom::urlsafe_base64(16)

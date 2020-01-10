@@ -56,6 +56,7 @@ class GoalsController < ApplicationController
 
    def find_and_validate_goal
       @goal = Goal.find_by_id(params[:id])
+      render_not_found unless @goal
       redirect_to goal_url(@goal) unless @goal.user == current_user
    end
 end

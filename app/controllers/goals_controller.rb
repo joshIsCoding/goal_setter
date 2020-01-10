@@ -22,7 +22,11 @@ class GoalsController < ApplicationController
 
    def update
       if @goal.update(goal_params)
-         redirect_to user_url(current_user, anchor: @goal.id)
+         if request.referrer == edit_goal_url(@goal)
+            redirect_to goal_url(@goal)
+         else
+            redirect_back(fallback_location: user_url(current_user, anchor: @goal.id))
+         end
       else
          flash.now[:errors] = @goal.errors.full_messages
          render :edit

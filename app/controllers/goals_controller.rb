@@ -1,5 +1,5 @@
 class GoalsController < ApplicationController
-   before_action :find_and_validate_goal, only: [:edit, :update]
+   before_action :find_and_validate_goal, only: [:edit, :update, :destroy]
    def new
       @goal = Goal.new
       render :new
@@ -39,7 +39,6 @@ class GoalsController < ApplicationController
    end
 
    def destroy
-      @goal = Goal.find_by_id(params[:id])
       if @goal.destroy
          redirect_to controller: :users, action: :show, id: @goal.user_id
       else

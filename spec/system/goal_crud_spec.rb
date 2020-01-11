@@ -23,6 +23,7 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
          fill_in("goal[title]", with: "Write more specs!")
          fill_in("goal[details]", with: "Use model and integration tests when creating your web apps.")
          click_on("Set!")
+         expect(page).to have_content("Goal Set!")
          expect(page).to have_content(main_user.username)
          expect(page).to have_content("Write more specs!")
       end
@@ -57,6 +58,7 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
          click_on("Update")
          fill_in("goal[title]", with: "Updated Goal")
          click_on("Save!")
+         expect(page).to have_content("Goal Updated!")
          expect(page).to have_content("Updated Goal")
       end
 
@@ -65,6 +67,7 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
          click_on("Update")
          fill_in("goal[title]", with: "Updated Goal")
          click_on("Save!")
+         expect(page).to have_content("Goal Updated!")
          expect(page).to have_content("Updated Goal")
       end
 
@@ -96,6 +99,7 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
          visit(goal_path(main_users_goal))
          click_on("Delete Goal")
          expect(page).to have_current_path(user_path(main_user))
+         expect(page).to have_content("Goal Deleted")
          expect(page).not_to have_content(main_users_goal.title)
       end
 
@@ -103,6 +107,7 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
          visit(user_path(main_user))
          click_on("Delete")
          expect(page).to have_current_path(user_path(main_user))
+         expect(page).to have_content("Goal Deleted")
          expect(page).not_to have_content(main_users_goal.title)
       end
 

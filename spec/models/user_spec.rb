@@ -12,9 +12,11 @@ RSpec.describe User, type: :model do
   end
 
   describe "associations" do
-    it { should have_many(:goals)}
+    it { should have_many(:goals).dependent(:destroy)}
     it { should have_many(:comments)}
-    it { should have_many(:authored_comments)}
+    it { should have_many(:authored_comments).dependent(:destroy)}
+    it { should have_many(:up_votes).dependent(:destroy)}
+    it { should have_many(:up_voted_goals)}
   end
 
   describe "model methods" do

@@ -9,6 +9,7 @@ class GoalsController < ApplicationController
       @goal = Goal.new(goal_params)
       @goal.user = current_user
       if @goal.save
+         flash[:success] = ["Goal Set!"]
          redirect_to user_url(current_user, anchor: @goal.id)
       else
          flash.now[:errors] = @goal.errors.full_messages
@@ -22,10 +23,11 @@ class GoalsController < ApplicationController
 
    def update
       if @goal.update(goal_params)
+         flash[:success] = ["Goal Updated!"]
          if request.referrer == edit_goal_url(@goal)
             redirect_to goal_url(@goal)
          else
-            redirect_back(fallback_location: user_url(current_user, anchor: @goal.id))
+            redirect_to user_url(current_user, anchor: @goal.id)
          end
       else
          flash.now[:errors] = @goal.errors.full_messages
@@ -44,6 +46,7 @@ class GoalsController < ApplicationController
 
    def destroy
       if @goal.destroy
+         flash[:success] = ["Goal Deleted"]
          redirect_to controller: :users, action: :show, id: @goal.user_id
       else
          flash.now[:errors] = @goal.errors.full_messages

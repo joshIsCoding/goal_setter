@@ -7,7 +7,11 @@ class User < ApplicationRecord
 
    attr_reader :password
 
-   has_many :goals
+   has_many :goals, dependent: :destroy
+   has_many :up_votes, dependent: :destroy
+   
+   has_many :up_voted_goals, through: :up_votes, source: :goal
+   has_many :received_up_votes, through: :goals, source: :up_votes
    has_many( :authored_comments, 
       class_name: "Comment",
       foreign_key: :author_id,

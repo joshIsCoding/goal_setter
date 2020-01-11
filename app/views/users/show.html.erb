@@ -3,6 +3,8 @@
 <% other_user_headings = ["Goal", "Status", "Created", "Details"] %>
 <h1><%= is_current_user ? "Your" : @user.username + "'s" %> Goals</h1>
 
+<%= render "shared/notices", notices: flash[:success], type: "success" %>
+
 <table>
    <thead>
       <tr>

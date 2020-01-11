@@ -3,6 +3,9 @@
    <% is_current_user = @goal.user == current_user %>
    <h4><%= is_current_user ? "Your goal" : "A goal by #{@goal.user.username}" %></h4>
    <h3><%= @goal.status %></h3>
+   
+   <%= render "shared/notices", notices: flash[:success], type: "success" %>
+   
    <table>
       <% if is_current_user %>
          <tr>

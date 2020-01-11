@@ -10,4 +10,5 @@ class Goal < ApplicationRecord
    validates :status, inclusion: { in: STATUSES }
 
    belongs_to :user
+   has_many :up_votes, dependent: :destroy
 end

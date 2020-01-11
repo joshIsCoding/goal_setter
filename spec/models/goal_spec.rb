@@ -9,13 +9,13 @@ RSpec.describe Goal, type: :model do
       should validate_inclusion_of(:status)
         .in_array ["Not Started", "In Progress", "Complete"] 
     end
-    it { should validate_uniqueness_of(:title).scoped_to(:user_id)}
+    it { should validate_uniqueness_of(:title).scoped_to(:user_id) }
   end
 
   describe "associations" do
     it { should belong_to(:user) }
-    it { should have_many(:comments)}
-    it { should have_many(:up_votes).dependent(:destroy)}
+    it { should have_many(:comments) }
+    it { should have_many(:up_votes).dependent(:destroy) }
   end
 
 end

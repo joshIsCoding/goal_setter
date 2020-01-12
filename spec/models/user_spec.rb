@@ -9,6 +9,10 @@ RSpec.describe User, type: :model do
     it { should validate_presence_of(:password_digest) }
     it { should validate_length_of(:password).is_at_least(5) }
     it { should allow_value(nil).for(:password) }
+    it do 
+      should validate_numericality_of(:up_votes_left).only_integer
+      .is_greater_than_or_equal_to(0)
+    end
   end
 
   describe "associations" do
@@ -62,6 +66,18 @@ RSpec.describe User, type: :model do
 
       it "returns false when the provided password doesn't match the user's password" do
         expect(user.is_password?("other_password")).to be false
+      end
+    end
+
+    describe "#increment_up_votes_left!" do
+      it "increases up_votes_left by one" do
+        expect{user.increment_up_votes_left!}.to change{ user.up_votes_left }.from(10).to(11)
+      end
+    end
+
+    describe "#decrement_up_votes_left!" do
+      it "decreases up_votes_left by one" do
+        expect{user.increment_up_votes_left!}.to change{ user.up_votes_left }.from(10).to(9)
       end
     end
 

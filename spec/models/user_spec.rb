@@ -76,8 +76,8 @@ RSpec.describe User, type: :model do
     end
 
     describe "#decrement_up_votes_left!" do
-      it "decreases up_votes_left by one" do
-        expect{user.increment_up_votes_left!}.to change{ user.up_votes_left }.from(10).to(9)
+      it "decreases up_svotes_left by one" do
+        expect{user.decrement_up_votes_left!}.to change{ user.up_votes_left }.from(10).to(9)
       end
     end
 

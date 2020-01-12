@@ -65,51 +65,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    describe "#add_up_vote(goal)" do
-      
-      let(:other_user) { User.create!(username: "otherUser", password: "otherpass") }
-      let(:other_goal) { Goal.create!(title:"Test Goal", user: other_user) }
-      let(:users_goal) { Goal.create!(title:"Main User's Goal", user: user) }
 
-      it "should add an up-vote join record for the user and the goal" do
-        expect(user.up_votes).to be_empty
-        user.add_up_vote(other_goal)
-        
-        expect(user.up_voted_goals).to contain_exactly(other_goal)
-        expect(user.up_votes.count).to eq(1)
-        
-        up_vote = user.up_votes.first
-        expect(up_vote.user).to eq(user)
-      end
-
-      it "returns true upon success" do
-        expect(user.add_up_vote(other_goal)).to be true
-      end
-
-      
-
-      context "Failure Scenarios" do
-
-        it "doesn't let the user up-vote their own goals" do
-          expect{user.add_up_vote(users_goal)}.not_to change{user.up_votes}
-          expect{user.add_up_vote(users_goal)}.not_to change{user.up_voted_goals}
-        end
-      
-      
-        it "prevents a user from making more than 10 up-votes" do
-          10.times do |i|
-            user.add_up_vote(Goal.create!(title: "Goal ##{i}", user: other_user))
-          end
-          expect{user.add_up_vote(other_goal)}.not_to change{user.up_votes}
-          expect{user.add_up_vote(other_goal)}.not_to change{user.up_voted_goals}
-        end
-        
-        it "returns false upon failure" do
-          expect(user.add_up_vote(users_goal)).to be false
-        end
-      
-      end
-    end
 
   end
 

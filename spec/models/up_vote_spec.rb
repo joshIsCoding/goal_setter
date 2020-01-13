@@ -39,5 +39,18 @@ RSpec.describe UpVote, type: :model do
         end.to change{user.up_votes_left}.by(-1)
       end
     end
+
+    context "UpVote Deletion" do
+      let!(:upvote) { UpVote.create!(user: user, goal: goal) }
+      it "increments the user's up_votes_left upon deletion of an upvote" do
+        expect{upvote.destroy}.to change{user.up_votes_left}.by(1)
+      end
+
+      it "doesn't cause a fuss if the upvote is deleted through the user dependency" do
+        expect{user.destroy}.not_to raise_error
+        expect(UpVote.all).not_to include(upvote)
+      end
+
+    end
   end
 end

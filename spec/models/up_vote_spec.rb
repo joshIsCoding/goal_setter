@@ -10,8 +10,8 @@ RSpec.describe UpVote, type: :model do
       should validate_uniqueness_of(:goal_id).scoped_to(:user_id)
     end
 
-    it "does not permit more than 10 up-votes per user" do
-          10.times do |i|
+    it "does not permit more than the defined maximum up-votes per user" do
+          UpVote::UP_VOTE_LIMIT.times do |i|
             UpVote.create!(
               user: user, 
               goal: Goal.create!(title: "Goal ##{i}", user: other_user)
@@ -19,7 +19,7 @@ RSpec.describe UpVote, type: :model do
           end
           last_up_vote = UpVote.new(
               user: user,
-              goal: Goal.create!(title: "Goal #11", user: other_user)
+              goal: Goal.create!(title: "Goal ##{UpVote::UP_VOTE_LIMIT + 1}", user: other_user)
             )
           expect(last_up_vote).not_to be_valid
     end

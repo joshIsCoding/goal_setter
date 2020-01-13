@@ -5,11 +5,16 @@ class UpVote < ApplicationRecord
   validates :goal_id, uniqueness: { scope: :user_id }
   validate :user_has_up_votes_left
   after_create :decrement_user_up_votes!
+  after_destroy :increment_user_up_votes!
   
   private
 
   def decrement_user_up_votes!
     self.user.decrement_up_votes_left!
+  end
+
+  def increment_user_up_votes!
+    self.user.increment_up_votes_left!
   end
 
   def user_has_up_votes_left

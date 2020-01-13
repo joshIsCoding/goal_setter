@@ -11,7 +11,7 @@ RSpec.describe User, type: :model do
     it { should allow_value(nil).for(:password) }
     it do 
       should validate_numericality_of(:up_votes_left).only_integer
-      .is_greater_than_or_equal_to(0)
+      .is_greater_than_or_equal_to(0).on(:create)
     end
   end
 

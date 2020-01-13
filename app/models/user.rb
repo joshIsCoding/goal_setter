@@ -3,7 +3,15 @@ class User < ApplicationRecord
    validates :username, presence: true, uniqueness: true
    validates :password_digest, presence: true
    validates :password, length: { minimum: 5, allow_nil: true } 
+   validates_numericality_of( 
+      :up_votes_left, 
+      only_integer: true, 
+      greater_than_or_equal_to: 0,
+      on: :create
+   )
+
    after_initialize :ensure_session_token
+   before_validation :ensure_up_votes_left
 
    attr_reader :password
 
@@ -44,8 +52,24 @@ class User < ApplicationRecord
       self.session_token
    end
 
+   def increment_up_votes_left!
+      self.up_votes_left += 1
+      self.save!
+      self.up_votes_left
+   end
+
+   def decrement_up_votes_left!
+      self.up_votes_left -= 1
+      self.save!
+      self.up_votes_left
+   end
+
    private
    def ensure_session_token
       self.session_token ||= self.class.generate_session_token
+   end
+
+   def ensure_up_votes_left
+      self.up_votes_left ||= UpVote::UP_VOTE_LIMIT
    end
 end

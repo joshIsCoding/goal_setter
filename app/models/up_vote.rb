@@ -1,5 +1,5 @@
 class UpVote < ApplicationRecord
-  UP_VOTE_LIMIT = 10
+  UP_VOTE_LIMIT = 3
   belongs_to :user
   belongs_to :goal
   validates :goal_id, uniqueness: { scope: :user_id }

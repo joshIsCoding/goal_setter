@@ -25,8 +25,8 @@ class CommentsController < ApplicationController
    end
 
    def anchored_redirect_url(target_class, target_id)
-      return goal_url(target_id, anchor: target_id) if target_class == "Goal"
-      user_url(target_id, anchor: target_id)
+      return goal_url(target_id, anchor: "c-#{@target_id}") if target_class == "Goal"
+      user_url(target_id, anchor: "c-#{@target_id}")
    end
 
 end

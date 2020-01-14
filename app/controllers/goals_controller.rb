@@ -10,7 +10,7 @@ class GoalsController < ApplicationController
       @goal.user = current_user
       if @goal.save
          flash[:success] = ["Goal Set!"]
-         redirect_to user_url(current_user, anchor: @goal.id)
+         redirect_to user_url(current_user, anchor: "g-#{@goal.id}")
       else
          flash.now[:errors] = @goal.errors.full_messages
          render :new
@@ -27,7 +27,7 @@ class GoalsController < ApplicationController
          if request.referrer == edit_goal_url(@goal)
             redirect_to goal_url(@goal)
          else
-            redirect_to user_url(current_user, anchor: @goal.id)
+            redirect_to user_url(current_user, anchor: "g-#{@goal.id}")
          end
       else
          flash.now[:errors] = @goal.errors.full_messages

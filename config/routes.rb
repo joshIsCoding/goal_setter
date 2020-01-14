@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   resource :session, only: [:create, :new, :destroy]
   resources :goals, only: [:show, :create, :edit, :update, :destroy]
   resources :comments, only: [:create, :destroy]
+  resources :up_votes, only: [:create, :destroy]
 end

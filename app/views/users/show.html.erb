@@ -53,7 +53,12 @@
                </td>   
                <td>
                   <%= goal.details %>
-               </td>   
+               </td>
+               <td>
+                  <% unless goal.has_up_vote?(current_user) %>
+                     <%= render "up_votes/form", goal: goal %>
+                  <% end %>
+               </td>
             </tr>
          <% end %>
       <% end %>

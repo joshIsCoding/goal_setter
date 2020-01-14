@@ -1,0 +1,5 @@
+<form action="<%= up_votes_url %>" method="post">
+   <%= auth_token %>
+   <input type="hidden" name="up_vote[goal_id]" value = <%= goal.id %>>
+   <input id="uv-<%=goal.id%>" type="submit" value="&#11014">
+</form>

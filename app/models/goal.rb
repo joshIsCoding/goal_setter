@@ -11,4 +11,10 @@ class Goal < ApplicationRecord
 
    belongs_to :user
    has_many :up_votes, dependent: :destroy
+
+   def has_up_vote?(user)
+      prior_up_vote = self.up_votes.where("up_votes.user_id = ?", user.id)
+      prior_up_vote.exists?
+   end
+
 end

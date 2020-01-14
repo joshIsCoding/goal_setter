@@ -73,7 +73,7 @@ RSpec.describe "Up and Down Voting Goals", type: :system do
 
       it "does not allow a user to upvote more than their allotted number of upvotes" do
          within("table#goals_table") do
-            expect(find("tr#g-#{unvotable_goal.id}")).to have_button("uv-#{goal.id}")
+            expect(find("tr#g-#{unvotable_goal.id}")).to have_button("uv-#{unvotable_goal.id}")
             goals.each do |goal|
                find("tr#g-#{goal.id}").click_on("uv-#{goal.id}")
             end

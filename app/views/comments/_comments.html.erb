@@ -1,6 +1,6 @@
 <section class="comments">
    <% comments.each do |comment| %>
-   <article class="comment" name="<%= comment.id %>">
+   <article class="comment" id="<%= "c-#{comment.id}" %>">
       <header>
          <h6><%= link_to comment.author_name, user_url(comment.author_id) %>
           commented <%= comment.created_at %></h6>

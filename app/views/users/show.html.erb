@@ -5,7 +5,7 @@
 
 <%= render "shared/notices", notices: flash[:success], type: "success" %>
 
-<table>
+<table id="goals_table">
    <thead>
       <tr>
          <% (current_user ? curr_user_headings : other_user_headings)
@@ -17,7 +17,7 @@
    <tbody>
       <% @sorted_goals.each do |goal| %>
          <% if is_current_user %>
-            <tr name="<%= goal.id %>">
+            <tr id="<%= "g-#{goal.id}" %>">
                <td>
                   <%= goal.title %>
                </td>   
@@ -41,7 +41,7 @@
                </td>
             </tr>
          <% elsif goal.public %>
-            <tr name="<%= goal.id %>">
+            <tr id="<%= "g-#{goal.id}" %>">
                <td>
                   <%= goal.title %>
                </td>   

@@ -5,7 +5,11 @@ RSpec.describe User, type: :model do
 
   describe "validations" do
     it { should validate_presence_of(:username) }
-    it { should validate_uniqueness_of(:username) }
+    it do
+      user.up_votes_left = 3
+      user.save!
+      should validate_uniqueness_of(:username)
+    end 
     it { should validate_presence_of(:password_digest) }
     it { should validate_length_of(:password).is_at_least(5) }
     it { should allow_value(nil).for(:password) }
@@ -71,14 +75,30 @@ RSpec.describe User, type: :model do
 
     describe "#increment_up_votes_left!" do
       it "increases up_votes_left by one" do
-        expect{user.increment_up_votes_left!}.to change{ user.up_votes_left }.from(10).to(11)
+        expect{user.increment_up_votes_left!}.to change{ user.up_votes_left }
+        .from(UpVote::UP_VOTE_LIMIT).to(UpVote::UP_VOTE_LIMIT + 1)
       end
     end
 
     describe "#decrement_up_votes_left!" do
       it "decreases up_svotes_left by one" do
-        expect{user.decrement_up_votes_left!}.to change{ user.up_votes_left }.from(10).to(9)
+        expect{user.decrement_up_votes_left!}.to change{ user.up_votes_left }
+        .from(UpVote::UP_VOTE_LIMIT).to(UpVote::UP_VOTE_LIMIT - 1)
       end
+    end
+
+    describe "#has_up_votes_remaining?" do
+      
+      it "returns true if the user has up_votes_left greater than zero" do
+        expect(user.up_votes_left).to eq(UpVote::UP_VOTE_LIMIT)
+        expect(user.has_up_votes_remaining?).to be true
+      end
+      
+      it "returns false if the user has zero up_votes_left" do
+        UpVote::UP_VOTE_LIMIT.times { user.decrement_up_votes_left! }
+        expect(user.has_up_votes_remaining?).to be false
+      end
+
     end
 
 

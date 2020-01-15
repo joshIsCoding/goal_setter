@@ -64,6 +64,10 @@ class User < ApplicationRecord
       self.up_votes_left
    end
 
+   def has_up_votes_remaining?
+      self.up_votes_left > 0
+   end
+
    private
    def ensure_session_token
       self.session_token ||= self.class.generate_session_token

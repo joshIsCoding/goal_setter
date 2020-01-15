@@ -61,7 +61,7 @@
                         up_vote_url(upvote),
                         action: :delete,
                         id: "dv-#{goal.id}" %>
-                  <% else %>
+                  <% elsif current_user.has_up_votes_remaining? %>
                      <%= render "up_votes/form", goal: goal %>
                   <% end %>
                </td>

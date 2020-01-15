@@ -55,9 +55,18 @@
                   <%= goal.details %>
                </td>
                <td>
-                  <% unless goal.has_up_vote?(current_user) %>
+                  <% upvote = goal.get_up_vote(current_user) %>
+                  <% if upvote %>
+                     <%= button_to "&#11015".html_safe, 
+                        up_vote_url(upvote),
+                        action: :delete,
+                        id: "dv-#{goal.id}" %>
+                  <% else %>
                      <%= render "up_votes/form", goal: goal %>
                   <% end %>
+               </td>
+               <td>
+                  
                </td>
             </tr>
          <% end %>

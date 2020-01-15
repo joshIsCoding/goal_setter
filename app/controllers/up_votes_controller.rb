@@ -14,6 +14,17 @@ class UpVotesController < ApplicationController
       redirect_back(fallback_location: user_url(target_goal.user))
    end
 
+   def destroy
+      up_vote = UpVote.find_by_id(params[:id])
+      if up_vote.user == current_user
+         up_vote.destroy
+         flash[:notices] = ["Goal Downvoted"]
+      end
+      redirect_back(fallback_location: user_url(up_vote.goal.user_id))
+   end
+
+   
+
    private
 
    def up_vote_params

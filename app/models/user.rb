@@ -15,7 +15,7 @@ class User < ApplicationRecord
 
    attr_reader :password
 
-   has_many :goals, dependent: :destroy
+   has_many :goals, -> { order "created_at ASC"}, dependent: :destroy
    has_many :up_votes, dependent: :destroy
    
    has_many :up_voted_goals, through: :up_votes, source: :goal
@@ -66,6 +66,12 @@ class User < ApplicationRecord
 
    def has_up_votes_remaining?
       self.up_votes_left > 0
+   end
+
+   def goals_with_up_votes
+      self.goals.select("goals.*, COUNT(up_votes.id) AS \"up_vote_count\"")
+      .left_outer_joins(:up_votes)
+      .group("goals.id")
    end
 
    private

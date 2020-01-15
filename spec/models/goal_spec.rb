@@ -20,17 +20,17 @@ RSpec.describe Goal, type: :model do
   end
 
   describe "methods" do
-    describe "#has_up_vote?(user)" do
+    describe "#get_up_vote(user)" do
 
-      it "returns false when the goal does not have an existing upvote by the provided user" do
-        expect(base_goal.has_up_vote?(user_1)).to be false
+      it "returns nil when the goal does not have an existing upvote by the provided user" do
+        expect(base_goal.get_up_vote(user_1)).to be nil
       end
       
-      it "returns true when the goal has an existing upvote by the provided user" do
+      it "returns the upvote by the provided user if it exists" do
         user_2 = User.create!(username: "user_2", password: "2_password")
         user_2_goal = Goal.create!(title: "Worthy Goal", user: user_2)
         user_1_upvote = UpVote.create!(goal: user_2_goal, user: user_1) 
-        expect(user_2_goal.has_up_vote?(user_1)).to be true
+        expect(user_2_goal.get_up_vote(user_1)).to eq(user_1_upvote)
       end
     end
   end

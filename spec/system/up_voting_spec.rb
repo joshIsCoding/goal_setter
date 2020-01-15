@@ -24,7 +24,9 @@ RSpec.describe "Up and Down Voting Goals", type: :system do
 
       let!(:unvotable_goal) { Goal.create!(title: "Un-upvotable Goal", user: other_user, public: true) }
       
-      before(:each){ visit(user_path(other_user)) }
+      before(:each) do 
+         visit(user_path(other_user)) 
+      end
       
       it "let's a user add an upvote to any of the listed goals" do
          within("table#goals_table") do

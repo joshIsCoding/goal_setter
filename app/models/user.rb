@@ -37,6 +37,11 @@ class User < ApplicationRecord
       nil
    end
 
+   def self.all_with_goal_count
+      User.select("users.*, COUNT(goals.id) AS \"goal_count\"")
+      .left_outer_joins(:goals).group(:id).order(goal_count: :desc)
+   end   
+
    def is_password?(password)
       BCrypt::Password.new(self.password_digest) == password
    end

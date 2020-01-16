@@ -122,6 +122,12 @@ RSpec.describe User, type: :model do
           expect(goal.up_vote_count).to be i
         end
       end
+
+      it "doesn't raise an error when treated like an enumerable but user has no goals" do
+        new_user = User.create!(username: "New Person", password: "new_pass")
+
+        expect{new_user.goals_with_up_votes.each}.not_to raise_error
+      end
     end
 
 

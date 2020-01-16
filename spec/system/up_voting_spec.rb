@@ -3,7 +3,12 @@ require 'rails_helper'
 RSpec.describe "Up and Down Voting Goals", type: :system do
    let(:main_user) { User.create!(username: "main", password:"mainpass") }
    let(:other_user) { User.create!(username: "other", password:"otherpass") }
-   let(:token_goal) { Goal.create!(title: "This is my goal", details: "To write more goals.", user: other_user) }
+   let(:token_goal) do
+       Goal.create!(title: "This is my goal", 
+         details: "To write more goals.", 
+         user: other_user
+      ) 
+   end
 
    before(:each) do
       visit(new_session_path)
@@ -17,12 +22,17 @@ RSpec.describe "Up and Down Voting Goals", type: :system do
       let!(:goals) do
          goals = []
          UpVote::UP_VOTE_LIMIT.times do |i| 
-            goals << Goal.create!(title: "Goal ##{i+1}", user: other_user, public: true)
+            goals << Goal.create!(title: "Goal ##{i+1}", 
+               user: other_user, 
+               public: true
+            )
          end
          goals
       end
 
-      let!(:unvotable_goal) { Goal.create!(title: "Un-upvotable Goal", user: other_user, public: true) }
+      let!(:bonus_goal) do 
+         Goal.create!(title: "Un-upvotable Goal", user: other_user, public: true) 
+      end
       
       before(:each) do 
          visit(user_path(other_user)) 
@@ -75,23 +85,41 @@ RSpec.describe "Up and Down Voting Goals", type: :system do
 
       it "does not allow a user to upvote more than their allotted number of upvotes" do
          within("table#goals_table") do
-            expect(find("tr#g-#{unvotable_goal.id}")).to have_button("uv-#{unvotable_goal.id}")
+            expect(find("tr#g-#{bonus_goal.id}")).to have_button("uv-#{bonus_goal.id}")
             goals.each do |goal|
                find("tr#g-#{goal.id}").click_on("uv-#{goal.id}")
             end
             # upvote button for last goal should dissappear after user's upvotes used up
-            expect(find("tr#g-#{unvotable_goal.id}")).not_to have_button("uv-#{unvotable_goal.id}")
+            expect(find("tr#g-#{bonus_goal.id}")).not_to have_button("uv-#{bonus_goal.id}")
          end
       end
 
    end
 
    context "From a Goal Page" do 
-      it "lets a user upvote the goal"
+      before(:each) do 
+         visit(goal_path(bonus_goal)) 
+      end
+      it "lets a user upvote the goal" do
+         expect(page).to have_button("uv-#{bonus_goal.id}")
+         within("table#goal_table") { click_on("uv-#{bonus_goal.id}") }
+         expect(find("header#user_controls")).to have_text("#{UpVote::UP_VOTE_LIMIT - 1} upvotes remaining")
+      end
 
-      it "does not let the user upvote the goal more than once"
+      it "does not let the user upvote the goal more than once" do
+         within("table#goal_table") { click_on("uv-#{bonus_goal.id}") }
+         expect(page).not_to have_button("uv-#{bonus_goal.id}")
+      end
 
-      it "allows the user to downvote their upvote, recouperating that upvote"
+      it "allows the user to downvote their upvote, recouperating that upvote" do
+         #click upvote
+         within("table#goal_table") { click_on("uv-#{bonus_goal.id}") }
+         expect(find("header#user_controls")).to have_text("#{UpVote::UP_VOTE_LIMIT - 1} upvotes remaining")
+         #click downvote
+         within("table#goal_table") { click_on("dv-#{bonus_goal.id}") }
+         expect(find("header#user_controls")).to have_text("#{UpVote::UP_VOTE_LIMIT} upvotes remaining")
+         
+      end
 
    end
 

@@ -28,7 +28,7 @@ class UsersController < ApplicationController
    end
 
    def index
-      @users = User.select("users.*, COUNT(goals.id) AS \"goal_count\"").left_outer_joins(:goals).group(:id)
+      @users = User.all_with_goal_count
       render :index
    end
 

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
    before_action :ensure_login, only: [:show]
-   before_action :already_logged_in, except: [:show]
+   before_action :already_logged_in, only: [:create, :new]
    
    def new
       @user = User.new
@@ -21,15 +21,14 @@ class UsersController < ApplicationController
    def show
       @user = User.find_by_id(params[:id])
       if @user
-         @sorted_goals = @user.goals ? @user.goals.order(:created_at) : []
          render :show
       else
-         redirect_to :index
+         redirect_to users_url
       end
    end
 
    def index
-      @users = User.select("users.*, COUNT(goals.id) AS \"goal_count\"").joins(:goals).group(:id)
+      @users = User.select("users.*, COUNT(goals.id) AS \"goal_count\"").left_outer_joins(:goals).group(:id)
       render :index
    end
 

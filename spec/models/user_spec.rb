@@ -101,36 +101,51 @@ RSpec.describe User, type: :model do
 
     end
 
-    describe "#goals_with_up_votes" do
-    let!(:user_goal) { Goal.create!(title: "Be Better!", user: user) }
-    
-    let!(:user_2) { User.create!(username: "user_2", password: "2_password") }
-    let!(:user_2_goal_A) { Goal.create!(title: "Less Worthy Goal", user: user_2) }
-    let!(:user_2_goal_B) { Goal.create!(title: "Worthy Goal", user: user_2) }
-    let!(:user_1_upvote) { UpVote.create!(goal: user_2_goal_B, user: user) }
-      
-      it "returns a sorted relation of the user's goals by creation time" do
-        
-        user_2_goals = [user_2_goal_A, user_2_goal_B]
-        expect(user.goals_with_up_votes).to contain_exactly(user_goal)
-        expect(user_2.goals_with_up_votes).to match_array(user_2_goals)
-      end
+    describe "Query Methods" do
+      let!(:user_goal) { Goal.create!(title: "Be Better!", user: user) }
+      let!(:user_2) { User.create!(username: "user_2", password: "2_password") }
+      let!(:user_2_goal_A) { Goal.create!(title: "Less Worthy Goal", user: user_2) }
+      let!(:user_2_goal_B) { Goal.create!(title: "Worthy Goal", user: user_2) }
+      let!(:user_1_upvote) { UpVote.create!(goal: user_2_goal_B, user: user) }
+      let!(:user_3) { User.create!(username: "New Person", password: "new_pass") }
 
-      it "returns goals with 'up_vote_count' properties" do
-        user_2.goals_with_up_votes.each_with_index do |goal, i|
-          expect(goal).to respond_to(:up_vote_count)
-          expect(goal.up_vote_count).to be i
+      describe "#goals_with_up_votes" do    
+        
+        it "returns a sorted relation of the user's goals by creation time" do          
+          user_2_goals = [user_2_goal_A, user_2_goal_B]
+          expect(user.goals_with_up_votes).to contain_exactly(user_goal)
+          expect(user_2.goals_with_up_votes).to match_array(user_2_goals)
+        end
+
+        it "returns goals with 'up_vote_count' properties" do
+          user_2.goals_with_up_votes.each_with_index do |goal, i|
+            expect(goal).to respond_to(:up_vote_count)
+            expect(goal.up_vote_count).to be i
+          end
+        end
+
+        it "doesn't raise an error when treated like an enumerable but user has no goals" do
+          new_user = User.create!(username: "New Person", password: "new_pass")
+
+          expect{user_3.goals_with_up_votes.each}.not_to raise_error
         end
       end
 
-      it "doesn't raise an error when treated like an enumerable but user has no goals" do
-        new_user = User.create!(username: "New Person", password: "new_pass")
+      describe "::all_with_goal_count" do
+      
+        it "returns all users sorted by their goal count in descending order" do
+          users = [user_2, user, user_3]
+          expect(User.all_with_goal_count).to match_array(users)
+        end
 
-        expect{new_user.goals_with_up_votes.each}.not_to raise_error
+        it "has goal_count available as a property to the user objects" do
+          most_goal_user = User.all_with_goal_count.first
+          expect(most_goal_user.goal_count).to be 2
+        end
+
       end
+
     end
-
-
 
   end
 

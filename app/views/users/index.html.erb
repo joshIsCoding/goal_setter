@@ -11,10 +11,12 @@
    </thead>
    <tbody>
       <% @users.each do |user| %>
+      <tr>
          <td><%= link_to user.username, user_url(user) %></td>
          <td><%= user.created_at %></td>
          <td><%= user.goal_count %></td>
          <td>###</td>
+      </tr>
       <% end %>
    </tbody>
 </table>

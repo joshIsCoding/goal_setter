@@ -98,25 +98,25 @@ RSpec.describe "Up and Down Voting Goals", type: :system do
 
    context "From a Goal Page" do 
       before(:each) do 
-         visit(goal_path(bonus_goal)) 
+         visit(goal_path(token_goal)) 
       end
       it "lets a user upvote the goal" do
-         expect(page).to have_button("uv-#{bonus_goal.id}")
-         within("table#goal_table") { click_on("uv-#{bonus_goal.id}") }
+         expect(page).to have_button("uv-#{token_goal.id}")
+         within("table") { click_on("uv-#{token_goal.id}") }
          expect(find("header#user_controls")).to have_text("#{UpVote::UP_VOTE_LIMIT - 1} upvotes remaining")
       end
 
       it "does not let the user upvote the goal more than once" do
-         within("table#goal_table") { click_on("uv-#{bonus_goal.id}") }
-         expect(page).not_to have_button("uv-#{bonus_goal.id}")
+         within("table") { click_on("uv-#{token_goal.id}") }
+         expect(page).not_to have_button("uv-#{token_goal.id}")
       end
 
       it "allows the user to downvote their upvote, recouperating that upvote" do
          #click upvote
-         within("table#goal_table") { click_on("uv-#{bonus_goal.id}") }
+         within("table") { click_on("uv-#{token_goal.id}") }
          expect(find("header#user_controls")).to have_text("#{UpVote::UP_VOTE_LIMIT - 1} upvotes remaining")
          #click downvote
-         within("table#goal_table") { click_on("dv-#{bonus_goal.id}") }
+         within("table") { click_on("dv-#{token_goal.id}") }
          expect(find("header#user_controls")).to have_text("#{UpVote::UP_VOTE_LIMIT} upvotes remaining")
          
       end

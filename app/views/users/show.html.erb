@@ -10,7 +10,9 @@
       <tr>
          <% (is_current_user ? curr_user_headings : other_user_headings)
             .each do |heading| %>
-               <th <%= "colspan=\"2\"".html_safe if heading == "Upvotes" %>>
+               <th <% if heading == "Upvotes" &&  !is_current_user %>
+                     <%= "colspan=\"2\"".html_safe %>
+                  <% end %>>
                   <%= heading %>
                </th>
             <% end %>
@@ -18,10 +20,11 @@
    </thead>
    <tbody>
       <% @user.goals_with_up_votes.each do |goal| %>
+         
          <% if is_current_user %>
             <tr id="<%= "g-#{goal.id}" %>">
                <td>
-                  <%= goal.title %>
+                  <%= link_to goal.title, goal_url(goal) %>
                </td>   
                <td>
                   <%= goal.status %>
@@ -48,7 +51,7 @@
          <% elsif goal.public %>
             <tr id="<%= "g-#{goal.id}" %>">
                <td>
-                  <%= goal.title %>
+                  <%= link_to goal.title, goal_url(goal) %>
                </td>   
                <td>
                   <%= goal.status %>
@@ -59,10 +62,7 @@
                <td>
                   <% upvote = goal.get_up_vote(current_user) %>
                   <% if upvote %>
-                     <%= button_to("&#11015;".html_safe, 
-                        up_vote_url(upvote),
-                        method: :delete,
-                        id: "dv-#{goal.id}") %>
+                     <%= render "up_votes/delete", goal: goal, upvote: upvote %>
                   <% elsif current_user.has_up_votes_remaining? %>
                      <%= render "up_votes/form", goal: goal %>
                   <% end %>

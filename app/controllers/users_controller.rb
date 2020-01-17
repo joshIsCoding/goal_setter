@@ -28,7 +28,7 @@ class UsersController < ApplicationController
    end
 
    def index
-      @users = User.all_with_goal_count
+      @users = User.leaderboard
       render :index
    end
 

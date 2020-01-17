@@ -37,9 +37,12 @@ class User < ApplicationRecord
       nil
    end
 
-   def self.all_with_goal_count
-      User.select("users.*, COUNT(goals.id) AS \"goal_count\"")
-      .left_outer_joins(:goals).group(:id).order(goal_count: :desc)
+   def self.leaderboard
+      self.select("users.*, COUNT(goals.id) AS goal_count")
+      .left_outer_joins(:goals)
+      .group(:id)
+      .order(goal_count: :desc)
+      .limit(10)
    end   
 
    def is_password?(password)

@@ -7,9 +7,10 @@
    <%= render "shared/notices", notices: flash[:success], type: "success" %>
    
    <table>
+      <tbody>
       <% if is_current_user %>
          <tr>
-            <th>Public Goal?</th> <td><%= "&#10004;".html_safe if @goal.public %></td>
+            <th>Public Goal?</th><td><%= "&#10004;".html_safe if @goal.public %></td>
          </tr>
       <% end %>
          <tr>
@@ -24,13 +25,15 @@
             <% end %>
          <% end %>
          </tr>
-      <tr>
-         <th>Created Time:</th> <td><%= @goal.created_at %></td>
-      </tr>
-      <tr>
-         <th>Updated Time:</th> <td><%= @goal.updated_at %></td>
-      </tr>
+         <tr>
+            <th>Created Time:</th><td><%= @goal.created_at %></td>
+         </tr>
+         <tr>
+            <th>Updated Time:</th><td><%= @goal.updated_at %></td>
+         </tr>
+      </tbody>
    </table>
+
    <h5>Details:</h5>
    <p><%= @goal.details %></p>
    <% if is_current_user %>

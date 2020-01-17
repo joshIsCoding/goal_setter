@@ -123,12 +123,28 @@ RSpec.describe "Up and Down Voting Goals", type: :system do
 
    end
 
-   context "From Their Own User Page" do
-      
-      it "doesn't allow the user to upvote their own goals"
-   end
-
-   context "From Their Own Goal Page" do
-      it "doesn't allow the user to upvote their own goals"
+   context "For the User's Own Goals" do
+      let!(:main_user_goal) do
+         Goal.create!(title: "Main user's goal", 
+            details: "Main user can't up or downvote this.", 
+            user: main_user
+         ) 
+      end
+      context "From Their Own User Page" do         
+         it "doesn't allow the user to up or downvote their own goals" do
+            visit(user_path(main_user))
+            save_and_open_page
+            expect(page).not_to have_button("uv-#{main_user_goal.id}")
+            expect(page).not_to have_button("dv-#{main_user_goal.id}")
+         end
+      end
+      context "From Their Own Goal Page" do
+         it "doesn't allow the user to up or downvote their own goals" do
+            visit(goal_path(main_user_goal))
+            save_and_open_page
+            expect(page).not_to have_button("uv-#{main_user_goal.id}")
+            expect(page).not_to have_button("dv-#{main_user_goal.id}")
+         end
+      end
    end
 end

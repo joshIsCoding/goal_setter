@@ -1,12 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe "User Authentication", type: :system do
-   let(:user) { User.create!(username: "faked_user", password: "geronimo")}
-   let(:other_user) { User.create!(username: "other_user", password: "drastic")}
+   let!(:user) { User.create!(username: "faked_user", password: "geronimo")}
+   let!(:other_user) { User.create!(username: "other_user", password: "drastic")}
    
    context "before registration" do
+      before(:each) { visit(root_path) }
+      
+      it "allows the user to login or register from the home page" do
+         within("section#welcome") do
+            expect(page).to have_button("Log Back In")
+            expect(page).to have_button("Create Account")
+         end
+      end
+
+      it "permits the user to visit the goal index without logging in" do
+         within("section#goal_leaderboard") do
+            click_on("All Goals")
+         end
+         expect(page).to have_current_path(goal_path)
+         expect(page).to have_content("All Goals")
+      end
+
       it "asks the user to login if they try to access private content" do
-         visit(user_path(user))
+         within("section#user_leaderboard") do
+            click_on(other_user.username)
+         end
+         expect(page).to have_current_path(new_session_path)
          expect(page).to have_content("Please login to view this page")
       end
    end
@@ -24,7 +44,8 @@ RSpec.describe "User Authentication", type: :system do
                fill_in("user_username", with: "fake_user")
                fill_in("user_password", with: "wunderbar")
                click_on("Sign Up")
-               expect(page).to have_content("fake_user")               
+               expect(page).to have_content("fake_user")
+               expect(page).to have_current_path(root_path)             
             end
 
          end
@@ -36,6 +57,7 @@ RSpec.describe "User Authentication", type: :system do
 
                expect(page).to have_content("Sign Up Here!")
                expect(page).to have_content("too short")
+               expect(page).to have_current_path(new_user_path)
             end
          end
       end
@@ -90,14 +112,16 @@ RSpec.describe "User Authentication", type: :system do
             expect(page).to have_content("Smashing pumpkins")
          end
 
-         it "redirects to the user's page if a user tries to re-register without logging out first" do
+         it "redirects to the home page if a user tries to re-register without logging out first" do
             visit(new_user_path)
             expect(page).not_to have_content("Sign Up Here!")
+            expect(page).to have_current_path(root_path)
          end
 
-         it "redirects to the user's page if a user tries to re-login without logging out first" do
+         it "redirects to the home page if a user tries to re-login without logging out first" do
             visit(new_session_path)
             expect(page).not_to have_content("Login to Your Account")
+            expect(page).to have_current_path(root_path)
          end
 
       end

@@ -131,16 +131,21 @@ RSpec.describe User, type: :model do
         end
       end
 
-      describe "::all_with_goal_count" do
+      describe "::leaderboard" do
       
-        it "returns all users sorted by their goal count in descending order" do
+        it "returns users sorted by their goal count in descending order" do
           users = [user_2, user, user_3]
-          expect(User.all_with_goal_count).to match_array(users)
+          expect(User.leaderboard).to match_array(users)
         end
 
         it "has goal_count available as a property to the user objects" do
-          most_goal_user = User.all_with_goal_count.first
+          most_goal_user = User.leaderboard.first
           expect(most_goal_user.goal_count).to be 2
+        end
+
+        it "returns no more than 10 users" do
+          8.times { |i| User.create!(username: "#{i}-user", password: "#{i}_pass")}
+          expect(User.leaderboard.length).to eq(10)
         end
 
       end

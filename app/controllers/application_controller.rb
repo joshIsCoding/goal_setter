@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
 
    def already_logged_in
       if is_logged_in?
-         redirect_to user_url(current_user)
+         redirect_to root_url
       end
    end
 

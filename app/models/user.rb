@@ -16,6 +16,7 @@ class User < ApplicationRecord
    attr_reader :password
 
    has_many :goals, -> { order "created_at ASC"}, dependent: :destroy
+   has_many :completed_goals, -> { where status: "Complete" }, class_name: "Goal"
    has_many :up_votes, dependent: :destroy
    
    has_many :up_voted_goals, through: :up_votes, source: :goal
@@ -38,11 +39,30 @@ class User < ApplicationRecord
    end
 
    def self.leaderboard
-      self.select("users.*, COUNT(goals.id) AS goal_count")
-      .left_outer_joins(:goals)
-      .group(:id)
-      .order(goal_count: :desc)
-      .limit(10)
+      self.find_by_sql(<<-SQL) 
+      SELECT   
+         users.*, COUNT(goals.id) AS goal_count, SUM ( 
+            CASE WHEN goals.status = 'Complete'
+            THEN 1
+            ELSE 0
+            END
+         ) AS completed_goal_count, COALESCE( 100 * SUM (
+            CASE WHEN goals.status = 'Complete'
+            THEN 1
+            ELSE 0
+            END
+         ) / NULLIF(COUNT(goals.id), 0), 0) AS goal_completion_rate
+      FROM
+         users
+      LEFT OUTER JOIN
+         goals ON goals.user_id = users.id
+      GROUP BY
+         users.id
+      ORDER BY
+         completed_goal_count DESC
+      LIMIT 
+         10
+      SQL
    end   
 
    def is_password?(password)
@@ -77,7 +97,7 @@ class User < ApplicationRecord
    end
 
    def goals_with_up_votes
-      self.goals.select("goals.*, COUNT(up_votes.id) AS \"up_vote_count\"")
+      self.goals.select("goals.*, COUNT(up_votes.id) AS up_vote_count")
       .left_outer_joins(:up_votes)
       .group("goals.id")
    end

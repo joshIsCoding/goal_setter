@@ -18,8 +18,8 @@ RSpec.describe "User Authentication", type: :system do
          within("section#leaderboards") do
             click_on("all goals")
          end
-         expect(page).to have_current_path(goal_path)
-         expect(page).to have_content("all goals")
+         expect(page).to have_current_path(goals_path)
+         expect(page).to have_content("Browse All Goals")
       end
 
       it "asks the user to login if they try to access private content" do

@@ -45,7 +45,10 @@
             <td><%= i+1 %></td>
             <td><%= link_to user.username, user_url(user) %></td>
             <td><%= user.goal_count %></td>
-            <td><%= "0%" %></td>
+            <td><%= number_with_precision(
+               user.goal_completion_rate, 
+               precision: 2, 
+               strip_insignificant_zeros: true) %>%</td>
          </tr>
          <% end %>
       </tbody>

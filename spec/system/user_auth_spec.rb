@@ -10,20 +10,20 @@ RSpec.describe "User Authentication", type: :system do
       it "allows the user to login or register from the home page" do
          within("section#welcome") do
             expect(page).to have_button("Log Back In")
-            expect(page).to have_button("Create Account")
+            expect(page).to have_button("Create an Account")
          end
       end
 
       it "permits the user to visit the goal index without logging in" do
-         within("section#goal_leaderboard") do
-            click_on("All Goals")
+         within("section#leaderboards") do
+            click_on("all goals")
          end
          expect(page).to have_current_path(goal_path)
-         expect(page).to have_content("All Goals")
+         expect(page).to have_content("all goals")
       end
 
       it "asks the user to login if they try to access private content" do
-         within("section#user_leaderboard") do
+         within("section#leaderboards") do
             click_on(other_user.username)
          end
          expect(page).to have_current_path(new_session_path)
@@ -57,7 +57,7 @@ RSpec.describe "User Authentication", type: :system do
 
                expect(page).to have_content("Sign Up Here!")
                expect(page).to have_content("too short")
-               expect(page).to have_current_path(new_user_path)
+               expect(page).to have_current_path(users_path)
             end
          end
       end
@@ -130,7 +130,9 @@ RSpec.describe "User Authentication", type: :system do
          before { click_on("Logout") }
 
          it "strips their privileges" do
-            expect(page).not_to have_content(user.username)
+            within("header#user_controls") do
+               expect(page).not_to have_content(user.username)
+            end
             visit(user_path(user))
             expect(page).to have_content("Please login to view this page")
 

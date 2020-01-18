@@ -44,6 +44,9 @@ class GoalsController < ApplicationController
       end
    end
 
+   def index
+   end
+
    def destroy
       if @goal.destroy
          flash[:success] = ["Goal Deleted"]

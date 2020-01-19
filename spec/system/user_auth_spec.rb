@@ -5,6 +5,13 @@ RSpec.describe "User Authentication", type: :system do
    let!(:other_user) { User.create!(username: "other_user", password: "drastic")}
    
    context "before registration" do
+      let!(:goal) do 
+         Goal.create!(
+            user: other_user, 
+            title: "Other User's Goal",
+            public: true
+         )
+      end
       before(:each) { visit(root_path) }
       
       it "allows the user to login or register from the home page" do
@@ -22,12 +29,23 @@ RSpec.describe "User Authentication", type: :system do
          expect(page).to have_content("Browse All Goals")
       end
 
-      it "asks the user to login if they try to access private content" do
-         within("section#leaderboards") do
-            click_on(other_user.username)
+      context "Trying to Access Private Content" do
+
+         it "asks the user to login if they try to access a user page" do
+            within("section#leaderboards table#user_leaderboard") do
+               click_on(other_user.username)
+            end
+            expect(page).to have_current_path(new_session_path)
+            expect(page).to have_content("Please login to view this page")
          end
-         expect(page).to have_current_path(new_session_path)
-         expect(page).to have_content("Please login to view this page")
+
+         it "asks the user to login if they try to access a goal page" do
+            within("section#leaderboards") do
+               click_on(goal.title)
+            end
+            expect(page).to have_current_path(new_session_path)
+            expect(page).to have_content("Please login to view this page")
+         end
       end
    end
 
@@ -139,6 +157,4 @@ RSpec.describe "User Authentication", type: :system do
          end
       end
    end
-         
-
 end

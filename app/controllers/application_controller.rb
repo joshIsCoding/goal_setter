@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+   before_action :ensure_login
+   
    helper_method :current_user, :current_session, :is_logged_in?
    
    def current_user

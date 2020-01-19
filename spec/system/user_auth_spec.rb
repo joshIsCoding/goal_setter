@@ -96,7 +96,6 @@ RSpec.describe "User Authentication", type: :system do
                click_on("Sign In")
                expect(page).to have_content(user.username)               
             end
-
          end
 
          context "with invalid user credentials" do
@@ -109,7 +108,6 @@ RSpec.describe "User Authentication", type: :system do
             end
          end
       end
-
    end
 
    describe "User Privileges" do
@@ -142,6 +140,31 @@ RSpec.describe "User Authentication", type: :system do
             expect(page).to have_current_path(root_path)
          end
 
+         context "Multiple Session Management" do
+            let!(:sessions) do 
+               sessions = []
+               3.times{ sessions << Session.create!(user: user) }
+               sessions
+            end
+            before(:each) { visit(user_sessions_path(user))}
+
+            it "should show all active sessions for the user" do
+               expect(page).to have_text("Your Active Sessions")
+               within("table#sessions_table") do
+                  expect(find_all("tr.remote_session").count).to eq(3)
+               end
+            end
+
+            it "should allow the user to remotely logout of each session other than the current one" do
+               find(".remote_session", match: :first)
+               all(".remote_session").each do 
+                  click_on("End Session", match: :first)
+                  expect(page).to have_current_path(user_sessions_path(user))
+               end
+               expect(find("table#sessions_table"))
+               .not_to have_button("End Session")
+            end
+         end
       end
 
       context "when a user logs out" do

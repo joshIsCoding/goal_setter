@@ -1,0 +1,33 @@
+<h1>Your Active Sessions</h1>
+<p>Manage your current, active user sessions for the Resolute app across all devices, locations and browsers.</p>
+
+<table id="sessions_table">
+   <thead>
+      <% headings = ["Browser", "Device", "Location", "Launched"] %>
+      <% headings.each do |heading| %>
+      <th><%= heading %></th>
+      <% end %>
+   </thead>
+   <tbody>
+      <% current_user.sessions.each do |session| %>
+      <tr class="<%= session == current_session ? "this_session" : "remote_session" %>">
+         <td>
+            browser
+         </td>
+         <td>
+            device
+         </td>
+         <td>
+            location
+         </td>
+         <td>
+            <%= session.created_at %>
+         </td>
+         <% unless current_session == session %>
+         <td>
+            <%= button_to "End Session", session_url(session), method: :delete %>
+         </td>
+         <% end %>
+      </tr>
+      <% end %>
+   </tbody>

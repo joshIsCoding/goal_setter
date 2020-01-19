@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-   before_action :ensure_login
+
    def create
       @comment = Comment.new(comment_params.permit(
          :contents, 

@@ -1,5 +1,7 @@
 class GoalsController < ApplicationController
    before_action :find_and_validate_goal, only: [:edit, :update, :destroy]
+   skip_before_action :ensure_login, only: [:index]
+   
    def new
       @goal = Goal.new
       render :new
@@ -18,7 +20,6 @@ class GoalsController < ApplicationController
    end
 
    def edit
-      render :edit
    end
 
    def update

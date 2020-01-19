@@ -1,5 +1,4 @@
 class UpVotesController < ApplicationController
-
    def create
       up_vote_params = params[:up_vote]
       target_goal = Goal.find_by_id(up_vote_params[:goal_id])

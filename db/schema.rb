@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_12_232533) do
+ActiveRecord::Schema.define(version: 2020_01_19_010353) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,17 @@ ActiveRecord::Schema.define(version: 2020_01_12_232533) do
     t.index ["user_id", "title"], name: "index_goals_on_user_id_and_title", unique: true
   end
 
+  create_table "sessions", force: :cascade do |t|
+    t.string "session_token", null: false
+    t.bigint "user_id", null: false
+    t.string "remote_ip"
+    t.string "user_agent"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["session_token"], name: "index_sessions_on_session_token", unique: true
+    t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
   create_table "up_votes", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "goal_id", null: false
@@ -58,6 +69,7 @@ ActiveRecord::Schema.define(version: 2020_01_12_232533) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "sessions", "users"
   add_foreign_key "up_votes", "goals"
   add_foreign_key "up_votes", "users"
 end

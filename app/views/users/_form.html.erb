@@ -1,5 +1,5 @@
 
-<form action="<%= mode == :new_user ? users_url : session_url %>" method="post">
+<form action="<%= mode == :new_user ? users_url : sessions_url %>" method="post">
    <%= auth_token %>
    <label for="user_username">Username:</label>
    <input id="user_username" type="text" name="user[username]">

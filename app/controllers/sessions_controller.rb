@@ -1,8 +1,10 @@
 class SessionsController < ApplicationController
    skip_before_action :ensure_login, except: [:destroy]
-   before_action :already_logged_in, except: [:destroy]
+   before_action :already_logged_in, except: [:index, :destroy]
    def new
-      render :new
+   end
+
+   def index
    end
 
    def create

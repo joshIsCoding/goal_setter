@@ -17,8 +17,10 @@ class User < ApplicationRecord
 
    has_many :goals, -> { order "created_at ASC"}, dependent: :destroy
    has_many :completed_goals, -> { where status: "Complete" }, class_name: "Goal"
-   has_many :up_votes, dependent: :destroy
    
+   has_many :sessions, -> { order "created_at DESC"}, dependent: :destroy   
+   
+   has_many :up_votes, dependent: :destroy   
    has_many :up_voted_goals, through: :up_votes, source: :goal
    has_many :received_up_votes, through: :goals, source: :up_votes
    has_many( :authored_comments, 

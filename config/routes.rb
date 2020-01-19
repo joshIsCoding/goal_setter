@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :new, :show, :index] do
     resources :goals, only: [:new]
   end
-  resource :session, only: [:create, :new, :destroy]
+  resources :sessions, only: [:create, :new, :destroy]
   resources :goals, only: [:show, :index, :create, :edit, :update, :destroy]
   resources :comments, only: [:create, :destroy]
   resources :up_votes, only: [:create, :destroy]

@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
-   helper_method :current_user, :is_logged_in?
+   helper_method :current_user, :current_session, :is_logged_in?
    
    def current_user
-      @current_user ||= ( current_session ? current_session.user : nil)
+      @current_user ||= (current_session ? current_session.user : nil)
    end
 
    def current_session
@@ -15,17 +15,19 @@ class ApplicationController < ActionController::Base
 
    def login_user!(user)
       @current_user = user
-      session[:session_token] = user.reset_session_token! 
+      @current_session = Session.create!(user: user)
+      session[:session_token] = @current_session.session_token
    end
 
-   def logout!
-      current_user.reset_session_token!
-      @current_user = nil
-      session[:session_token] = nil
+   def logout!(session)
+      if session == current_session
+         session[:session_token] = nil
+      end
+      session.destroy!
    end
 
    def ensure_login
-      if !is_logged_in?
+      unless is_logged_in?
          flash[:errors] ||= []
          flash[:errors] << "Please login to view this page"
          redirect_to new_session_url

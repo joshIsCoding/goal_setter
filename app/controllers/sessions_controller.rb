@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+   skip_before_action :ensure_login, except: [:destroy]
    before_action :already_logged_in, except: [:destroy]
    def new
       render :new
@@ -17,8 +18,13 @@ class SessionsController < ApplicationController
    end
 
    def destroy
-      logout! if is_logged_in?
-      redirect_to root_url
+      session = Session.find_by_id(params[:id])
+      logout!(session) if session
+      if is_logged_in?
+         redirect_back(fallback_location: user_url(current_user))
+      else         
+         redirect_to root_url
+      end
    end
    
    private

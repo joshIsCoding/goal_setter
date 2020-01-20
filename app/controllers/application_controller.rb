@@ -20,7 +20,8 @@ class ApplicationController < ActionController::Base
       @current_session = Session.create!(
          user: user,
          user_agent: request.env["HTTP_USER_AGENT"],
-         remote_ip: request.remote_ip
+         remote_ip: request.remote_ip,
+         city: request.location.city
       )
       session[:session_token] = @current_session.session_token
    end

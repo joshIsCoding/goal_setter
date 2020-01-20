@@ -17,13 +17,17 @@ class ApplicationController < ActionController::Base
 
    def login_user!(user)
       @current_user = user
-      @current_session = Session.create!(user: user)
+      @current_session = Session.create!(
+         user: user,
+         user_agent: request.env["HTTP_USER_AGENT"],
+         remote_ip: request.remote_ip
+      )
       session[:session_token] = @current_session.session_token
    end
 
    def logout!(session)
       if session == current_session
-         session[:session_token] = nil
+         session[:session_token], @current_session = nil, nil
       end
       session.destroy!
    end

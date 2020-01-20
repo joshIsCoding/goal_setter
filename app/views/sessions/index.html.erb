@@ -3,7 +3,7 @@
 
 <table id="sessions_table">
    <thead>
-      <% headings = ["Browser", "Device", "Location", "Launched"] %>
+      <% headings = ["Browser", "Device", "IP Address", "Location", "Launched"] %>
       <% headings.each do |heading| %>
       <th><%= heading %></th>
       <% end %>
@@ -12,13 +12,16 @@
       <% current_user.sessions.each do |session| %>
       <tr class="<%= session == current_session ? "this_session" : "remote_session" %>">
          <td>
-            browser
+            <%= session.browser %>
          </td>
          <td>
-            device
+            <%= session.device %>
          </td>
          <td>
-            location
+            <%= session.remote_ip %>
+         </td>
+         <td>
+            <%= "Unknown" unless session.city %>
          </td>
          <td>
             <%= session.created_at %>

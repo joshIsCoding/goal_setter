@@ -22,8 +22,8 @@ RSpec.describe "User Authentication", type: :system do
       end
 
       it "permits the user to visit the goal index without logging in" do
-         within("section#leaderboards") do
-            click_on("all goals")
+         within("header#user_controls nav") do
+            click_on("Browse Goals")
          end
          expect(page).to have_current_path(goals_path)
          expect(page).to have_content("Browse All Goals")
@@ -45,6 +45,15 @@ RSpec.describe "User Authentication", type: :system do
             end
             expect(page).to have_current_path(new_session_path)
             expect(page).to have_content("Please login to view this page")
+         end
+
+         it "asks the user to login if they try to access the users index" do
+            within("header#user_controls nav") do
+               click_on("Browse Users")
+            end
+            expect(page).to have_current_path(new_session_path)
+            expect(page).to have_content("Please login to view this page")
+            
          end
       end
    end

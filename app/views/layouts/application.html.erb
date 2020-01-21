@@ -11,6 +11,20 @@
 
   <body>
     <header id="user_controls">
+      <nav>
+        <ul>
+          <li><%= link_to "Home", root_url %></li>
+          <li><%= link_to "Browse Goals", goals_url %></li>
+          <li><%= link_to "Browse Users", users_url %></li>
+          <% if is_logged_in? %>
+          <li><%= link_to "Your Profile", user_url(current_user) %></li>
+          <li>
+              <%= link_to "Manage Account", user_sessions_url(current_user) %>
+          </li>
+          <% end %>
+        </ul>
+      </nav>
+
       <% if is_logged_in? %>
         <h4><%= link_to current_user.username, user_url(current_user) %></h4>
         <h4><%= "#{current_user.up_votes_left} upvotes remaining" %></h4>

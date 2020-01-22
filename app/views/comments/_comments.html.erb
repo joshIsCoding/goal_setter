@@ -3,12 +3,12 @@
    <article class="comment" id="<%= "c-#{comment.id}" %>">
       <header>
          <h6><%= link_to comment.author_name, user_url(comment.author_id) %>
-          commented <%= comment.created_at %></h6>
+          commented <%= time_ago_in_words(comment.created_at) %> ago</h6>
       </header>
       <p><%= comment.contents %></p>
       <footer>
          <% if comment.author_id == current_user.id %>
-            <%= button_to"Delete Comment", comment_url(comment), method: :delete %>
+            <%= button_to "&#128465;".html_safe, comment_url(comment), {method: :delete, form_class: "delete-comment"} %>
          <% end %>
       </footer>
    </article>

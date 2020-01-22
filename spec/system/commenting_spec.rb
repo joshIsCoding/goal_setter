@@ -56,7 +56,7 @@ RSpec.describe "Adding, Viewing and Deleting Comments", type: :system do
             user_comment.valid?
             visit(user_path(other_user))
             expect(page).to have_content(user_comment.contents)
-            click_on("Delete Comment")
+            find(".delete-comment input").click
             expect(page).to have_current_path(user_path(other_user))
             expect(page).not_to have_content(user_comment.contents)
          end
@@ -66,7 +66,7 @@ RSpec.describe "Adding, Viewing and Deleting Comments", type: :system do
             goal_comment.valid?
             visit(goal_path(token_goal))
             expect(page).to have_content(goal_comment.contents)
-            click_on("Delete Comment")
+            find(".delete-comment input").click
             expect(page).to have_current_path(goal_path(token_goal))
             expect(page).not_to have_content(goal_comment.contents)
          end
@@ -78,11 +78,11 @@ RSpec.describe "Adding, Viewing and Deleting Comments", type: :system do
       it "doesn't let a user delete other users' comments" do
          visit(goal_path(token_goal))
          expect(page).to have_content(other_users_goal_comment.contents)
-         expect(page).not_to have_button("Delete Comment")
+         expect(page).not_to have_selector(".delete-comment input")
 
          visit(user_path(main_user))
          expect(page).to have_content(other_users_user_comment.contents)
-         expect(page).not_to have_button("Delete Comment")
+         expect(page).not_to have_selector(".delete-comment input")
       end
    end
 

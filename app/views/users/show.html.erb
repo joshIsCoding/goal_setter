@@ -36,7 +36,7 @@
                   <%= goal.up_vote_count %>
                </td>
                <td>
-                  <%= goal.created_at %>
+                  <%= time_ago_in_words(goal.created_at) %> ago
                </td>   
                <td>
                   <%= goal.details %>
@@ -68,7 +68,7 @@
                   <% end %>
                </td>
                <td>
-                  <%= goal.created_at %>
+                  <%= time_ago_in_words(goal.created_at) %> ago
                </td>   
                <td>
                   <%= goal.details %>

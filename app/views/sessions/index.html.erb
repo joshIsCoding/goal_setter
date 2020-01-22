@@ -24,7 +24,7 @@
             <%= "Unknown" unless session.city %>
          </td>
          <td>
-            <%= session.created_at %>
+            <%= time_ago_in_words(session.created_at) %> ago
          </td>
          <% unless current_session == session %>
          <td>

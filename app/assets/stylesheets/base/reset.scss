@@ -1,0 +1,42 @@
+html, body, header, nav, ul, li, h1, h2, h3, 
+h4, h5, h6, footer, article, section, form, 
+label, input, textarea, div, table, thead, 
+tbody, tr, th, td, button, p {
+   margin: 0;
+   padding: 0;
+   border: 0;
+   outline: 0;
+   box-sizing: inherit;
+
+   font: inherit;
+   text-decoration: inherit;
+   text-align: inherit;
+   vertical-align: inherit;
+
+   color: inherit;
+   background: transparent;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="submit"],
+input[type="radio"],
+input[type="checkbox"],
+textarea,
+button {
+   appearance: none;
+}
+
+ul {
+   list-style: none;
+}
+
+button, input[type="submit"] {
+   cursor: pointer;
+}
+
+.clearfix {
+   content: "";
+   display: block;
+   clear: both;
+}

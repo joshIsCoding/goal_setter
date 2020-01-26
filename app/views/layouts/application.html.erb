@@ -6,34 +6,59 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/c08ce6939b.js" crossorigin="anonymous">
+    </script>
   </head>
 
   <body>
     <header id="user_controls">
-      <nav>
-        <ul>
-          <li><%= link_to "Home", root_url %></li>
+      <nav class="clearfix">
+        <h1 class="logo">
+          <a href="<%= root_url %>">
+            <i class="fas fa-check-square"></i> <!-- tick icon -->
+            <!-- tag layout to prevent automatic spaces between letters -->
+            <strong>r</strong
+            ><em>e</em
+            ><strong>s</strong
+            ><em>o</em
+            ><strong>l</strong
+            ><em>u</em
+            ><strong>t</strong
+            ><em>e</em>
+          </a>
+        </h1>
+        <ul class="main-links">
           <li><%= link_to "Browse Goals", goals_url %></li>
           <li><%= link_to "Browse Users", users_url %></li>
-          <% if is_logged_in? %>
-          <li><%= link_to "Your Profile", user_url(current_user) %></li>
-          <li>
-              <%= link_to "Manage Account", user_sessions_url(current_user) %>
-          </li>
-          <% end %>
         </ul>
+      
+        <% if is_logged_in? %>
+        <ul class="user-info">
+          <li><%= link_to current_user.username, user_url(current_user) %></li>
+          <li><%= "#{current_user.up_votes_left} upvotes remaining" %></li>
+          <li class="hamburger">menu
+            <ul class="user-menu">
+              <li><%= link_to "Your Profile", user_url(current_user) %></li>
+              <li>
+                  <%= link_to "Manage Account", user_sessions_url(current_user) %>
+              </li>
+              <li>
+                <%= button_to "Logout", session_url(current_session), method: :delete, class: "logout" %>
+              </li>
+            </ul>
+          </li>
+        </ul>
+          
+        <% else %>
+        <ul class="session-buttons">
+          <li><%= button_to "Register", new_user_url, method: :get, class: "sign-up"%></li>
+          <li><%= button_to "Login", new_session_url, method: :get, class: "login"%></li>
+        </ul>
+        <% end %>        
       </nav>
-
-      <% if is_logged_in? %>
-        <h4><%= link_to current_user.username, user_url(current_user) %></h4>
-        <h4><%= "#{current_user.up_votes_left} upvotes remaining" %></h4>
-        <%= button_to "Logout", session_url(current_session), method: :delete, class: "logout" %>
-      <% else %>
-        <%= button_to "Register", new_user_url, method: :get, class: "sign-up"%>
-        <%= button_to "Login", new_session_url, method: :get, class: "login"%>
-      <% end %>
     </header>
-    <%= yield %>
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>

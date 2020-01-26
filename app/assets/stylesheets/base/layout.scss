@@ -34,8 +34,22 @@ input[type="password"] {
    border-image: linear-gradient(
       to right,
       $background 0%,      
-      $hover-grey 20%, 
-      $hover-grey 60%, 
+      $light-grey 30%, 
+      $light-grey 90%, 
       $background 100%
       ) 1 2;
 }
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+   border-bottom-width: 1px;
+   border-bottom-style: solid;
+   border-image: linear-gradient(
+      to left,
+      $background 0%,      
+      $hover-grey 30%, 
+      $hover-grey 90%, 
+      $background 100%
+      ) 1 2;
+}
+

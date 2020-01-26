@@ -6,7 +6,7 @@ RSpec.describe "Using the Navigation Menu", type: :system do
    it "should have the required navigation links" do
       visit(root_path)
       within("header#user_controls") do
-         expect(page).to have_link "Home", href: /#{root_path}$/
+         expect(find("nav")).to have_link "resolute", href: /#{root_path}$/
          expect(find("nav")).to have_link "Browse Goals", href: /#{goals_path}$/
          expect(find("nav")).to have_link "Browse Users", href: /#{users_path}$/
       end
@@ -38,7 +38,8 @@ RSpec.describe "Using the Navigation Menu", type: :system do
 
          it "should have 'your profile' and manage account links" do
          within("header#user_controls") do
-            expect(find("nav")).to have_link(
+            find("nav .hamburger").hover   
+            expect(find("header nav .user-menu")).to have_link(
                "Your Profile", 
                href: /#{user_path(main_user)}$/
             )

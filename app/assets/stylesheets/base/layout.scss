@@ -1,0 +1,41 @@
+html {
+   font-size: 16px;
+}
+
+body {
+   width: 95%;
+   max-width: 900px;
+   margin: 0 auto;
+
+   color: $font-grey;
+
+   font-family: $sans-serif;
+   font-size: 1rem;
+   line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+   font-family: $serif;
+}
+
+a {
+   font-weight: 700;
+}
+
+a:hover {
+   color: $hover-grey;
+   transition: color .5s;
+}
+
+input[type="text"],
+input[type="password"] {
+   border-bottom-width: 1px;
+   border-bottom-style: solid;
+   border-image: linear-gradient(
+      to right,
+      $background 0%,      
+      $hover-grey 20%, 
+      $hover-grey 60%, 
+      $background 100%
+      ) 1 2;
+}

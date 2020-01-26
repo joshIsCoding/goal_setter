@@ -1,0 +1,72 @@
+header {
+   width: 100%;
+   position: fixed;
+   z-index: 1;
+
+   opacity: 0.9;
+   background-color: white;
+}
+
+header > nav {
+   width: 95%;
+   max-width: 900px;
+   margin: auto;
+}
+
+header a {
+   display: block;
+}
+
+.logo, .main-links {
+   float: left;
+}
+
+.session-buttons, .user-info {
+   float: right;
+   display: flex;
+   justify-content: space-between;
+}
+
+.main-links {
+   display: flex;
+}
+
+.logo {
+   padding: 0.75em 1.25em 0.75em 0;
+}
+.main-links a {
+   padding: 0.75em 1.25em;
+}
+
+.user-info > li {
+   padding: 0.75em 1.25em;
+}
+
+.user-info > li:last-of-type {
+   position: relative;
+   right: 0;
+   padding: 0.75em 0 0.75em 1.25em;
+}
+
+.user-menu {
+   width: 8em;
+   display: none;
+   
+   position: absolute;
+   top: 2 em;
+   right: 0;
+   
+   flex-direction: column;
+   align-items: stretch;
+}
+
+.user-menu a {
+   text-align: right;
+}
+.user-menu form {
+   text-align: right;
+}
+
+.hamburger:hover .user-menu {
+   display: flex;
+}

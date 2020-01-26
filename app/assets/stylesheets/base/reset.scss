@@ -1,7 +1,8 @@
 html, body, header, nav, ul, li, h1, h2, h3, 
 h4, h5, h6, footer, article, section, form, 
 label, input, textarea, div, table, thead, 
-tbody, tr, th, td, a, button, p {
+tbody, tr, th, td, a, button, p, strong, 
+em, i {
    margin: 0;
    padding: 0;
    border: 0;
@@ -35,7 +36,7 @@ button, input[type="submit"] {
    cursor: pointer;
 }
 
-.clearfix {
+.clearfix:after {
    content: "";
    display: block;
    clear: both;

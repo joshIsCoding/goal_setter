@@ -17,6 +17,11 @@ header a {
    display: block;
 }
 
+.logo i {
+   font-size: 0.8em;
+   color: $hover-grey;
+}
+
 .logo, .main-links {
    float: left;
 }
@@ -34,6 +39,23 @@ header a {
 .logo {
    padding: 0.75em 1.25em 0.75em 0;
 }
+
+.logo strong:first-of-type {
+   color: $pink;
+}
+
+.logo strong:nth-of-type(2) {
+   color: $orange;
+}
+
+.logo strong:nth-of-type(3) {
+   color: $green;
+}
+
+.logo strong:last-of-type {
+   color: $blue;
+}
+
 .main-links a {
    padding: 0.75em 1.25em;
 }
@@ -45,7 +67,7 @@ header a {
 .user-info > li:last-of-type {
    position: relative;
    right: 0;
-   padding: 0.75em 0 0.75em 1.25em;
+   padding: 0.6em 0 0.3em 1.25em;
 }
 
 .user-menu {

@@ -1,5 +1,5 @@
 <div class="<%= "background #{@goal.status}" %>">
-   <h1><%= @goal.title %></h1>
+   <h2><%= @goal.title %></h2>
    <% is_current_user = @goal.user == current_user %>
    <h4><%= is_current_user ? "Your goal" : "A goal by #{@goal.user.username}" %></h4>
    <h3><%= @goal.status %></h3>

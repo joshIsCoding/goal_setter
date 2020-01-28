@@ -19,7 +19,7 @@ header a {
 
 .logo i {
    font-size: 0.8em;
-   color: $hover-grey;
+   color: $logo-grey;
 }
 
 .logo, .main-links {
@@ -61,34 +61,79 @@ header a {
 }
 
 .user-info > li {
-   padding: 0.75em 1.25em;
+   padding: 0.75em 0 0.75em 2em;
 }
 
-.user-info > li:last-of-type {
+.hamburger {
+   display: none;
+}
+
+.user-hover {
    position: relative;
-   right: 0;
-   padding: 0.6em 0 0.3em 1.25em;
 }
 
-.user-menu {
+.user-menu, .full-menu {
    width: 8em;
    display: none;
    
    position: absolute;
-   top: 2 em;
+   top: 3em;
    right: 0;
    
+   text-align: right;
    flex-direction: column;
    align-items: stretch;
+   line-height: 1;
+
+   background-color: white;
+   -webkit-box-shadow: 3px 3px 7px rgba(100, 100, 100, 0.4);  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+   -moz-box-shadow: 3px 3px 7px rgba(100, 100, 100, 0.4);  /* Firefox 3.5 - 3.6 */
+   box-shadow: 3px 3px 7px rgba(100, 100, 100, 0.4);
+
+
 }
 
-.user-menu a {
-   text-align: right;
-}
-.user-menu form {
-   text-align: right;
+.user-menu a, .menu-upvotes, .full-menu a {
+   padding: 0.5em 0.75em;
 }
 
-.hamburger:hover .user-menu {
+.menu-upvotes {
+   display: none;
+}
+
+.user-hover:hover .user-menu {
    display: flex;
+}
+
+/*--------------------- MEDIA QUERIES ------------------------*/
+
+@media all and (min-width: 576px) and (max-width: 730px) {
+
+.menu-upvotes {
+   display: inherit;
+}
+
+.dash-upvotes {
+   display: none;
+}
+
+}
+
+@media all and (max-width: 576px) {
+   .dash-upvotes, .user-hover, .main-links {
+      display: none;
+   }
+
+   .hamburger {
+      display: inherit;
+      position: relative;
+      right: 0;
+      padding: 0.6em 0 0.3em 1.25em;
+   }
+
+   .hamburger:hover .full-menu {
+      display: flex;
+   }
+
+
 }

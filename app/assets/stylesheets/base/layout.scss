@@ -1,3 +1,7 @@
+$max-width: 900px;
+$query-width-1: 730px;
+$query-width-2: 576px;
+
 html {
    font-size: 16px;
 }
@@ -14,8 +18,6 @@ body {
 main {
    position: relative;
    top: 3em;
-   width: 95%;
-   max-width: 900px;
    margin: 0 auto;
 }
 

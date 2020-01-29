@@ -7,7 +7,6 @@ header {
    opacity: 0.9;
    background-color: white;
 
-   font-family: $serif;
 }
 
 header > nav {
@@ -18,6 +17,7 @@ header > nav {
 
 header a {
    display: block;
+   font-family: $serif;
 }
 
 .logo i {
@@ -114,19 +114,23 @@ header a {
 
 @media all and (min-width: $query-width-2) and (max-width: $query-width-1) {
 
-.menu-upvotes {
-   display: inherit;
-}
+   .menu-upvotes {
+      display: inherit;
+   }
 
-.dash-upvotes {
-   display: none;
-}
+   .dash-upvotes {
+      display: none;
+   }
 
 }
 
 @media all and (max-width: $query-width-2) {
-   .dash-upvotes, .user-hover, .main-links {
+   .dash-upvotes, .user-hover, .main-links, .new-user-links {
       display: none;
+   }
+
+   .menu-upvotes {
+      display: inherit;
    }
 
    .hamburger {

@@ -7,7 +7,7 @@ em, i {
    padding: 0;
    border: 0;
    outline: 0;
-   box-sizing: inherit;
+   box-sizing: content-box;
 
    font: inherit;
    text-decoration: inherit;
@@ -37,6 +37,7 @@ button, input[type="submit"] {
 }
 
 .clearfix:after {
+   padding: 0;
    content: "";
    display: block;
    clear: both;

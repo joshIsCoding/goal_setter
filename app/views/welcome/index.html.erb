@@ -1,32 +1,31 @@
 <h2>Resolute - the goal setting app!</h2>
-<section id="welcome" class="welcome">
-   <% if is_logged_in? %>
-   <div class="start_panel">
-      <h3>Let's Get Started!</h3>
-      <ul>
-         <li>
-            Set a <%= link_to "new goal", new_user_goal_url(current_user) %>!
-         </li>
-         <li>
-            View all <%= link_to "your goals", user_url(current_user) %> and the goals you're supporting.
-         </li>
-      </ul>
-   </div>
-   <% else %>
-   <div class="unrecognised_user">
-      <div class="register">
-         <h4>New here?</h4>
-         <p>Register with us to set, update and track your own goals. Join our growing community and support each others' goals!</p>
-         <%= button_to "Create an Account", new_user_url, method: :get %>
-      </div>
-      <div class="login">
-         <h4>Old face?</h4>
-         <p>Welcome back! You know the drill: log back into your account to continue tracking your goals.</p>
-         <%= button_to "Log Back In", new_session_url, method: :get %>
-      </div>
-   </div>
-   <% end %>
+<% if is_logged_in? %>
+<section class="start_panel">
+   <h3>Let's Get Started!</h3>
+   <ul>
+      <li>
+         Set a <%= link_to "new goal", new_user_goal_url(current_user) %>!
+      </li>
+      <li>
+         View all <%= link_to "your goals", user_url(current_user) %> and the goals you're supporting.
+      </li>
+   </ul>
 </section>
+<% else %>
+<section class="unrecognised_user">
+   <div class="register">
+      <h4>New here?</h4>
+      <p>Register with us to set, update and track your own goals. Join our growing community and support each others' goals!</p>
+      <%= button_to "Create an Account", new_user_url, method: :get %>
+   </div>
+   <div class="login">
+      <h4>Old face?</h4>
+      <p>Welcome back! You know the drill: log back into your account to continue tracking your goals.</p>
+      <%= button_to "Log Back In", new_session_url, method: :get %>
+   </div>
+</section>
+<% end %>
+
 <!-- GOAL AND USER LEADERBOARDS -->
 <section id="leaderboards" class="leaderboard">
 <h3>Most Productive Users</h3>

@@ -112,7 +112,7 @@ header a {
 
 /*--------------------- MEDIA QUERIES ------------------------*/
 
-@media all and (min-width: 576px) and (max-width: 730px) {
+@media all and (min-width: $query-width-2) and (max-width: $query-width-1) {
 
 .menu-upvotes {
    display: inherit;
@@ -124,7 +124,7 @@ header a {
 
 }
 
-@media all and (max-width: 576px) {
+@media all and (max-width: $query-width-2) {
    .dash-upvotes, .user-hover, .main-links {
       display: none;
    }

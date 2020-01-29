@@ -1,6 +1,7 @@
 .unrecognised_user {
    border-radius: 1rem;
-
+   max-width: $max-width;
+   width: 95%;
    display: flex;
 
    -webkit-box-shadow: 3px 3px 12px rgba(140, 140, 140, 0.4); 
@@ -18,6 +19,7 @@
    flex-direction: column;
    justify-content: space-between;
    
+   box-sizing: border-box;
 }
 
 .unrecognised_user > div > p {
@@ -42,4 +44,29 @@
 .login {
    border-radius: 0rem 1rem 1rem 0rem;
    background-color: white;
+}
+
+
+@media all and (max-width: $query-width-1) {
+   .unrecognised_user {
+      flex-direction: column;
+   }
+
+   .unrecognised_user > div {
+      width: 100%;
+   }
+
+   .register {
+   border-radius: 1rem 1rem 0rem 0rem;
+   color: white;
+   background-color: $pink;
+   }
+
+   .login {
+      border-radius: 0rem 0rem 1rem 1rem;
+      background-color: white;
+   }
+
+
+
 }

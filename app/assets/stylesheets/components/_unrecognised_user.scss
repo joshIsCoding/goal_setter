@@ -1,0 +1,45 @@
+.unrecognised_user {
+   border-radius: 1rem;
+
+   display: flex;
+
+   -webkit-box-shadow: 3px 3px 12px rgba(140, 140, 140, 0.4); 
+   -moz-box-shadow: 3px 3px 12px rgba(140, 140, 140, 0.4); 
+   box-shadow: 3px 3px 12px rgba(140, 140, 140, 0.4);
+
+   text-align: center;
+}
+
+.unrecognised_user > div {
+   width: 50%;
+   padding: 2em 4em;
+
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   
+}
+
+.unrecognised_user > div > p {
+   margin: 1.5em 0;
+}
+
+.register input[type="submit"] {
+   background-color: $blue;
+}
+
+.login input[type="submit"] {
+   color: white;
+   background-color: $pink;
+}
+
+.register {
+   border-radius: 1rem 0rem 0rem 1rem;
+   color: white;
+   background-color: $pink;
+}
+
+.login {
+   border-radius: 0rem 1rem 1rem 0rem;
+   background-color: white;
+}

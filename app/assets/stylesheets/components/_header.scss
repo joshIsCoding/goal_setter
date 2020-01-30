@@ -1,4 +1,4 @@
-header {
+.site-header-bar {
    width: 100%;
    position: fixed;
    top: 0;
@@ -9,13 +9,13 @@ header {
 
 }
 
-header > nav {
+.site-header-bar > nav {
    width: 95%;
    max-width: 900px;
    margin: auto;
 }
 
-header a {
+.site-header-bar a {
    display: block;
    font-family: $serif;
 }

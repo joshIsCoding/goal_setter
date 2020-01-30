@@ -54,15 +54,16 @@
          </tr>
          <% end %>
       </tbody>
+      <caption>Check out <%= link_to "all our users.", users_url %></caption>
    </table>
-   <p>Check out <%= link_to "all our users.", users_url %></p>
+   
 
    <h3>Most Popular Goals</h3>
-   <% goal_headings = ["Rank", "Title", "Upvotes", "Status", "Details"] %>
+   <% goal_headings = ["Rank", "Title", "User", "Upvotes", "Status", "Details"] %>
    <table id="goal_leaderboard" class="leaderboard">
       <thead>
          <% goal_headings.each do |heading| %>
-         <th>
+         <th <%= 'class=optional' if heading == "Details" %>>
             <%= heading %>
          </th>
          <% end %>
@@ -72,13 +73,13 @@
          <tr>
             <td><%= i+1 %></td>
             <td><%= link_to goal.title, goal_url(goal) %></td>
+            <td><%= link_to goal.user.username, user_url(goal.user) %></td>
             <td><%= goal.up_votes_count %></td>
             <td><%= goal.status %></td>
-            <td><%= link_to goal.user.username, user_url(goal.user) %></td>
-            <td><%= goal.details %></td>
+            <td class="optional"><%= goal.details %></td>
          </tr>
          <% end %>
       </tbody>
+      <caption>Browse <%= link_to "all goals", goals_url %>.</caption>
    </table>
-   <p>Browse <%= link_to "all goals", goals_url %>.</p>
 </section>

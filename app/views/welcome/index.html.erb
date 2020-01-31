@@ -31,55 +31,55 @@
 
 <!-- GOAL AND USER LEADERBOARDS -->
 <section id="leaderboards" class="leaderboard">
-<h3>Most Productive Users</h3>
-<% user_headings = ["Rank", "Username", "Goals Set", "Completion Rate"] %>
-   <table id="user_leaderboard" class="leaderboard">
-      <thead>
-         <% user_headings.each do |heading| %>
-         <th>
-            <%= heading %>
-         </th>
-         <% end %>
-      </thead>
-      <tbody>
-         <% User.leaderboard.each_with_index do |user, i| %>
-         <tr>
-            <td><%= i+1 %></td>
-            <td><%= link_to user.username, user_url(user) %></td>
-            <td><%= user.goal_count %></td>
-            <td><%= number_with_precision(
-               user.goal_completion_rate, 
-               precision: 2, 
-               strip_insignificant_zeros: true) %>%</td>
-         </tr>
-         <% end %>
-      </tbody>
-      <caption>Check out <%= link_to "all our users.", users_url %></caption>
-   </table>
-   
-
-   <h3>Most Popular Goals</h3>
-   <% goal_headings = ["Rank", "Title", "User", "Upvotes", "Status", "Details"] %>
-   <table id="goal_leaderboard" class="leaderboard">
-      <thead>
-         <% goal_headings.each do |heading| %>
-         <th <%= 'class=optional' if heading == "Details" %>>
-            <%= heading %>
-         </th>
-         <% end %>
-      </thead>
-      <tbody>
-         <% Goal.leaderboard.each_with_index do |goal, i| %>
-         <tr>
-            <td><%= i+1 %></td>
-            <td><%= link_to goal.title, goal_url(goal) %></td>
-            <td><%= link_to goal.user.username, user_url(goal.user) %></td>
-            <td><%= goal.up_votes_count %></td>
-            <td><%= goal.status %></td>
-            <td class="optional"><%= goal.details %></td>
-         </tr>
-         <% end %>
-      </tbody>
-      <caption>Browse <%= link_to "all goals", goals_url %>.</caption>
-   </table>
+   <h3>Leaderboards</h3>
+   <figure class = "users-leader-table">
+      <h4>Most Productive Users</h4>
+      <% user_headings = ["Rank", "Username", "Goals Set", "Completion Rate"] %>
+      <table class="users-leaderboard">
+         <thead>
+            <% user_headings.each do |heading| %>
+            <th>
+               <%= heading %>
+            </th>
+            <% end %>
+         </thead>
+         <tbody>
+            <% User.leaderboard.each_with_index do |user, i| %>
+            <tr>
+               <td><%= i+1 %></td>
+               <td><%= link_to user.username, user_url(user) %></td>
+               <td><%= user.goal_count %></td>
+               <td><%= number_with_precision(
+                  user.goal_completion_rate, 
+                  precision: 2, 
+                  strip_insignificant_zeros: true) %>%</td>
+            </tr>
+            <% end %>
+         </tbody>
+         <caption>Check out <%= link_to "all our users.", users_url %></caption>
+      </table>
+   </figure>
+   <figure class = "goals-leader-table">
+      <h4>Most Popular Goals</h4>
+      <% goal_headings = ["Rank", "Title", "User", "Upvotes", "Status"] %>
+      <table class="goals-leaderboard">
+         <thead>
+            <% goal_headings.each do |heading| %>
+            <th><%= heading %></th>
+            <% end %>
+         </thead>
+         <tbody>
+            <% Goal.leaderboard.each_with_index do |goal, i| %>
+            <tr>
+               <td><%= i+1 %></td>
+               <td><%= link_to goal.title, goal_url(goal) %></td>
+               <td><%= link_to goal.user.username, user_url(goal.user) %></td>
+               <td><%= goal.up_votes_count %></td>
+               <td><%= goal.status %></td>
+            </tr>
+            <% end %>
+         </tbody>
+         <caption>Browse <%= link_to "all goals", goals_url %>.</caption>
+      </table>
+   </figure>
 </section>

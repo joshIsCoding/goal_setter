@@ -1,6 +1,7 @@
 $max-width: 900px;
 $query-width-1: 730px;
 $query-width-2: 630px;
+$query-width-3: 1028px;
 
 html {
    font-size: 16px;
@@ -37,12 +38,16 @@ h2 {
    font-size: 2.75rem;
 }
 
+h3 {
+   font-size: 2.3rem;
+}
+
 h4 {
    font-size: 1.25rem;
    line-height: inherit;
 }
 
-p, table {
+p {
    width: 95%;
    max-width: $max-width;
    margin: 0 auto;
@@ -140,14 +145,4 @@ td {
    padding: 0.5em 1.5em;
 }
 
-@media all and (max-width: $query-width-1) {
-   th { padding: 0.8em 1em; }
-   td { padding: 0.5em 1em; }
-
-}
-
-@media all and (max-width: $query-width-2) {
-   th { padding: 0.5em 0.5em; }
-   td { padding: 0.3em 0.5em; }
-}
 

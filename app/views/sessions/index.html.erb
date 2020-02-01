@@ -1,11 +1,11 @@
 <h2>Your Active Sessions</h2>
-<p>Manage your current, active user sessions for the Resolute app across all devices, locations and browsers.</p>
 
+<caption>Manage your current, active user sessions for the Resolute app across all devices, locations and browsers.</caption>
 <table id="sessions_table">
    <thead>
       <% headings = ["Browser", "Device", "IP Address", "Location", "Launched"] %>
-      <% headings.each do |heading| %>
-      <th><%= heading %></th>
+      <% headings.each_with_index do |heading, i| %>
+      <th <%= "colspan=2" if i == headings.length-1 %>><%= heading %></th>
       <% end %>
    </thead>
    <tbody>
@@ -26,7 +26,10 @@
          <td>
             <%= time_ago_in_words(session.created_at) %> ago
          </td>
-         <% unless current_session == session %>
+         <% if current_session == session %>
+         <td>
+         </td>
+         <% else %>
          <td>
             <%= button_to "End Session", session_url(session), method: :delete %>
          </td>

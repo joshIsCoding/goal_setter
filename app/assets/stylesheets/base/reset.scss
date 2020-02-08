@@ -29,6 +29,8 @@ input[type="radio"],
 input[type="checkbox"],
 textarea,
 button {
+   -webkit-appearance: none;
+   -moz-appearance: none;
    appearance: none;
 }
 

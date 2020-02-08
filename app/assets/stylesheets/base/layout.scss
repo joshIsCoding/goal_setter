@@ -18,23 +18,27 @@ body {
 
 main {
    position: relative;
-   top: 3em;
    margin: 0 auto;
 }
+
+
 
 section {
    margin: 4rem auto;
 }
 
-h2, h3, h4, h5, h6 {
-   width: 95%;
-   max-width: $max-width;
-   margin: 0.25em auto;
+h1, h2, h3, h4, h5, h6 {
    font-family: $serif;
    font-size: 1.5rem;
 }
 
-h2 {
+h2, h3, h4, h5 {
+   width: 95%;
+   max-width: $max-width;
+   margin: 0.25em auto;
+}
+
+h1 {
    font-size: 2.75rem;
 }
 
@@ -53,6 +57,41 @@ p {
    margin: 0 auto;
 }
 
+.r-panel {
+   margin-top: 0;
+   margin-right: 0;
+   margin-left: calc( ( ( 100% - 900px ) / 2 ) - 3rem );
+   padding-top: 5rem;
+   padding-bottom: 2rem;
+   border-bottom-left-radius: 5rem;
+
+   background-color: $orange;
+   color: white;
+}
+
+.r-panel > * {
+   margin: 1rem 3rem;
+}
+
+.l-panel {
+   margin-top: 0;
+   margin-left: 0;
+   margin-right: calc( ( ( 100% - 900px ) / 2 ) - 3rem );
+   padding-top: 5rem;
+   padding-bottom: 2rem;
+   padding-left: calc( ( ( 100% - 900px ) / 2 ) - 3rem );
+   border-bottom-right-radius: 5rem;
+
+   background-color: $font-grey;
+   color: white;
+}
+
+.l-panel > * {
+   margin: 1rem 3rem;
+}
+
+/*-------------------LINKS AND BUTTONS----------------- */
+
 a {
    font-weight: 700;
 }
@@ -62,23 +101,23 @@ a:hover {
    transition: color .5s;
 }
 
-input[type="submit"] {
+input[type="submit"], 
+input[type="text"],
+input[type="password"] {
    padding: 0.5em 0.75em;
-   border-radius: 0.3rem;
+   border-radius: 0.75rem;
+}
+
+input[type="submit"] {
+   background-color: $blue;
+   color: white;
    font-weight: bold;
 }
 
 input[type="text"],
 input[type="password"] {
-   border-bottom-width: 1px;
-   border-bottom-style: solid;
-   border-image: linear-gradient(
-      to right,
-      $background 0%,      
-      $light-grey 30%, 
-      $light-grey 90%, 
-      $background 100%
-      ) 1 2;
+   margin: 0.15em 1.2em 0.15em 0.5em;
+   background-color: white;
 }
 
 input[type="text"]:focus,
@@ -93,6 +132,8 @@ input[type="password"]:focus {
       $background 100%
       ) 1 2;
 }
+
+/*---------------------TABLE STYLES----------------- */
 
 thead {
    font-family: $serif;
@@ -146,3 +187,13 @@ td {
 }
 
 
+@media all and (max-width: $query-width-3) {
+   .r-panel {
+      margin-left: 0;
+   }
+
+   .l-panel {
+      margin-right: 0;
+      padding-left: 0;
+   }
+}

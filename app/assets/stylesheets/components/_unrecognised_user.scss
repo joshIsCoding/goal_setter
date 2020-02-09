@@ -1,12 +1,29 @@
+.main-heading {
+   padding-top: 10rem;
+   padding-bottom: 10rem;
+   background-color: $navy;
+}
+
+.main-heading > * {
+   margin-bottom: 0.75rem;
+   font-size: 1.5rem;
+}
+
+.main-heading h1 {
+   font-size: 4.5rem;
+   line-height: 1;
+}
+
 .unrecognised_user {
-   border-radius: 1rem;
-   max-width: $max-width;
+
+   position: relative;
+   bottom: 13rem;
+   margin-bottom: -10rem;
+
+   border-radius: 3rem;
+   max-width: calc(900px - 10rem);
    width: 95%;
    display: flex;
-
-   -webkit-box-shadow: 3px 3px 12px rgba(140, 140, 140, 0.4); 
-   -moz-box-shadow: 3px 3px 12px rgba(140, 140, 140, 0.4); 
-   box-shadow: 3px 3px 12px rgba(140, 140, 140, 0.4);
 
    text-align: center;
 }
@@ -30,19 +47,19 @@
    background-color: $blue;
 }
 
-.login input[type="submit"] {
+.unrecognised_user .login input[type="submit"] {
    color: white;
    background-color: $pink;
 }
 
 .register {
-   border-radius: 1rem 0rem 0rem 1rem;
+   border-radius: 3rem 0rem 0rem 3rem;
    color: white;
    background-color: $pink;
 }
 
-.login {
-   border-radius: 0rem 1rem 1rem 0rem;
+.unrecognised_user .login {
+   border-radius: 0rem 3rem 3rem 0rem;
    background-color: white;
 }
 
@@ -56,14 +73,14 @@
       width: 100%;
    }
 
-   .register {
-   border-radius: 1rem 1rem 0rem 0rem;
+   .unrecognised_user .register {
+   border-radius: 3rem 3rem 0rem 0rem;
    color: white;
    background-color: $pink;
    }
 
-   .login {
-      border-radius: 0rem 0rem 1rem 1rem;
+   .unrecognised_user .login {
+      border-radius: 0rem 0rem 3rem 3rem;
       background-color: white;
    }
 

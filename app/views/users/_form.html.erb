@@ -1,11 +1,15 @@
 
-<form action="<%= mode == :new_user ? users_url : sessions_url %>" method="post">
+<form 
+   action="<%= mode == :new_user ? users_url : sessions_url %>" 
+   method="post"
+   class="user-form"
+   >
    <%= auth_token %>
-   <label for="user_username">Username:</label>
-   <input id="user_username" type="text" name="user[username]">
-
-   <label for="user_password">Password:</label>
-   <input id="user_password" type="password" name="user[password]">
-
+   <label for="user_username">Username:
+      <input id="user_username" type="text" name="user[username]">
+   </label>
+   <label for="user_password">Password:
+      <input id="user_password" type="password" name="user[password]">
+   </label>
    <input type="submit" value="<%= mode == :new_user ? "Sign Up!" : "Sign In" %>">
 </form>

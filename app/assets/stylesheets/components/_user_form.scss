@@ -1,0 +1,24 @@
+.user-form { background-color: $pink; }
+.user-form label { min-width: 21.3em; }
+
+@media all and (max-width: 900px) {
+  .user-form input[type="submit"] {
+    display: block;
+    margin: 0.5em 0 1em 7.8em;
+  }
+  
+}
+
+@media all and (max-width: 440px) { 
+   .user-form label { 
+      min-width: 0;
+      text-align: left;
+   }
+
+   .user-form { width: min-content; }
+
+   .user-form input[type="submit"] {
+      margin: 0 auto;
+   }
+   
+}

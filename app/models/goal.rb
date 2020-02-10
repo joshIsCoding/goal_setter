@@ -11,6 +11,7 @@ class Goal < ApplicationRecord
 
    belongs_to :user
    has_many :up_votes, dependent: :destroy
+   has_and_belongs_to_many :categories
 
    def self.leaderboard
       self.select("goals.*, COUNT(up_votes.id) AS \"up_votes_count\"")

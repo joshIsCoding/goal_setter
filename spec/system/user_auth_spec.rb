@@ -15,14 +15,14 @@ RSpec.describe "User Authentication", type: :system do
       before(:each) { visit(root_path) }
       
       it "allows the user to login or register from the home page" do
-         within("section#welcome") do
+         within("section.unrecognised_user") do
             expect(page).to have_button("Log Back In")
             expect(page).to have_button("Create an Account")
          end
       end
 
       it "permits the user to visit the goal index without logging in" do
-         within("header#user_controls nav") do
+         within("header.site-header-bar nav") do
             click_on("Browse Goals")
          end
          expect(page).to have_current_path(goals_path)
@@ -32,7 +32,7 @@ RSpec.describe "User Authentication", type: :system do
       context "Trying to Access Private Content" do
 
          it "asks the user to login if they try to access a user page" do
-            within("section#leaderboards table#user_leaderboard") do
+            within("section#leaderboards figure.users-leader-table") do
                click_on(other_user.username)
             end
             expect(page).to have_current_path(new_session_path)
@@ -48,7 +48,7 @@ RSpec.describe "User Authentication", type: :system do
          end
 
          it "asks the user to login if they try to access the users index" do
-            within("header#user_controls nav") do
+            within("header.site-header-bar nav") do
                click_on("Browse Users")
             end
             expect(page).to have_current_path(new_session_path)
@@ -177,10 +177,13 @@ RSpec.describe "User Authentication", type: :system do
       end
 
       context "when a user logs out" do
-         before { click_on("Logout") }
+         before do 
+            find("ul.user-info .user-hover").hover
+            click_on("Logout")
+         end
 
          it "strips their privileges" do
-            within("header#user_controls") do
+            within("header.site-header-bar") do
                expect(page).not_to have_content(user.username)
             end
             visit(user_path(user))

@@ -1,36 +1,48 @@
-<form action="<%= goal.persisted? ? goal_url(goal) : goals_url %>" method="post">
+<form 
+   action="<%= goal.persisted? ? goal_url(goal) : goals_url %>" 
+   method="post"
+   class="goal-form"
+   >
    <%= auth_token %>
    <% if goal.persisted? %>
       <input type="hidden" name="_method" value="patch">
    <% end %>
-   <label for="goal_title">Title:</label>
-   <input id="goal_title"
+   <label for="goal_title">Title:<input id="goal_title"
       name="goal[title]"
       value="<%= goal.title %>"
-      type="text">
+      type="text"><!--
+--></label>
 
-   <label for="goal_status">Status:</label>
-   <div class="goal_status">
-      <% Goal::STATUSES.each_with_index do |status, i| %>
-         <label for="<%= "goal_status_#{i}" %>" ><%= status %></label>
-         <input id="<%= "goal_status_#{i}" %>"
-            name="goal[status]"
-            value="<%= status %>"
-            type="radio"
-            <%= "checked" if status == goal.status %>>
-      <% end  %>
-   </div>
+   <fieldset>
+      <legend>Status:</legend>
+      <div class="goal-status">
+         <% Goal::STATUSES.each_with_index do |status, i| %>
+            <label for="<%= "goal_status_#{i}" %>" ><!--
+            --><input
+                  id="<%= "goal_status_#{i}" %>"
+                  name="goal[status]"
+                  value="<%= status %>"
+                  type="radio" <%= "checked" if status == goal.status %>><!--
+            --><%= status %><!--
+         --></label>
+         <% end  %>
+      </div>
+   </fieldset>
+   <input type="hidden" name="goal[public]" value="false">
+   <label for="goal_public" class="public-tick">Public Goal?<input id="goal_public"
+         name="goal[public]"
+         value="true"
+         type="checkbox"
+         <%= "checked" if goal.public %>>
+      </label><!--
+   --><label for="goal_details" class="details-box">Details:<!--
+   --><textarea 
+            id="goal_details" 
+            name="goal[details]"
+            rows="3"
+            cols="20"
+            ><%= goal.details %></textarea><!--
+   --></label>
 
-   <label for="goal_public">Public Goal?</label>
-   <input id="goal_public"
-      name="goal[public]"
-      value="true"
-      default="false"
-      type="checkbox"
-      <%= "checked" if goal.public %>>
-
-   <label for="goal_details">Details:</label>
-   <textarea id="goal_details" name="goal[details]"><%= goal.details %></textarea>
-
-   <input type="submit", value="<%= goal.persisted? ? "Save!" : "Set!" %>">
+   <input type="submit" value="<%= goal.persisted? ? "Save!" : "Set!" %>">
 </form>

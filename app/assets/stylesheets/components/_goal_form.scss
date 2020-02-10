@@ -1,0 +1,66 @@
+.goal-form {
+  width: max-content;
+  margin: 0 auto;
+}
+
+.goal-form input[type="submit"] {
+  display: block;
+  width: 20%;
+  margin: 0 auto;
+}
+
+.goal-form input, .goal-form textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: 0;
+}
+
+.goal-form > * {
+  border: solid 1px red;
+}
+
+.goal-form > label {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
+}
+
+/* -----------Radio ---------*/
+.goal-form .goal-status {
+  display: flex;
+}
+
+.goal-status .icon::before {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.goal-form .goal-status > label > .icon::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f007";
+}
+
+
+.goal-status > label > i:last-of-type {
+  display: absolute;
+}
+
+.goal-form .details-box, 
+.goal-form .public-tick {
+  display: inline-block;
+  box-sizing: border-box;
+  vertical-align: top;
+}
+
+.goal-form .details-box { width: 75%;}
+.goal-form .public-tick { 
+  width: 25%;
+  text-align: left;
+}
+

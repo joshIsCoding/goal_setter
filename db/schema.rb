@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_10_203455) do
+ActiveRecord::Schema.define(version: 2020_02_10_205033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(version: 2020_02_10_203455) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "categories_goals", force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "goal_id"
+    t.index ["category_id"], name: "index_categories_goals_on_category_id"
+    t.index ["goal_id"], name: "index_categories_goals_on_goal_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -40,13 +47,6 @@ ActiveRecord::Schema.define(version: 2020_02_10_203455) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id", "title"], name: "index_goals_on_user_id_and_title", unique: true
-  end
-
-  create_table "goals_categories", force: :cascade do |t|
-    t.bigint "category_id"
-    t.bigint "goal_id"
-    t.index ["category_id"], name: "index_goals_categories_on_category_id"
-    t.index ["goal_id"], name: "index_goals_categories_on_goal_id"
   end
 
   create_table "sessions", force: :cascade do |t|

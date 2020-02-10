@@ -23,6 +23,7 @@ RSpec.describe Goal, type: :model do
     it { should belong_to(:user) }
     it { should have_many(:comments) }
     it { should have_many(:up_votes).dependent(:destroy) }
+    it { should have_and_belong_to_many(:categories) }
   end
 
   describe "methods" do

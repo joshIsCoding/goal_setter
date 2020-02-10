@@ -10,16 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_10_191503) do
+ActiveRecord::Schema.define(version: 2020_02_10_201049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "categories", force: :cascade do |t|
-    t.string "name", null: false
-    t.bigint "goals_id", null: false
-    t.index ["goals_id"], name: "index_categories_on_goals_id"
-  end
 
   create_table "comments", force: :cascade do |t|
     t.text "contents", null: false
@@ -78,7 +72,6 @@ ActiveRecord::Schema.define(version: 2020_02_10_191503) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "categories", "goals", column: "goals_id"
   add_foreign_key "sessions", "users"
   add_foreign_key "up_votes", "goals"
   add_foreign_key "up_votes", "users"

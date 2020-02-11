@@ -3,6 +3,13 @@ require 'rails_helper'
 RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
    let(:main_user) { User.create!(username: "Main", password: "main_pass")}
    let(:other_user) { User.create!(username: "Other", password: "other_pass")}
+   let!(:categories) do
+      [
+         Category.create!(name: "Relationships"),
+         Category.create!(name: "Work"),
+         Category.create!(name: "Study")
+      ]
+   end
 
    before(:each) do
       visit(new_session_path)
@@ -22,6 +29,7 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
          visit(new_user_goal_path(main_user))
          fill_in("goal[title]", with: "Write more specs!")
          fill_in("goal[details]", with: "Use model and integration tests when creating your web apps.")
+         check("Relationships")
          click_on("Set!")
          expect(page).to have_content("Goal Set!")
          expect(page).to have_content(main_user.username)
@@ -32,14 +40,30 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
             visit(new_user_goal_path(other_user))
             fill_in("goal[title]", with: "Write more specs!")
             fill_in("goal[details]", with: "Use model and integration tests when creating your web apps.")
+            check("Work")
             click_on("Set!")
             expect(page).to have_current_path(user_path(main_user))
             expect(page).to have_content("Write more specs!")
       end
 
       context "Goal Privacy" do
-         let!(:goal_1) { Goal.create!(title: "Big Goal", details: "Smashing life", user_id: main_user.id, public: false)}
-         let!(:goal_2) { Goal.create!(title: "Mini Goal", details: "Smashing pumpkins", user_id: main_user.id, public: true)}
+         let!(:goal_1) do 
+            Goal.create!(
+               title: "Big Goal", 
+               details: "Smashing life", 
+               categories: [categories[0]],
+               user_id: main_user.id, 
+               public: false
+            )
+            end
+         let!(:goal_2) do
+            Goal.create!(
+               title: "Mini Goal", 
+               details: "Smashing pumpkins",
+               categories: [categories[1]],
+               user_id: main_user.id, 
+               public: true)
+         end 
 
          it "lets a user see all their goals, public and private" do
             visit(user_path(main_user))
@@ -49,13 +73,66 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
       end
    end
 
+   describe "Goal Index" do
+      let!(:goals) do
+         (0..2).to_a.map do |i|
+            Goal.create!(
+               title: "Goal #{i}", 
+               details: "Achieve things.", 
+               categories: [categories[i]],
+               user: i.even? ? main_user : other_user, 
+               public: true
+            )
+         end
+      end
+      before(:each) { visit(goals_path) }
+
+      context "when no category is selected" do
+         it "shows all goals when a category filter is not selected" do
+            goals.each do |goal|
+               expect(page).to have_content(goal.title)
+            end
+         end
+      end
+
+      context "when a category is selected" do
+         it "only shows the goals in the selected category" do
+            3.times do |i|
+               click_on(categories[i].name)
+               expect(page).to have_content(goals[i].title)
+               expect(page).not_to have_content(goals[(i+1)%3].title)
+               expect(page).not_to have_content(goals[(i+2)%3].title)
+            end
+         end
+      end
+   end
+
    describe "Goal Updates" do
       let!(:main_users_goal) { Goal.create!(title: "New Goal", details: "Smashing life", user_id: main_user.id, public: true)}
       let!(:other_users_goal) { Goal.create!(title: "Other Goal", details: "Smashing pumpkins", user_id: other_user.id, public: true)}
+      let!(:main_users_goal) do 
+            Goal.create!(
+               title: "Big Goal", 
+               details: "Smashing life", 
+               categories: [categories[0]],
+               user_id: main_user.id, 
+               public: true
+            )
+            end
+         let!(:other_users_goal) do
+            Goal.create!(
+               title: "Mini Goal", 
+               details: "Smashing pumpkins",
+               categories: [categories[1]],
+               user_id: other_user.id, 
+               public: true)
+         end 
 
       it "allows the user to update their own goals from their page" do 
          visit(user_path(main_user))
          click_on("Update")
+         expect(find("form.goal-form")).
+         to have_checked_field(main_users_goal.categories.first.name)
          fill_in("goal[title]", with: "Updated Goal")
          click_on("Save!")
          expect(page).to have_content("Goal Updated!")

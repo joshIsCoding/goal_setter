@@ -3,12 +3,13 @@ require 'rails_helper'
 RSpec.describe "User Authentication", type: :system do
    let!(:user) { User.create!(username: "faked_user", password: "geronimo")}
    let!(:other_user) { User.create!(username: "other_user", password: "drastic")}
-   
+   let(:category) { [Category.create!(name: "Work")] }
    context "before registration" do
       let!(:goal) do 
          Goal.create!(
             user: other_user, 
             title: "Other User's Goal",
+            categories: category,
             public: true
          )
       end
@@ -130,8 +131,18 @@ RSpec.describe "User Authentication", type: :system do
       context "When logged in" do
       
          it "allows a user to see another user's public content only" do
-            Goal.create!(title: "Private Goal", details: "Smashing life", user: other_user, public: false)
-            Goal.create!(title: "Public Goal", details: "Smashing pumpkins", user: other_user, public: true)
+            Goal.create!(
+               title: "Private Goal", 
+               details: "Smashing life", 
+               user: other_user, 
+               categories: category,
+               public: false)
+            Goal.create!(
+               title: "Public Goal", 
+               details: "Smashing pumpkins", 
+               user: other_user, 
+               categories: category,
+               public: true)
             visit(user_path(other_user))
             expect(page).not_to have_content("Smashing life")
             expect(page).to have_content("Smashing pumpkins")

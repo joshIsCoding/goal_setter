@@ -46,6 +46,14 @@ class GoalsController < ApplicationController
    end
 
    def index
+      if params.include?(:category)
+         @goals = Category.find_by(name: params[:category])
+         .goals
+         .with_up_votes_count
+         .set_public
+      else
+         @goals = Goal.all.with_up_votes_count.set_public
+      end
    end
 
    def destroy
@@ -61,7 +69,13 @@ class GoalsController < ApplicationController
    
    private
    def goal_params
-      params.require(:goal).permit(:title, :details, :status, :public)
+      params.require(:goal).permit(
+         :title, 
+         :details, 
+         :status, 
+         :public, 
+         category_ids: []
+      )
    end
 
    def find_and_validate_goal

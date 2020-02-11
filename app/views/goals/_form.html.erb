@@ -14,6 +14,21 @@
 --></label>
 
    <fieldset>
+      <legend>Categories:</legend>
+      <% Category.all.each do |category| %>
+         <label for="category-<%= category.name %>"><!--
+         --><input 
+               type="checkbox" 
+               name="goal[category_ids][]"
+               value="<%= category.id %>"
+               id="category-<%= category.name %>"
+               <%= "checked" if @goal.category_ids.include?(category.id) %>
+               ><%= category.name %><!--
+      --></label>
+      <% end %>
+   </fieldset>
+
+   <fieldset>
       <legend>Status:</legend>
       <div class="goal-status">
          <% Goal::STATUSES.each_with_index do |status, i| %>

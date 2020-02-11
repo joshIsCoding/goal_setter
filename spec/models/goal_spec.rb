@@ -8,7 +8,10 @@ RSpec.describe Goal, type: :model do
       up_votes_left: 10
     )
   end
-  subject!(:base_goal) { Goal.new(title: "Be Better!", user: main_user) }
+  let(:category) { [Category.create!(name: "Work")] }
+  subject!(:base_goal) do 
+    Goal.new(title: "Be Better!", user: main_user, categories: category) 
+  end
   describe "validations" do
 
     it { should validate_presence_of(:title) }
@@ -27,6 +30,27 @@ RSpec.describe Goal, type: :model do
   end
 
   describe "methods" do
+    describe "::public Scope" do
+      it "should return public goals" do
+        public = Goal.create!(
+          title: "Public",
+          user: main_user,
+          categories: category,
+          public: true
+        )
+        expect(Goal.all.set_public).to include(public)
+      end
+
+      it "should not return private goals" do
+        public = Goal.create!(
+          title: "Public",
+          user: main_user,
+          categories: category,
+          public: false
+        )
+        expect(Goal.all.set_public).not_to include(public)
+      end
+    end
     describe "::leaderboard" do
       let(:users) do 
         users = []
@@ -42,7 +66,12 @@ RSpec.describe Goal, type: :model do
     let!(:upvoted_goals) do
       goals = []
       10.times do |i|
-        goals << curr_goal = Goal.create!(title: "Goal #{i}", user: users[i])
+        goals << curr_goal = Goal.create!(
+          title: "Goal #{i}", 
+          user: users[i],
+          public: true,
+          categories: category
+        )
         (i+1).times do |j| 
           UpVote.create!(
             goal: curr_goal,

@@ -1,1 +1,24 @@
 <h2>Browse All Goals</h2>
+<header class="category-filters">
+  <ul>
+  <% Category.all.each do |category| %>
+    <li><%= link_to category.name, goals_url(category: category.name) %></li>
+  <% end %>
+  </ul>
+</header>
+
+<table>
+  <tbody>
+  <% @goals.each do |goal| %>
+    <tr>
+      <td>#icon# <%= goal.categories.first.name %></td>
+      <td><%= goal.title %></td>
+      <td><%= goal.status %></td>
+      <td><%= link_to goal.user.username, user_url(goal.user) %></td>
+      <td><%= goal.up_votes_count %></td>
+      <td><%= time_ago_in_words(goal.created_at) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_11_213026) do
+ActiveRecord::Schema.define(version: 2020_02_11_232330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2020_02_11_213026) do
   create_table "key_events", force: :cascade do |t|
     t.string "eventable_type", null: false
     t.bigint "eventable_id", null: false
-    t.string "type", null: false
+    t.string "event_type", null: false
     t.bigint "instigator_id", null: false
     t.boolean "notifications_generated", default: false
     t.datetime "created_at", precision: 6, null: false

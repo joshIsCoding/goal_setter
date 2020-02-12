@@ -1,5 +1,6 @@
 class Goal < ApplicationRecord
    include Commentable
+   include Eventable
    STATUSES = [
       "Not Started",
       "In Progress",
@@ -16,9 +17,12 @@ class Goal < ApplicationRecord
       .group(:id)
    end
 
+   after_update { generate_event("update") }
+
    belongs_to :user
    has_many :up_votes, dependent: :destroy
    has_and_belongs_to_many :categories
+
 
    def self.leaderboard
       self.all.set_public

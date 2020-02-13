@@ -35,8 +35,31 @@ RSpec.describe Notification, type: :model do
       end
     end
 
+    let(:users) do
+      [
+        other_user,
+        User.create!(username: "other_user_2", password: "password"),
+        User.create!(username: "other_user_3", password: "password")
+      ]
+    end
+
     context "when a goal is updated" do
-      it "should generate notifications for all users who upvoted the goal"
+      it "should generate notifications for all users who upvoted the goal" do
+        upvotes = users.map do |user| 
+          UpVote.create!(user: user, goal: goal)
+        end
+        expect(users.inject([]){ |combined, user| combined + user.notifications}).
+        to be_empty
+        goal.title = "Updated Title"
+        goal.save!
+        users.each do |user|
+          user.reload
+          expect(user.notifications.count).to eq(1)
+          key_event = user.notifications.first.key_event
+          expect(key_event.eventable).to eq(goal)
+          expect(key_event.instigator).to eq(main_user)
+        end
+      end
     end
     
     context "when a comment is added" do

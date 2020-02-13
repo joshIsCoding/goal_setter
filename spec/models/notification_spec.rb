@@ -63,8 +63,34 @@ RSpec.describe Notification, type: :model do
     end
     
     context "when a comment is added" do
-      it "should notify the user who received the comment or owns the commented goal"
-      it "should notify all previous commenters"
+      it "should notify the user who received the comment or owns the commented goal" do
+        indir_comment = Comment.create!(
+          contents: "comment", 
+          commentable: goal, 
+          author: other_user
+        )
+        expect(main_user.notifications.last.key_event.eventable).to eq(indir_comment)
+        dir_comment = Comment.create!(
+          contents: "comment", 
+          commentable: main_user, 
+          author: other_user
+        )
+        expect(main_user.notifications.last.key_event.eventable).to eq(dir_comment)
+      end
+      it "should notify all previous commenters" do
+        users.each_with_index do |user, i|
+          comment = Comment.create!(
+            contents: "comment", 
+            commentable: goal, 
+            author: user
+          )
+          users[0...i].each do |prior_comment_user|
+            key_event = prior_comment_user.notifications.last.key_event
+            expect(key_event.eventable).to eq(comment)
+            expect(key_event.instigator).to eq(user)
+          end
+        end
+      end
     end
   end
 end

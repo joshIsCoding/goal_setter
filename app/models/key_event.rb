@@ -15,16 +15,26 @@ class KeyEvent < ApplicationRecord
     when "Goal"
       upvotes = self.eventable.up_votes.includes(:user)
       recipients = upvotes.map(&:user)
+    when "Comment"
+      prior_comments = self.eventable.prior_comments.includes(:author)
+      recipients = prior_comments.map(&:author)
+      if self.eventable.commentable.is_a?(User)
+        recipients << self.eventable.commentable
+      elsif self.eventable.commentable.is_a?(Goal)
+        recipients << self.eventable.commentable.user
+      end
     end
     return recipients
   end
 
   def generate_notifications
-    Notification.transaction do
-      notification_recipients.each do |recipient| 
-        Notification.create(user: recipient, key_event: self)
+    unless self.notifications_generated
+      Notification.transaction do
+        notification_recipients.each do |recipient| 
+          Notification.create(user: recipient, key_event: self)
+        end
       end
     end
-    self.notifications_generated = true    
+    self.notifications_generated = true
   end
 end

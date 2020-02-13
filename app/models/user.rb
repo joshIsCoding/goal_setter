@@ -29,7 +29,7 @@ class User < ApplicationRecord
       primary_key: :id,
       dependent: :destroy
   )
-  has_many :notifications
+  has_many :notifications, dependent: :destroy
 
    def self.generate_session_token
       SecureRandom::urlsafe_base64(16)

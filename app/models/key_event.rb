@@ -12,6 +12,9 @@ class KeyEvent < ApplicationRecord
     case self.eventable_type
     when "UpVote"
       recipients << self.eventable.goal.user
+    when "Goal"
+      upvotes = self.eventable.up_votes.includes(:user)
+      recipients = upvotes.map(&:user)
     end
     return recipients
   end

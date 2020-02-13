@@ -11,6 +11,7 @@ RSpec.describe KeyEvent, type: :model do
   describe "Associations" do
     it { should belong_to(:eventable) }
     it { should belong_to(:instigator) }
+    it { should have_many(:notifications) }
   end
 
   describe "Key Event Generation" do

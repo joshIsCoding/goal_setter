@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :key_event do
     eventable { nil }
-    type { "" }
+    event_type { "" }
     instigator { nil }
     notifications_generated { false }
   end

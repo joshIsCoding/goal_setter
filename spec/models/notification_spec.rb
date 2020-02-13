@@ -24,5 +24,24 @@ RSpec.describe Notification, type: :model do
     it { should belong_to(:key_event) }
   end
 
-  
+  describe "Notification Generation" do
+    context "when there is a new upvote" do
+      it "should generate a notification for the user whose goal was upvoted" do
+        expect(main_user.notifications).to be_empty
+        upvote = UpVote.create!(goal: goal, user: other_user)
+        expect(main_user.notifications.count).to eq(1)
+        key_event = main_user.notifications.first.key_event
+        expect(key_event.eventable).to eq(upvote)
+      end
+    end
+
+    context "when a goal is updated" do
+      it "should generate notifications for all users who upvoted the goal"
+    end
+    
+    context "when a comment is added" do
+      it "should notify the user who received the comment or owns the commented goal"
+      it "should notify all previous commenters"
+    end
+  end
 end

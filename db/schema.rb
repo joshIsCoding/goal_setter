@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_11_232330) do
+ActiveRecord::Schema.define(version: 2020_02_13_125810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,17 @@ ActiveRecord::Schema.define(version: 2020_02_11_232330) do
     t.index ["instigator_id"], name: "index_key_events_on_instigator_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "key_event_id", null: false
+    t.boolean "seen", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["key_event_id", "user_id"], name: "index_notifications_on_key_event_id_and_user_id", unique: true
+    t.index ["key_event_id"], name: "index_notifications_on_key_event_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.string "session_token", null: false
     t.bigint "user_id", null: false
@@ -99,6 +110,8 @@ ActiveRecord::Schema.define(version: 2020_02_11_232330) do
   end
 
   add_foreign_key "key_events", "users", column: "instigator_id"
+  add_foreign_key "notifications", "key_events"
+  add_foreign_key "notifications", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "up_votes", "goals"
   add_foreign_key "up_votes", "users"

@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
     it { should have_many(:up_votes).dependent(:destroy) }
     it { should have_many(:up_voted_goals) }
     it { should have_many(:received_up_votes) }
-    it { should have_many(:notifications) }
+    it { should have_many(:notifications).dependent(:destroy) }
   end
 
   describe "model methods" do

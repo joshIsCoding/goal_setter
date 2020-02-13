@@ -10,6 +10,10 @@ class Comment < ApplicationRecord
     primary_key: :id
   )
 
+  def prior_comments
+    self.commentable.comments.where("created_at < ? ", self.created_at)
+  end
+
   def asset_owner #overwrites Eventable method
     self.author    
   end

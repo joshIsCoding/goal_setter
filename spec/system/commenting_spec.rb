@@ -8,7 +8,7 @@ RSpec.describe "Adding, Viewing and Deleting Comments", type: :system do
    let(:goal_comment) { Comment.create!(contents:"I really like this goal.", author: main_user, commentable: token_goal)}
 
    before(:each) do
-      visit(new_session_path)
+      visit(login_path)
       fill_in("user_username", with: main_user.username)
       fill_in("user_password", with: main_user.password)
       click_on("Sign In")

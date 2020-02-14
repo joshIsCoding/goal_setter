@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
       unless is_logged_in?
          flash[:errors] ||= []
          flash[:errors] << "Please login to view this page"
-         redirect_to new_session_url
+         redirect_to login_url
       end
    end
 

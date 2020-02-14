@@ -30,7 +30,7 @@ RSpec.describe "Using the Navigation Menu", type: :system do
 
     context "After the User Logs In" do
       before do
-         visit(new_session_path)
+         visit(login_path)
          fill_in("user_username", with: main_user.username)
          fill_in("user_password", with: main_user.password)
          click_on("Sign In")

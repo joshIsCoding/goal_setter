@@ -36,7 +36,7 @@ RSpec.describe "User Authentication", type: :system do
             within("section#leaderboards figure.users-leader-table") do
                click_on(other_user.username)
             end
-            expect(page).to have_current_path(new_session_path)
+            expect(page).to have_current_path(login_path)
             expect(page).to have_content("Please login to view this page")
          end
 
@@ -44,7 +44,7 @@ RSpec.describe "User Authentication", type: :system do
             within("section#leaderboards") do
                click_on(goal.title)
             end
-            expect(page).to have_current_path(new_session_path)
+            expect(page).to have_current_path(login_path)
             expect(page).to have_content("Please login to view this page")
          end
 
@@ -52,7 +52,7 @@ RSpec.describe "User Authentication", type: :system do
             within("header.site-header-bar nav") do
                click_on("Browse Users")
             end
-            expect(page).to have_current_path(new_session_path)
+            expect(page).to have_current_path(login_path)
             expect(page).to have_content("Please login to view this page")
             
          end
@@ -92,7 +92,7 @@ RSpec.describe "User Authentication", type: :system do
    end
 
    describe "User Login" do
-      before(:each) { visit(new_session_path) }
+      before(:each) { visit(login_path) }
 
       it "has a login page" do
          expect(page).to have_content("Login to Your Account")
@@ -122,7 +122,7 @@ RSpec.describe "User Authentication", type: :system do
 
    describe "User Privileges" do
       before(:each) do 
-         visit(new_session_path)
+         visit(login_path)
          fill_in("user_username", with: user.username)
          fill_in("user_password", with: user.password)
          click_on("Sign In")
@@ -155,7 +155,7 @@ RSpec.describe "User Authentication", type: :system do
          end
 
          it "redirects to the home page if a user tries to re-login without logging out first" do
-            visit(new_session_path)
+            visit(login_path)
             expect(page).not_to have_content("Login to Your Account")
             expect(page).to have_current_path(root_path)
          end

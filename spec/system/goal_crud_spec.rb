@@ -12,7 +12,7 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
    end
 
    before(:each) do
-      visit(new_session_path)
+      visit(login_path)
       fill_in("user_username", with: main_user.username)
       fill_in("user_password", with: main_user.password)
       click_on("Sign In")

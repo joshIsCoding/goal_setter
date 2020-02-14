@@ -1,5 +1,10 @@
 <ul class="notification-menu">
   <% current_user.notifications.menu.each do |notification| %>
-  <li><%= parse_notification(notification) %></li>
+  <li class="<%= notification.seen ? "notification seen" : "notification" %>">
+    <%= link_to( 
+      parse_notification(notification), 
+      notification_url(notification),
+      method: "patch") %>
+    </li>
   <% end %>
 </ul>

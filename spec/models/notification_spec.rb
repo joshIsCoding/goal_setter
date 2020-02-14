@@ -22,6 +22,7 @@ RSpec.describe Notification, type: :model do
   describe "Associations" do
     it { should belong_to(:user) }
     it { should belong_to(:key_event) }
+    it { should have_one(:source) }
   end
 
   describe "Notification Generation" do

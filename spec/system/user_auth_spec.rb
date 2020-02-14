@@ -60,7 +60,7 @@ RSpec.describe "User Authentication", type: :system do
    end
 
    describe "User Registration" do
-      before(:each) { visit(new_user_path) }
+      before(:each) { visit(register_path) }
 
       it "has a registration page" do
          expect(page).to have_content("Sign Up Here!")
@@ -149,7 +149,7 @@ RSpec.describe "User Authentication", type: :system do
          end
 
          it "redirects to the home page if a user tries to re-register without logging out first" do
-            visit(new_user_path)
+            visit(register_path)
             expect(page).not_to have_content("Sign Up Here!")
             expect(page).to have_current_path(root_path)
          end

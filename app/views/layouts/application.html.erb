@@ -63,7 +63,7 @@
           </li>
           <% else %>
           <li class="new-user-links">
-            <%= link_to "Register", new_user_url, method: :get, class: "sign-up"%>
+            <%= link_to "Register", register_url, method: :get, class: "sign-up"%>
           </li>
           <li class="new-user-links">
             <%= link_to "Login", new_session_url, method: :get, class: "login"%>
@@ -92,7 +92,7 @@
                 <%= link_to "Logout", session_url(current_session), method: :delete, class: "logout" %>
               </li>
               <% else %>
-              <li><%= link_to "Register", new_user_url, method: :get, class: "sign-up"%></li>
+              <li><%= link_to "Register", register_url, method: :get, class: "sign-up"%></li>
               <li><%= link_to "Login", new_session_url, method: :get, class: "login"%></li>
               <% end %>
             </ul>

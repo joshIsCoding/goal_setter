@@ -8,6 +8,8 @@ class NotificationsController < ApplicationController
     case @notification.key_event.eventable_type
     when "UpVote"
       redirect_to goal_url(@notification.upvote.goal)
+    when "Goal"
+      redirect_to goal_url(@notification.goal)
     else
       redirect_back(fallback_location: root_url)
     end

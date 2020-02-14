@@ -12,7 +12,7 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
   let(:goal) do
       Goal.create!(title: "The goal", categories: category, user: main_user) 
   end
-  let(:upvote) { UpVote.create!(goal: goal, user: other_user) }
+  
   let(:key_event) do 
     KeyEvent.create!(
       eventable: goal, 
@@ -54,5 +54,26 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
     end
   end
 
-
+  context "Updated Goal Notifications" do
+    let!(:upvote) { UpVote.create!(goal: goal, user: other_user) }
+    before(:each) do
+      login(main_user)
+      visit(edit_goal_path(goal))
+      fill_in("goal[title]", with: "I've updated my goal!")
+      click_on("Save!")
+      find("ul.user-info li.user-hover").hover
+      click_on("Logout")
+      login(other_user)
+    end
+    it "shows the new notification in the dropdown menu" do
+      expect(find("li.notifications-hover").hover).
+      to have_content("main_user has updated their goal.")
+    end
+    it "lets the user visit the record to which the notification refers" do
+      find("li.notifications-hover").hover
+      click_on("main_user has updated their goal.")
+      expect(page).to have_current_path(goal_path(goal))
+      expect(page).to have_content("I've updated my goal!")
+    end
+  end
 end

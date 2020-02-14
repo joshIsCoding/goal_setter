@@ -74,17 +74,17 @@
    fill: $font-grey;
 }
 
-.user-hover {
+.user-hover, .notifications-hover {
    position: relative;
 }
 
-.user-menu, .full-menu {
+.user-menu, .full-menu, .notification-menu {
    width: 8em;
    display: none;
    
    position: absolute;
    top: 3em;
-   right: -1em;
+   right: -0.75em;
    padding-bottom: 1em;
    
    text-align: right;
@@ -93,11 +93,15 @@
    line-height: 1;
 
    background-color: white;
-   border-bottom-left-radius: 3em;
-   border-bottom-right-radius: 0.5em;
+   border-bottom-left-radius: 1.5em;
+   border-bottom-right-radius: 1.5em;
 }
 
-.user-menu a, .menu-upvotes, .full-menu a {
+.notification-menu {
+   width: 16em;
+}
+
+.user-menu a, .menu-upvotes, .full-menu a, .notification-menu a {
    padding: 0.5em 1em;
 }
 
@@ -105,7 +109,7 @@
    display: none;
 }
 
-.user-hover:hover .user-menu {
+.user-hover:hover .user-menu, .notifications-hover:hover .notification-menu {
    display: flex;
 }
 
@@ -117,14 +121,10 @@
       display: inherit;
    }
 
-   .dash-upvotes {
-      display: none;
-   }
-
 }
 
 @media all and (max-width: $query-width-2) {
-   .dash-upvotes, .user-hover, .main-links, .new-user-links {
+   .user-hover, .main-links, .new-user-links {
       display: none;
    }
 
@@ -141,6 +141,16 @@
 
    .hamburger:hover .full-menu {
       display: flex;
+   }
+
+   .user-menu, .full-menu, .notification-menu {
+      width: 90vw;
+      font-size: 1.5rem;
+      top: 2em;
+   }
+
+   .notification-menu {
+      right: -3.75em;
    }
 
 

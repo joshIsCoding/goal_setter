@@ -21,7 +21,7 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
     )
   end  
 
-  context "New Upvote Notifications" do
+  describe "New Upvote Notifications" do
     describe "Receiving and Viewing Notifications" do
       before(:each) do
         login(other_user)
@@ -54,7 +54,7 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
     end
   end
 
-  context "Updated Goal Notifications" do
+  describe "Updated Goal Notifications" do
     let!(:upvote) { UpVote.create!(goal: goal, user: other_user) }
     before(:each) do
       login(main_user)
@@ -74,6 +74,66 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
       click_on("main_user has updated their goal.")
       expect(page).to have_current_path(goal_path(goal))
       expect(page).to have_content("I've updated my goal!")
+    end
+  end
+
+  describe "New Comment Notifications" do
+    context "when one user has comments after another on a goal" do
+      let!(:comment) do 
+        Comment.create!(
+          contents: "first comment!", 
+          author: other_user,
+          commentable: goal
+        )
+      end
+      before(:each) do
+        login(main_user)
+        visit(goal_path(goal))
+        fill_in("comment_contents", with: "second comment!")
+        click_on("Comment")
+        find("ul.user-info li.user-hover").hover
+        click_on("Logout")
+        login(other_user)
+      end
+      it "shows the new notification in the dropdown menu" do
+        expect(find("li.notifications-hover").hover).
+        to have_content("main_user commented after you.")
+      end
+      it "lets the user visit the record to which the notification refers" do
+        find("li.notifications-hover").hover
+        click_on("main_user commented after you.")
+        expect(page).to have_current_path(goal_path(goal))
+        expect(page).to have_content("second comment!")
+      end
+    end
+
+    context "when one user comments after another on a user profile" do
+      let!(:comment) do 
+        Comment.create!(
+          contents: "first comment!", 
+          author: other_user,
+          commentable: main_user
+        )
+      end
+      before(:each) do
+        login(main_user)
+        visit(user_path(main_user))
+        fill_in("comment_contents", with: "second comment!")
+        click_on("Comment")
+        find("ul.user-info li.user-hover").hover
+        click_on("Logout")
+        login(other_user)
+      end
+      it "shows the new notification in the dropdown menu" do
+        expect(find("li.notifications-hover").hover).
+        to have_content("main_user commented after you.")
+      end
+      it "lets the user visit the record to which the notification refers" do
+        find("li.notifications-hover").hover
+        click_on("main_user commented after you.")
+        expect(page).to have_current_path(user_path(main_user))
+        expect(page).to have_content("second comment!")
+      end
     end
   end
 end

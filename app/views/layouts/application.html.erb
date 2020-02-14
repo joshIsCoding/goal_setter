@@ -32,12 +32,17 @@
           <li><%= link_to "Browse Goals", goals_url %></li>
           <li><%= link_to "Browse Users", users_url %></li>
         </ul>
-      
-        
+  
         <ul class="user-info">
           <% if is_logged_in? %>
           <li class="dash-upvotes">
-            <%= "#{current_user.up_votes_left} upvotes remaining" %>
+            uv-icon<%= current_user.up_votes_left %>
+          </li>
+          <li class="notifications-hover">
+            <span class="notification-icon">n-icon </span><!--
+         --><span class="notification-count"><!--
+         --><%= notification_count %></span>
+            <%= render "notifications/menu" if current_user.notifications %>
           </li>
           <li class="user-hover">
             <%= link_to current_user.username, user_url(current_user) %>

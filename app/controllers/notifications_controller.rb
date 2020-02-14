@@ -10,6 +10,12 @@ class NotificationsController < ApplicationController
       redirect_to goal_url(@notification.upvote.goal)
     when "Goal"
       redirect_to goal_url(@notification.goal)
+    when "Comment"
+      if @notification.comment.commentable_type == "Goal"
+        redirect_to goal_url(@notification.comment.commentable)
+      elsif @notification.comment.commentable_type == "User"
+        redirect_to user_url(@notification.comment.commentable)
+      end
     else
       redirect_back(fallback_location: root_url)
     end

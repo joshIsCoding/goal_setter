@@ -1,13 +1,19 @@
 .main-heading {
    padding-top: 10rem;
    padding-bottom: 10rem;
-   background-color: $navy;
+   background: 
+      url('postit-4543989_1920.png') -40px -20px,
+      linear-gradient(
+         120deg,
+         $logo-grey, $background
+      );
+   background-size: 125%, cover;
    color: white;
 }
 
 .main-heading > * {
    margin-bottom: 0.75rem;
-   font-size: 1.5rem;
+   font-size: 2rem;
 }
 
 .main-heading h1 {
@@ -45,18 +51,18 @@
 }
 
 .register input[type="submit"] {
-   background-color: $blue;
+   background-color: $pink;
 }
 
 .unrecognised_user .login input[type="submit"] {
    color: white;
-   background-color: $pink;
+   background-color: $light-blue;
 }
 
 .register {
    border-radius: 3rem 0rem 0rem 3rem;
    color: white;
-   background-color: $pink;
+   background-color: $light-blue;
 }
 
 .unrecognised_user .login {
@@ -77,7 +83,7 @@
    .unrecognised_user .register {
    border-radius: 3rem 3rem 0rem 0rem;
    color: white;
-   background-color: $pink;
+   background-color: $light-blue;
    }
 
    .unrecognised_user .login {

@@ -1,2 +1,17 @@
-<h1>Notifications#index</h1>
-<p>Find me in app/views/notifications/index.html.erb</p>
+<h1>All Notifications</h1>
+<section>
+  <% current_user.notifications.each do |notification| %>
+  <article>
+    <p><strong><%= link_to(
+          notification.instigator.username,
+          user_url(notification.instigator)
+        ) %></strong><%= link_to(
+          parse_notification(notification),
+          notification_url(notification),
+          method: "patch"
+        ) %></p>
+    <footer><%= time_ago_in_words(notification.created_at) %></footer>
+  </article>
+  <% end %>
+</section>
+

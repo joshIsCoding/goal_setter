@@ -38,11 +38,11 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
     it "should link to the notification index in the notification menu" do
       find("li.notifications-hover").hover
       click_on("View all notifications")
-      expect(page).to have_current_path(user_notifications_path(main_user))
+      expect(page).to have_current_path(notifications_path)
     end
 
     it "should show all the user's notifications" do
-      visit(user_notifications_path(main_user))
+      visit(notifications_path)
       users.each{ |user| expect(page).to have_content(user.username) }
       expect(find("main")).to have_content("just upvoted", count: 3)
     end

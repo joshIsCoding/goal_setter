@@ -34,8 +34,8 @@ RSpec.describe Notification, type: :model do
         expect(main_user.notifications).to be_empty
         upvote = UpVote.create!(goal: goal, user: other_user)
         expect(main_user.notifications.count).to eq(1)
-        key_event = main_user.notifications.first.key_event
-        expect(key_event.eventable).to eq(upvote)
+        notification = main_user.notifications.first
+        expect(notification.upvote).to eq(upvote)
       end
     end
 
@@ -59,9 +59,9 @@ RSpec.describe Notification, type: :model do
         users.each do |user|
           user.reload
           expect(user.notifications.count).to eq(1)
-          key_event = user.notifications.first.key_event
-          expect(key_event.eventable).to eq(goal)
-          expect(key_event.instigator).to eq(main_user)
+          notification = user.notifications.first
+          expect(notification.goal).to eq(goal)
+          expect(notification.instigator).to eq(main_user)
         end
       end
     end
@@ -73,13 +73,13 @@ RSpec.describe Notification, type: :model do
           commentable: goal, 
           author: other_user
         )
-        expect(main_user.notifications.last.key_event.eventable).to eq(indir_comment)
+        expect(main_user.notifications.first.comment).to eq(indir_comment)
         dir_comment = Comment.create!(
           contents: "comment", 
           commentable: main_user, 
           author: other_user
         )
-        expect(main_user.notifications.last.key_event.eventable).to eq(dir_comment)
+        expect(main_user.notifications.first.comment).to eq(dir_comment)
       end
       it "should notify all previous commenters" do
         users.each_with_index do |user, i|
@@ -89,9 +89,9 @@ RSpec.describe Notification, type: :model do
             author: user
           )
           users[0...i].each do |prior_comment_user|
-            key_event = prior_comment_user.notifications.last.key_event
-            expect(key_event.eventable).to eq(comment)
-            expect(key_event.instigator).to eq(user)
+            notification = prior_comment_user.notifications.first
+            expect(notification.comment).to eq(comment)
+            expect(notification.instigator).to eq(user)
           end
         end
       end

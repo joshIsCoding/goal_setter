@@ -30,6 +30,12 @@ class User < ApplicationRecord
       dependent: :destroy
   )
   has_many :notifications, -> { order "created_at DESC" }, dependent: :destroy
+  has_many(
+     :triggered_events, 
+     class_name: "KeyEvent", 
+     foreign_key: :instigator_id, 
+     dependent: :destroy
+   )
 
    def self.generate_session_token
       SecureRandom::urlsafe_base64(16)

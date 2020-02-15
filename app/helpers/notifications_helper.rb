@@ -11,4 +11,14 @@ module NotificationsHelper
     key_event.instigator.username.to_s + NOTIFICATION_MESSAGES[lookup]
   end
 
+  def notification_count
+      count = current_user.notifications.unseen.count
+      if count > 9
+         return "9+"
+      elsif count <= 0 
+         return nil
+      else
+         return count
+      end
+   end
 end

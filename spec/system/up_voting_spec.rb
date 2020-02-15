@@ -50,11 +50,11 @@ RSpec.describe "Up and Down Voting Goals", type: :system do
       end
 
       it "shows the user how many upvotes they have remaining" do
-         expect(find("header.site-header-bar")).to have_text("#{UpVote::UP_VOTE_LIMIT} upvotes remaining")
+         expect(find("li.dash-upvotes")).to have_text("#{UpVote::UP_VOTE_LIMIT}")
       end
 
       it "allows the user to downvote a prior upvote to recoup a new potential upvote" do
-         expect(find("header.site-header-bar")).to have_text("#{UpVote::UP_VOTE_LIMIT} upvotes remaining")
+         expect(find("li.dash-upvotes")).to have_text("#{UpVote::UP_VOTE_LIMIT}")
          
          within("table#goals_table") do
             # click up vote
@@ -62,7 +62,7 @@ RSpec.describe "Up and Down Voting Goals", type: :system do
             expect(find("tr#g-#{goals.first.id}")).to have_text("1")
          end
 
-         expect(find("header.site-header-bar")).to have_text("#{UpVote::UP_VOTE_LIMIT-1} upvotes remaining")
+         expect(find("li.dash-upvotes")).to have_text("#{UpVote::UP_VOTE_LIMIT-1}")
          
          within("table#goals_table") do
             # click down vote
@@ -70,7 +70,7 @@ RSpec.describe "Up and Down Voting Goals", type: :system do
             expect(find("tr#g-#{goals.first.id}")).to have_text("0")
          end
          
-         expect(find("header.site-header-bar")).to have_text("#{UpVote::UP_VOTE_LIMIT} upvotes remaining")
+         expect(find("li.dash-upvotes")).to have_text("#{UpVote::UP_VOTE_LIMIT}")
       end
 
       it "does not allow a user to upvote any single goal more than once" do
@@ -103,7 +103,7 @@ RSpec.describe "Up and Down Voting Goals", type: :system do
       it "lets a user upvote the goal" do
          expect(page).to have_button("uv-#{token_goal.id}")
          within("table") { click_on("uv-#{token_goal.id}") }
-         expect(find("header.site-header-bar")).to have_text("#{UpVote::UP_VOTE_LIMIT - 1} upvotes remaining")
+         expect(find("li.dash-upvotes")).to have_text("#{UpVote::UP_VOTE_LIMIT - 1}")
       end
 
       it "does not let the user upvote the goal more than once" do
@@ -114,10 +114,10 @@ RSpec.describe "Up and Down Voting Goals", type: :system do
       it "allows the user to downvote their upvote, recouperating that upvote" do
          #click upvote
          within("table") { click_on("uv-#{token_goal.id}") }
-         expect(find("header.site-header-bar")).to have_text("#{UpVote::UP_VOTE_LIMIT - 1} upvotes remaining")
+         expect(find("li.dash-upvotes")).to have_text("#{UpVote::UP_VOTE_LIMIT - 1}")
          #click downvote
          within("table") { click_on("dv-#{token_goal.id}") }
-         expect(find("header.site-header-bar")).to have_text("#{UpVote::UP_VOTE_LIMIT} upvotes remaining")
+         expect(find("li.dash-upvotes")).to have_text("#{UpVote::UP_VOTE_LIMIT}")
          
       end
 
@@ -133,7 +133,6 @@ RSpec.describe "Up and Down Voting Goals", type: :system do
       context "From Their Own User Page" do         
          it "doesn't allow the user to up or downvote their own goals" do
             visit(user_path(main_user))
-            save_and_open_page
             expect(page).not_to have_button("uv-#{main_user_goal.id}")
             expect(page).not_to have_button("dv-#{main_user_goal.id}")
          end
@@ -141,7 +140,6 @@ RSpec.describe "Up and Down Voting Goals", type: :system do
       context "From Their Own Goal Page" do
          it "doesn't allow the user to up or downvote their own goals" do
             visit(goal_path(main_user_goal))
-            save_and_open_page
             expect(page).not_to have_button("uv-#{main_user_goal.id}")
             expect(page).not_to have_button("dv-#{main_user_goal.id}")
          end

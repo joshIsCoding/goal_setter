@@ -5,9 +5,4 @@ module ApplicationHelper
       auth_string << "value=\"#{form_authenticity_token}\" >"
       auth_string.html_safe
    end
-
-   def notification_count
-      count = current_user.notifications.unseen.count
-      return count > 0 ? count : ""
-   end
 end

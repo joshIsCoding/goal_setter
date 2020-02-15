@@ -41,7 +41,11 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
       expect(page).to have_current_path(user_notifications_path(main_user))
     end
 
-    it "should show all the user's notifications"
+    it "should show all the user's notifications" do
+      visit(user_notifications_path(main_user))
+      users.each{ |user| expect(page).to have_content(user.username) }
+      expect(find("main")).to have_content("just upvoted", count: 3)
+    end
     it "should provide the option to mark all notifications as 'seen'"
   end
 

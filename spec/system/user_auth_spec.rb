@@ -166,7 +166,7 @@ RSpec.describe "User Authentication", type: :system do
                3.times{ sessions << Session.create!(user: user) }
                sessions
             end
-            before(:each) { visit(user_sessions_path(user))}
+            before(:each) { visit(account_sessions_path(user))}
 
             it "should show all active sessions for the user" do
                expect(page).to have_text("Your Active Sessions")
@@ -179,7 +179,7 @@ RSpec.describe "User Authentication", type: :system do
                find(".remote_session", match: :first)
                all(".remote_session").each do 
                   click_on("End Session", match: :first)
-                  expect(page).to have_current_path(user_sessions_path(user))
+                  expect(page).to have_current_path(account_sessions_path(user))
                end
                expect(find("table#sessions_table"))
                .not_to have_button("End Session")

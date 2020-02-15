@@ -1,0 +1,39 @@
+footer.site {
+  flex-shrink: 0;
+  min-width: 343px;
+}
+
+footer.site > * {
+  display: inline-block;
+}
+
+footer.site > nav {
+  width: 40%;
+  min-width: 168px;
+  margin-right: 0;
+}
+
+footer.site > small {
+  width: max-content;  
+  float: right;
+
+  margin-left: 0.75rem;
+  margin-top: 1.9rem;
+}
+
+footer.site > nav > div {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 15%;
+  margin-bottom: 0.5rem;
+}
+
+footer.site > nav > div:last-of-type {
+  margin-right: 0;
+}
+
+.footer-link-list > *, .footer-link-heading {
+  margin-bottom: 0.4rem;
+}
+
+

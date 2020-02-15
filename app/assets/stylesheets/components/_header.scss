@@ -1,6 +1,6 @@
 .site-header-bar {
    width: 100%;
-   min-width: 300px;
+   min-width: 334px;
    position: fixed;
    top: 0;
    z-index: 1;
@@ -70,6 +70,10 @@
    padding: 0.75em 0 0.75em 2em;
 }
 
+.user-info > li:first-of-type {
+   padding-left: 0.75em;
+}
+
 .hamburger {
    display: none;
    fill: $font-grey;
@@ -77,6 +81,36 @@
 
 .user-hover, .notifications-hover {
    position: relative;
+}
+
+.user-info i {
+   font-size: 1.25em;
+   vertical-align: middle;
+}
+
+.user-info .upvotes-left {
+   vertical-align: middle;
+   font-weight: 700;
+}
+
+.notifications-hover .notification-count {
+   display: block;
+   position: absolute;
+   top: 0.5em;
+   right: -0.7em;
+
+   margin: 0;
+   width: 1.7em;
+   height: 1.7em;
+   border-radius: 50%;
+   
+   font-size: 0.7em;
+   font-weight: 700;
+   line-height: 1.9;
+   text-align: center;
+   vertical-align: top;
+   background-color: $pink;
+   color: white;
 }
 
 .user-menu, .full-menu, .notification-menu {

@@ -27,6 +27,10 @@ RSpec.describe User, type: :model do
     it { should have_many(:up_votes).dependent(:destroy) }
     it { should have_many(:up_voted_goals) }
     it { should have_many(:received_up_votes) }
+    it do 
+      should have_many(:triggered_events).class_name("KeyEvent").
+      dependent(:destroy) 
+    end
     it { should have_many(:notifications).dependent(:destroy) }
   end
 

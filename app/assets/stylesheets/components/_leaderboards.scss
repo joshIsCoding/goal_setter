@@ -1,5 +1,8 @@
 section.leaderboard {
-   padding: 5%;
+   padding-left: 5%;
+   padding-right: 5%;
+   padding-top: 3rem;
+   padding-bottom: 3rem;
 
    background-color: $font-grey;
    text-align: center;
@@ -7,12 +10,15 @@ section.leaderboard {
 
 section.leaderboard > * {
    min-width: 420px;
+   width: 45%;
+   margin: 0 auto;
 }
 
 section.leaderboard > figure{
    display: inline-block;
-   width: 45%;
-   margin: 0 1rem;
+   padding-left: 0.3rem;
+   padding-right: 0.3rem;
+   
 }
 
 section.leaderboard h3, section.leaderboard h4,
@@ -43,12 +49,8 @@ section.leaderbaord table tr:last-of-type td {
    background-color: $green;
 }
 
-.users-leaderboard tbody tr:nth-of-type(even) {
-   background-color: $lighter-orange;
-}
-
-.goals-leaderboard tbody tr:nth-of-type(even) {
-   background-color: $lighter-green;
+.users-leaderboard tbody tr, .goals-leaderboard tbody tr {
+   background-color: white;
 }
 
 .goals-leaderboard tbody tr:hover {

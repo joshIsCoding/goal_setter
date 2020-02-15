@@ -3,8 +3,10 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :users, only: [:create, :show, :index] do
     resources :goals, only: [:new]
+  end
+  resources :notifications, only: [:index]
+  resource :account, only: [:edit, :update] do
     resources :sessions, only: [:index]
-    resources :notifications, only: [:index]
   end
   get "register", to: "users#new"
   get "login", to: "sessions#new"

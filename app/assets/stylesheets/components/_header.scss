@@ -1,5 +1,6 @@
 .site-header-bar {
    width: 100%;
+   min-width: 300px;
    position: fixed;
    top: 0;
    z-index: 1;
@@ -46,11 +47,11 @@
 }
 
 .logo strong:first-of-type {
-   color: $pink;
+   color: $light-blue;
 }
 
 .logo strong:nth-of-type(2) {
-   color: $orange;
+   color: $pink;
 }
 
 .logo strong:nth-of-type(3) {
@@ -58,7 +59,7 @@
 }
 
 .logo strong:last-of-type {
-   color: $blue;
+   color: $turquoise;
 }
 
 .main-links a {

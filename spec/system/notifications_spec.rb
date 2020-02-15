@@ -19,7 +19,31 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
       instigator: other_user,
       event_type: "update"
     )
-  end  
+  end
+  let(:upvote) { UpVote.create!(goal: goal, user: other_user) }
+  
+  describe "Notification Index" do
+    let!(:users) do
+      (0..2).to_a.map do |i|
+        User.create!(username: "user-#{i}", password: "password")
+      end
+    end
+    let!(:upvotes) do 
+      users.map do |user|
+        UpVote.create!(goal: goal, user: user)
+      end 
+    end
+  
+    before(:each) { login(main_user) }
+    it "should link to the notification index in the notification menu" do
+      find("li.notifications-hover").hover
+      click_on("View all notifications")
+      expect(page).to have_current_path(user_notifications_path(main_user))
+    end
+
+    it "should show all the user's notifications"
+    it "should provide the option to mark all notifications as 'seen'"
+  end
 
   describe "New Upvote Notifications" do
     describe "Receiving and Viewing Notifications" do
@@ -55,8 +79,8 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
   end
 
   describe "Updated Goal Notifications" do
-    let!(:upvote) { UpVote.create!(goal: goal, user: other_user) }
     before(:each) do
+      upvote.valid?
       login(main_user)
       visit(edit_goal_path(goal))
       fill_in("goal[title]", with: "I've updated my goal!")

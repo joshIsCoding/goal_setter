@@ -1,4 +1,7 @@
-.user-form { background-color: $pink; }
+.user-form { 
+  background-color: $pink; 
+  color: white; 
+}
 .user-form label { min-width: 21.3em; }
 
 @media all and (max-width: 900px) {

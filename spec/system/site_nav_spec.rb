@@ -22,7 +22,7 @@ RSpec.describe "Using the Navigation Menu", type: :system do
             )
             expect(find("nav")).to have_no_link(
                "Manage Account", 
-               href: /#{user_sessions_path(main_user)}$/
+               href: /#{account_sessions_path(main_user)}$/
             )
          end
       end
@@ -45,7 +45,7 @@ RSpec.describe "Using the Navigation Menu", type: :system do
             )
             expect(find("nav")).to have_link(
                "Manage Account", 
-               href: /#{user_sessions_path(main_user)}$/
+               href: /#{account_sessions_path(main_user)}$/
             )
          end
       end

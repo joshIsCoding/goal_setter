@@ -42,7 +42,7 @@ RSpec.describe KeyEvent, type: :model do
         key_event = upvote.key_events.first
         expect(key_event.instigator).to eq(other_user)
         expect(key_event.event_type).to eq("new")
-        expect(key_event.notifications_generated).to be false
+        expect(key_event.notifications_generated).to be true
       end
     end
 
@@ -59,7 +59,7 @@ RSpec.describe KeyEvent, type: :model do
         key_event = goal.key_events.first
         expect(key_event.instigator).to eq(main_user)
         expect(key_event.event_type).to eq("update")
-        expect(key_event.notifications_generated).to be false
+        expect(key_event.notifications_generated).to be true
       end   
     end
     context "For Comments" do
@@ -73,7 +73,7 @@ RSpec.describe KeyEvent, type: :model do
         comment_event = comment.key_events.first
         expect(comment_event.instigator).to eq(other_user)
         expect(comment_event.event_type).to eq("new")
-        expect(comment_event.notifications_generated).to be false
+        expect(comment_event.notifications_generated).to be true
       end
     end
   end

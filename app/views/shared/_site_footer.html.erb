@@ -1,0 +1,26 @@
+<footer class="<%= is_logged_in? ? "site l-panel bottom" : "site r-panel bottom"%>">
+  <nav class="site-nav">
+    <div class="main-link-block">
+      <h5 class="footer-link-heading">main</h5>
+      <ul class="footer-link-list">
+        <li><%= link_to "Home", root_url %></li>
+        <li><%= link_to "Goal Index", root_url %></li>
+        <li><%= link_to "User Index", root_url %></li>
+      </ul>
+    </div>
+    <div class="user-link-block">
+    <h5 class="footer-link-heading">user</h5>
+      <ul class="footer-link-list">
+        <% if is_logged_in? %>
+        <li><%= link_to "Profile", user_url(current_user) %></li>
+        <li><%= link_to "Account Settings", account_sessions_url %></li>
+        <li><%= link_to "Notifications", notifications_url %></li>
+        <% else %>
+        <li><%= link_to "Register", register_url %></li>
+        <li><%= link_to "Login", login_url %></li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+  <small>Created by Josh Brown - Copyright 2020</small>
+</footer>

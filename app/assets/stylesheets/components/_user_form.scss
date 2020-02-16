@@ -1,6 +1,10 @@
 .user-form { 
-  background-color: $light-blue; 
+  background-color: $pink; 
   color: white; 
+}
+
+.user-form input[type="submit"] {
+  background-color: $light-blue;
 }
 .user-form label { min-width: 21.3em; }
 

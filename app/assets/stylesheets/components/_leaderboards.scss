@@ -1,6 +1,6 @@
 section.leaderboard {
-   padding-left: 5%;
-   padding-right: 5%;
+   padding-left: 0.75rem;
+   padding-right: 0.75rem;
    padding-top: 3rem;
    padding-bottom: 3rem;
 
@@ -9,7 +9,7 @@ section.leaderboard {
 }
 
 section.leaderboard > * {
-   min-width: 420px;
+   min-width: 442px;
    width: 45%;
    margin: 0 auto;
 }

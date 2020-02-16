@@ -4,7 +4,7 @@ module Eventable
   extend ActiveSupport::Concern
 
   included do
-    has_many :key_events, as: :eventable
+    has_many :key_events, as: :eventable, dependent: :destroy
   end
 
   def asset_owner

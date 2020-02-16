@@ -57,7 +57,7 @@
                 <%= link_to "Your Profile", user_url(current_user) %>
               </li>
               <li>
-                  <%= link_to "Manage Account", account_sessions_url(current_user) %>
+                  <%= link_to "Manage Account", account_sessions_url%>
               </li>
               <li>
                 <%= link_to "Logout", session_url(current_session), method: :delete, class: "logout" %>
@@ -89,7 +89,7 @@
               <% if is_logged_in? %>
               <li><%= link_to "Your Profile", user_url(current_user) %></li>
               <li>
-                  <%= link_to "Manage Account", account_sessions_url(current_user) %>
+                  <%= link_to "Manage Account", account_sessions_url%>
               </li>
               <li>
                 <%= link_to "Logout", session_url(current_session), method: :delete, class: "logout" %>

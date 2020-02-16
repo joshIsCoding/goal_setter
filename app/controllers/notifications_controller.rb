@@ -1,9 +1,9 @@
 class NotificationsController < ApplicationController
+  before_action :get_notification, except: [:index]
   def index
   end
 
   def update
-    @notification = Notification.find_by_id(params[:id])
     @notification.toggle!(:seen) unless @notification.seen
     case @notification.key_event.eventable_type
     when "UpVote"
@@ -17,6 +17,14 @@ class NotificationsController < ApplicationController
         redirect_to user_url(@notification.comment.commentable)
       end
     else
+      redirect_back(fallback_location: root_url)
+    end
+  end
+
+  private
+  def get_notification
+    @notification = Notification.find_by_id(params[:id])
+    unless @notification
       redirect_back(fallback_location: root_url)
     end
   end

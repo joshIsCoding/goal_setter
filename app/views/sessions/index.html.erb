@@ -21,7 +21,7 @@
             <%= session.remote_ip %>
          </td>
          <td>
-            <%= "Unknown" unless session.city %>
+            <%= session.city ? session.city : "Unknown" %>
          </td>
          <td>
             <%= time_ago_in_words(session.created_at) %> ago

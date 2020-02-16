@@ -3,7 +3,7 @@
   <li class="<%= notification.seen ? "notification seen" : "notification" %>"><!--
   --><%= link_to( 
       "<strong class=\"notification-instigator\">".html_safe +
-      + notification.instigator.username + "</strong>".html_safe +
+      + notification.instigator.username + "</strong> ".html_safe +
       parse_notification(notification) + ".", 
       notification_url(notification),
       method: "patch") %><!--

@@ -78,6 +78,7 @@
 .hamburger {
    display: none;
    fill: $font-grey;
+   z-index: 2;
 }
 
 .hamburger:hover .full-menu {

@@ -47,7 +47,7 @@
             <% User.leaderboard.each_with_index do |user, i| %>
             <tr>
                <td><%= i+1 %></td>
-               <td><%= link_to user.username, user_url(user) %></td>
+               <td class=><%= link_to user.username, user_url(user) %></td>
                <td><%= user.goal_count %></td>
                <td><%= number_with_precision(
                   user.goal_completion_rate, 
@@ -65,7 +65,9 @@
       <table class="goals-leaderboard">
          <thead>
             <% goal_headings.each do |heading| %>
-            <th><%= heading %></th>
+            <th <%= "class=mobile-hide" if heading == "User" %>>
+               <%= heading %>
+            </th>
             <% end %>
          </thead>
          <tbody>
@@ -73,7 +75,9 @@
             <tr>
                <td><%= i+1 %></td>
                <td><%= link_to goal.title, goal_url(goal) %></td>
-               <td><%= link_to goal.user.username, user_url(goal.user) %></td>
+               <td class="mobile-hide">
+                  <%= link_to goal.user.username, user_url(goal.user) %>
+               </td>
                <td><%= goal.up_votes_count %></td>
                <td><%= goal.status %></td>
             </tr>

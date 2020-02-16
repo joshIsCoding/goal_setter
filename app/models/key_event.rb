@@ -8,7 +8,6 @@ class KeyEvent < ApplicationRecord
   private
 
   def notification_recipients
-    recipients = []
     case self.eventable_type
     when "UpVote"
       recipients << self.eventable.goal.user
@@ -30,7 +29,8 @@ class KeyEvent < ApplicationRecord
   def generate_notifications
     unless self.notifications_generated
       Notification.transaction do
-        notification_recipients.each do |recipient| 
+        notification_recipients.each do |recipient|
+          next if self.instigator == recipient
           Notification.create(user: recipient, key_event: self)
         end
       end

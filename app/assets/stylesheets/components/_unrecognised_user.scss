@@ -94,3 +94,11 @@
 
 
 }
+
+@media all and (max-width: 505px) {
+   .main-heading h1 { font-size: 3.75rem; }
+   .main-heading p { font-size: 1.75rem; }
+   .unrecognised_user > div { padding: 1.25em 1.25em;}
+   .unrecognised_user > div > p { margin: 0.5em 0;}
+
+}

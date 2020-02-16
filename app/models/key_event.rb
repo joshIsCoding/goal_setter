@@ -5,12 +5,27 @@ class KeyEvent < ApplicationRecord
   has_many :notifications, dependent: :destroy
   after_create :generate_notifications
 
+
+  def event_name
+    case self.eventable_type
+      when "UpVote"
+      return self.eventable.goal.title
+    when "Goal"
+      return self.eventable.title
+    when "Comment"
+      if self.eventable.commentable_type == "User"
+        return self.eventable.commentable.username
+      elsif self.eventable.commentable_type == "Goal"
+        return self.eventable.commentable.title
+      end
+    end
+  end
   private
 
   def notification_recipients
     case self.eventable_type
     when "UpVote"
-      recipients << self.eventable.goal.user
+      recipients = [self.eventable.goal.user]
     when "Goal"
       upvotes = self.eventable.up_votes.includes(:user)
       recipients = upvotes.map(&:user)

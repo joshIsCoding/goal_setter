@@ -95,6 +95,16 @@ RSpec.describe Notification, type: :model do
           end
         end
       end
+      it "should not notify a user of their own comments" do
+        2.times do 
+          Comment.create!(
+            contents: "comment",
+            commentable: goal,
+            author: other_user
+          )
+        end
+        expect(other_user.notifications).to be_empty
+      end
     end
   end
 end

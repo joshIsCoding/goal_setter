@@ -132,8 +132,26 @@
    border-bottom-right-radius: 1.5em;
 }
 
+
 .notification-menu {
    width: 16em;
+   max-height: 60vh;
+   overflow-y: auto;
+}
+
+
+.notification-menu .notification a {
+   font-family: $sans-serif;
+   font-weight: 400;
+   font-size: 1.1em;
+}
+
+.notification-menu .notification.seen a {
+   background-color: $light-grey;
+}
+
+.notification-menu .notification-instigator {
+   font-weight: 700;
 }
 
 .user-menu a, .menu-upvotes, .full-menu a, .notification-menu a {

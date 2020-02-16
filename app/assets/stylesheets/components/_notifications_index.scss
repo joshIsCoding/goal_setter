@@ -1,0 +1,33 @@
+section.all-notifications > ul > .notification {
+  max-width: $max-width;
+  padding: 1rem 1.75rem;
+  margin: 1rem auto;
+  background-color: white;
+  border-radius: 1.75em;
+}
+
+section.all-notifications > ul .time-stamp {
+  margin-top: 0.2em;
+  margin-left: 0.2em;
+  float: right;
+  color: $hover-grey;
+}
+
+section.all-notifications a { font-weight: 400; }
+section.all-notifications strong { font-weight: 700; }
+
+section.all-notifications a:hover { color: inherit; }
+section.all-notifications .seen strong { color: $font-grey; }
+section.all-notifications .seen a { color: $font-grey; }
+
+.notification-instigator  { color: $light-blue; }
+.event-name.upvote  { color: $turquoise; }
+.event-name.goal  { color: $green; }
+.event-name.comment  { color: $pink; }
+
+section.all-notifications > ul > .notification.seen { background-color: $light-grey; }
+
+section.all-notifications > ul > .notification:hover {
+  background-color: $hover-grey;
+  color: white;
+}

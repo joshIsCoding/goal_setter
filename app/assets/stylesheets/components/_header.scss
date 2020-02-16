@@ -81,7 +81,8 @@
    z-index: 2;
 }
 
-.hamburger:hover .full-menu {
+.hamburger:hover .full-menu,
+.hamburger:focus .full-menu {
       display: flex;
    }
 

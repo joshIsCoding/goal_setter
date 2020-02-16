@@ -9,12 +9,12 @@ section.leaderboard {
 }
 
 section.leaderboard > * {
-   min-width: 442px;
-   width: 45%;
+   min-width: min-content;
    margin: 0 auto;
 }
 
 section.leaderboard > figure{
+   width: 45%;
    display: inline-block;
    padding-left: 0.3rem;
    padding-right: 0.3rem;
@@ -63,8 +63,28 @@ section.leaderbaord table tr:last-of-type td {
    background-color: $lighter-green;
 }
 
+/*------------------------QUERIES-----------------------*/
+
 @media all and (min-width: $query-width-3) {
    section.leaderboard {
       padding: 5% calc((100% - 900px ) / 3);
+   }
+}
+
+@media all and (max-width: 505px) {
+   section.leaderboard th, section.leaderboard td {
+      padding: 0.25em 0.3em;
+   }
+
+   section.leaderboard > figure {
+      padding-left: 0;
+      padding-right: 0;
+   }
+
+   section.leaderboard .mobile-hide { display: none; }
+   section.leaderboard {
+      font-size: 1rem;
+      padding-left: 0;
+      padding-right: 0;
    }
 }

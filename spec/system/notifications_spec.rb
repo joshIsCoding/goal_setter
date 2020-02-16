@@ -44,7 +44,7 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
     it "should show all the user's notifications" do
       visit(notifications_path)
       users.each{ |user| expect(page).to have_content(user.username) }
-      expect(find("main")).to have_content("just upvoted", count: 3)
+      expect(find("main")).to have_content("upvoted your goal", count: 3)
     end
     it "should provide the option to mark all notifications as 'seen'"
   end
@@ -60,22 +60,22 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
         login(main_user)
       end
       it "displays the unseen notification count" do
-        expect(find("span.notification-count")).to have_content("1")
+        expect(find("strong.notification-count")).to have_content("1")
       end
       it "shows the new notification in the dropdown menu" do
         expect(find("li.notifications-hover").hover).
-        to have_content("other just upvoted your goal!")
+        to have_content("other just upvoted your goal")
       end
       it "lets the user visit the record to which the notification refers" do
         find("li.notifications-hover").hover
-        click_on("other just upvoted your goal!")
+        click_on("other just upvoted your goal")
         expect(page).to have_current_path(goal_path(goal))
         expect(page).to have_content(goal.title)
       end
       it "after viewing, it marks the notification as seen and reduces the unseen count" do
         find("li.notifications-hover").hover
-        click_on("other just upvoted your goal!")
-        #span.notification-count is empty when the notification count is 0; this
+        click_on("other just upvoted your goal")
+        #strong.notification-count is empty when the notification count is 0; this
         #seems to cause issues for capybara, hence the use of the parent selector here
         expect(find("li.notifications-hover")).not_to have_content("1")
       end

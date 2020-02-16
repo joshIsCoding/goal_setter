@@ -239,3 +239,7 @@ td {
       padding-left: 0;
    }
 }
+
+@media all and (max-width: 505px) {
+   .l-panel > * { margin: 1rem 1.5rem; }
+}

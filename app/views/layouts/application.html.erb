@@ -73,11 +73,13 @@
           </li>
           <% end %>
           <li class="hamburger">
-            <svg viewBox="0 0 80 50" width="40" height="25">
-              <rect width="80" height="11" rx="2"></rect>
-              <rect y="19" width="80" height="11" rx="2"></rect>
-              <rect y="38" width="80" height="11" rx="2"></rect>
-            </svg>
+            <a href="#" class="hamburger-hover">
+              <svg viewBox="0 0 80 50" width="40" height="25">
+                <rect width="80" height="11" rx="2"></rect>
+                <rect y="19" width="80" height="11" rx="2"></rect>
+                <rect y="38" width="80" height="11" rx="2"></rect>
+              </svg>
+            </a>
             <ul class="full-menu">
               <% if is_logged_in? %>
               <li class="menu-upvotes">

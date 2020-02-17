@@ -16,6 +16,13 @@ class Goal < ApplicationRecord
       .left_outer_joins(:up_votes)
       .group(:id)
    end
+   scope :with_comments_count, -> do
+      select("goals.*, COUNT(comments.id) AS \"comments_count\"")
+      .left_outer_joins(:comments)
+      .group(:id)
+   end
+   scope :complete, -> { where( status: "Complete" ) }
+   scope :incomplete, -> { where( status: ["Not Started", "In Progress"]) }
 
    after_update { generate_event("update") }
 
@@ -28,6 +35,10 @@ class Goal < ApplicationRecord
       self.all.set_public
       .with_up_votes_count
       .order(up_votes_count: :desc).limit(10)
+   end
+
+   def belongs_to?(user)
+      self.user == user
    end
 
    def get_up_vote(user)

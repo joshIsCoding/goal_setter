@@ -15,7 +15,7 @@ class User < ApplicationRecord
 
    attr_reader :password
 
-   has_many :goals, -> { order "created_at ASC"}, dependent: :destroy
+   has_many :goals, -> { order "created_at DESC"}, dependent: :destroy
    has_many :completed_goals, -> { where status: "Complete" }, class_name: "Goal"
    
    has_many :sessions, -> { order "created_at DESC"}, dependent: :destroy   
@@ -36,6 +36,18 @@ class User < ApplicationRecord
      foreign_key: :instigator_id, 
      dependent: :destroy
    )
+
+   scope :with_goals_count, -> do
+      select("users.*, COUNT(goals.id) AS \"goals_count\"")
+      .left_outer_joins(:goals)
+      .group(:id)
+   end
+   scope :with_upvotes_count, -> do
+      select("users.*, COUNT(up_votes.id) AS \"upvotes_count\"")
+      .left_outer_joins(:received_up_votes)
+      .group(:id)
+   end
+   scope :sorted_alphabetically, -> { order(:username) }
 
    def self.generate_session_token
       SecureRandom::urlsafe_base64(16)

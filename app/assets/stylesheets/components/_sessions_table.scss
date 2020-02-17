@@ -1,11 +1,25 @@
-/*
-@media all and (max-width: $query-width-1) {
-   th { padding: 0.8em 1em; }
-   td { padding: 0.5em 1em; }
-
+table.sessions caption {
+   margin: 0.7em auto;
+   text-align: center;
+   caption-side: bottom;
 }
 
-@media all and (max-width: $query-width-2) {
+table.sessions i {
+   color: $pink;
+   font-size: 1.5em;
+   vertical-align: middle;
+   line-height: 0;
+}
+
+
+@media all and (max-width: 596px) {
+   table.sessions { font-size: 1rem; } 
    th { padding: 0.5em 0.5em; }
    td { padding: 0.3em 0.5em; }
-}*/
+}
+
+@media all and (max-width: 440px) {
+   table.sessions { font-size: 0.75rem;}
+   th { padding: 0.5em 0.4em; }
+   td { padding: 0.3em 0.4em; }
+}

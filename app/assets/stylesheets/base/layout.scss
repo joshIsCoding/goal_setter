@@ -58,7 +58,7 @@ h4 {
 }
 
 p {
-   width: 95%;
+   padding: 0 1rem;
    max-width: $max-width;
    margin: 0 auto;
 }
@@ -119,6 +119,11 @@ main > h1 { margin-top: 5.75rem; }
 .l-panel.middle {
    border-top-right-radius: 5rem; 
    border-bottom-right-radius: 5rem; 
+}
+
+.r-panel.middle {
+   border-top-left-radius: 5rem; 
+   border-bottom-left-radius: 5rem; 
 }
 
 
@@ -184,8 +189,14 @@ thead {
 }
 
 caption {
-   margin: 0.5em 0.75em;
-   caption-side: bottom;
+   margin: 0.25em auto;
+   max-width: $max-width;
+   caption-side: top;
+}
+
+table {
+   max-width: $max-width;
+   margin: 1rem auto;
 }
 
 tbody {
@@ -221,11 +232,11 @@ thead > tr > th:last-child {
 }
 
 th {
-   padding: 0.8em 1.5em;
+   padding: 0.5rem 0.75rem;
 }
 
 td {
-   padding: 0.5em 1.5em;
+   padding: 0.75rem;
 }
 
 

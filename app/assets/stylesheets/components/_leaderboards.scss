@@ -34,6 +34,11 @@ section.leaderboard h4 {
    margin: 0 auto;
 }
 
+.users-leaderboard i, .goals-leaderboard i {
+   font-size: 1.25em;
+   vertical-align: middle;
+}
+
 section.leaderboard th { padding: 0.5em 0.5em; }
 section.leaderboard td { padding: 0.3em 0.5em; }
 

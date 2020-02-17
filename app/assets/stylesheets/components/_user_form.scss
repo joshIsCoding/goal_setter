@@ -1,17 +1,26 @@
 .user-form { 
-  background-color: $pink; 
+  background-color: $light-pink; 
   color: white; 
 }
 
-.user-form input[type="submit"] {
-  background-color: $light-blue;
+.register.user-form {
+  background-color: $light-grey;
+  color: $font-grey;
 }
+
+.user-form input[type="submit"] { background-color: $light-blue; }
 .user-form label { min-width: 21.3em; }
 
-@media all and (max-width: 900px) {
+
+
+@media all and (max-width: 1005px) {
   .user-form input[type="submit"] {
     display: block;
     margin: 0.5em 0 1em 7.8em;
+  }
+  .register.user-form input[type="submit"] {
+    display: block;
+    margin: 0.5em 0 1em 7.6em;
   }
   
 }
@@ -22,13 +31,13 @@
       text-align: left;
    }
 
-   .user-form { width: min-content; }
+   form.user { width: min-content; }
 
    .user-form > label > input {
      margin-left: 0;
    }
 
-   .user-form input[type="submit"] {
+   .user-form input[type="submit"], .register.user-form input[type="submit"] {
       margin: 0 auto;
    }
    

@@ -1,24 +1,23 @@
-<h2>Browse All Goals</h2>
-<header class="category-filters">
-  <ul>
-  <% Category.all.each do |category| %>
-    <li><%= link_to category.name, goals_url(category: category.name) %></li>
+<header class="category-filters r-panel top">
+  <h1>Browse All Goals</h1>
+  <ul class="filters">
+  <% %w[Work Family Health Hobbies Study Travel Relationships].each do |category| %>
+    <li <%= "class=active-filter" if category == @category %>>
+      <%= link_to GoalsHelper::CATEGORY_ICONS[category.downcase].html_safe +
+        "<span class=\"category-name\">#{category}</span>".html_safe, 
+        goals_url(category: category) %>
+    </li>
   <% end %>
   </ul>
+  <%= link_to("clear filter", goals_url, class: "clear-filter") if @category %>
 </header>
 
-<table>
-  <tbody>
+<section class="other-goals">
   <% @goals.each do |goal| %>
-    <tr>
-      <td>#icon# <%= goal.categories.first.name %></td>
-      <td><%= goal.title %></td>
-      <td><%= goal.status %></td>
-      <td><%= link_to goal.user.username, user_url(goal.user) %></td>
-      <td><%= goal.up_votes_count %></td>
-      <td><%= time_ago_in_words(goal.created_at) %></td>
-    </tr>
+    <%= render "other_user_goal", 
+    goal: goal, 
+    index_goal: true,
+    up_votes_count: goal.up_votes_count %>
   <% end %>
-  </tbody>
-</table>
+</section>
 

@@ -47,12 +47,17 @@ class GoalsController < ApplicationController
 
    def index
       if params.include?(:category)
+         @category = params[:category]
          @goals = Category.find_by(name: params[:category])
          .goals
          .with_up_votes_count
+         .with_comments_count
          .set_public
       else
-         @goals = Goal.all.with_up_votes_count.set_public
+         @goals = Goal.all
+         .with_up_votes_count
+         .with_comments_count
+         .set_public
       end
    end
 

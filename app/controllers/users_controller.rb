@@ -4,7 +4,6 @@ class UsersController < ApplicationController
    
    def new
       @user = User.new
-      render :new
    end
 
    def create
@@ -28,8 +27,10 @@ class UsersController < ApplicationController
    end
 
    def index
-      @users = User.leaderboard
-      render :index
+      @users = User.all
+      .with_goals_count
+      .with_upvotes_count
+      .sorted_alphabetically
    end
 
    private

@@ -17,8 +17,11 @@ footer.site > small {
   width: max-content;  
   float: right;
 
-  margin-left: 0.75rem;
+  margin-left: 1.5rem;
   margin-top: 1.9rem;
+
+  color: $hover-grey;
+  
 }
 
 footer.site > nav > div {
@@ -36,4 +39,5 @@ footer.site > nav > div:last-of-type {
   margin-bottom: 0.6rem;
 }
 
+@media all and (max-width: 505px) { footer.site > small {float: none;} }
 

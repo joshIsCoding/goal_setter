@@ -30,8 +30,7 @@ table {
 input[type="text"],
 input[type="password"],
 input[type="submit"],
-/*input[type="radio"],
-input[type="checkbox"],*/
+input[type="radio"],
 textarea,
 button {
    -webkit-appearance: none;
@@ -39,7 +38,7 @@ button {
    appearance: none;
 }
 
-ul {
+ul, ol {
    list-style: none;
 }
 

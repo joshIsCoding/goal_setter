@@ -6,12 +6,12 @@ module GoalsHelper
   }.freeze
 
   CATEGORY_ICONS = {
-    "work" => "<i aria-hidden=\"true\" class=\"fas fa-briefcase\" title=\"work\"></i>",
-    "family" => "<i aria-hidden=\"true\" class=\"fas fa-home\" title=\"family\"></i>",
-    "relationships" => "<i aria-hidden=\"true\" class=\"far fa-heart\" title=\"relationships\"></i>",
-    "study" => "<i aria-hidden=\"true\" class=\"fas fa-book\" title=\"study\"></i>",
-    "health" => "<i aria-hidden=\"true\" class=\"fas fa-weight\" title=\"health\"></i>",
-    "hobbies" => "<i aria-hidden=\"true\" class=\"fas fa-camera\" title=\"hobbies\"></i>",
-    "travel" => "<i aria-hidden=\"true\" class=\"fas fa-globe-americas\" title=\"travel\"></i>"
+    "work" => "<i aria-hidden=\"true\" class=\"grey fas fa-briefcase\" title=\"work\"></i>",
+    "family" => "<i aria-hidden=\"true\" class=\"purple fas fa-home\" title=\"family\"></i>",
+    "relationships" => "<i aria-hidden=\"true\" class=\"pink far fa-heart\" title=\"relationships\"></i>",
+    "study" => "<i aria-hidden=\"true\" class=\"orange fas fa-book\" title=\"study\"></i>",
+    "health" => "<i aria-hidden=\"true\" class=\"green fas fa-weight\" title=\"health\"></i>",
+    "hobbies" => "<i aria-hidden=\"true\" class=\"turquoise fas fa-camera\" title=\"hobbies\"></i>",
+    "travel" => "<i aria-hidden=\"true\" class=\"blue fas fa-globe-americas\" title=\"travel\"></i>"
   }
 end

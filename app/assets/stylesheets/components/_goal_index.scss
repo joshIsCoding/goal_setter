@@ -1,0 +1,44 @@
+header.category-filters {
+  background-color: $hover-grey;
+}
+
+header.category-filters .clear-filter {
+  text-align: right;
+  display: block;
+  max-width: 900px;
+  margin-right: 3rem;
+  color: $font-grey;
+}
+
+ul.filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 2rem;
+
+  max-width: 900px;
+}
+
+ul.filters .category-name {
+  font-family: $serif;
+}
+
+ul.filters > li {
+  margin-right: 0.6em;
+  margin-bottom: 0.6em;
+}
+
+ul.filters > li:last-of-type {
+  margin-right: 0;
+  margin-left: 0;
+  margin-bottom: 0.6em;
+}
+
+ul.filters > li > a > * {
+  display: block;
+  text-align: center;
+}
+
+ul.filters > li i {
+  font-size: 2.5em;
+}

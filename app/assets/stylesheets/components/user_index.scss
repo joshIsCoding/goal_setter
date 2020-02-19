@@ -1,0 +1,73 @@
+header.user-index {
+  background-color: $light-turquoise;
+  color: $font-grey;
+}
+
+ul.letter-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  
+  max-width: 900px;
+
+  font-family: $serif;
+  text-decoration: underline;
+  font-size: 1.5rem;
+}
+
+ul.letter-links li {
+  margin-right: 1rem;
+}
+
+.users-by-letter {
+  position: relative;
+  max-width: calc(900px + 3.5rem);
+  margin: 1rem auto;
+}
+
+.users-by-letter .index-letter {
+  position: absolute;
+  top: -1rem;
+  left: 0;
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 9rem;
+  color: $lightest-grey;
+  z-index: 0;
+}
+.users-by-letter .back-to-top { 
+  float: right;
+  margin-top: 1.5rem;
+  margin-right: 0.6rem;
+}
+
+ol.user-list { clear: both;}
+
+ol.user-record {
+  position: relative;
+  max-width: $max-width;
+  margin: 1rem auto;
+  padding: 1rem 1.75rem;
+  z-index: 1;
+  border-radius: 1.75em;
+}
+
+ol.user-record:hover {
+  background-color: $translucent-light-grey;
+}
+
+ol.user-record > * {
+  display: inline-block;
+  width: fit-content;
+}
+
+ol.user-record data, ol.user-record time {
+  font-weight: 700;
+}
+
+@media all and (max-width: 505px) {
+  ol.user-record {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+}

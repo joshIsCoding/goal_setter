@@ -1,0 +1,78 @@
+<section class="active-goals">
+  <h3>Active Goals</h3>
+  <% goals.incomplete.each do |goal| %>
+  <article>
+    <header>
+    <p class="goal-status"><%= 
+      (GoalsHelper::STATUS_ICONS[goal.status.downcase.gsub(" ", "-")] + " " + 
+      goal.status).html_safe %>
+    </p>
+    <small>set <time datetime="<%= goal.created_at.strftime("%Y-%m-%dT%H:%M") %>"><!--
+    --> <%= time_ago_in_words(goal.created_at) %> ago</small>
+      
+    </header>
+    <h4><%= goal.title %></h4>
+    <ul class="categories">
+    <% unless goal.categories.empty? %>
+      <% goal.categories.each do |category| %>
+      <li><%= (GoalsHelper::CATEGORY_ICONS[category.name.downcase] +
+        "<span class=\"sr-only\">#{category.name}</span>").html_safe %>
+      </li>
+      <% end %>
+    <% end %>
+    </ul>
+    <footer>
+    <a class="comment-count" href="<%= goal_url(goal)+"#comments"%>">
+        <%= goal.comments_count.to_s + (goal.comments_count == 1 ? 
+            " comment" : " comments") %>
+      </a>
+    <% if is_current_user %>
+      <ul class="goal-controls">
+          <li>
+            <%= link_to "edit", edit_goal_url(goal) %>
+          </li>
+          <li>
+            <%= link_to "delete", goal_url(goal), method: "delete" %>
+          </li>
+          <li>
+            <%= link_to "complete - form needed", goal_url(goal) %>
+          </li>
+        </ul>
+      <% end %>
+    </footer>
+  </article>
+  <% end %>
+</section>
+
+<section class="completed-goals">
+  <h3>Completed Goals</h3>
+<% goals.complete.each do |goal| %>
+  <article>
+    <header>
+    <small><%= (GoalsHelper::STATUS_ICONS[goal.status.downcase.gsub(" ", "-")] +
+    "<span class=\"sr-only\">#{goal.status}</span>").html_safe %>
+    </small>
+      <ul class="goal-controls">
+        <li>
+          <%= link_to "edit", edit_goal_url(goal) %>
+        </li>
+        <li>
+          <%= link_to "delete", goal_url(goal), method: "delete" %>
+        </li>
+      </ul>
+    </header>
+    <h4><%= goal.title %></h4>
+    <ul class="categories">
+    <% unless goal.categories.empty? %>
+      <% goal.categories.each do |category| %>
+      <li><%= (GoalsHelper::CATEGORY_ICONS[category.name.downcase] +
+        "<span class=\"sr-only\">#{category.name}</span>").html_safe %>
+      </li>
+      <% end %>
+    <% end %>
+    </ul>
+    <small>last modified <time datetime="<%= goal.created_at.strftime("%Y-%m-%dT%H:%M") %>"><%= time_ago_in_words(goal.created_at) %> ago</small>
+  </article>
+  <% end %>
+  
+</section>

@@ -1,0 +1,52 @@
+<article class="other-goal">
+  <header class="clearfix">
+    <p class="goal-author">
+      set by <%= link_to goal.user.username, user_url(goal.user) %>
+    </p>
+    <time class="creation-time" datetime="<%= goal.created_at.strftime("%Y-%m-%dT%H:%M") %>"><!--
+   --><%= time_ago_in_words(goal.created_at) %> ago
+    </time>
+  </header>
+  <ul class="category-icons">
+    <% unless goal.categories.empty? %>
+      <% goal.categories.each do |category| %>
+      <li><%= GoalsHelper::CATEGORY_ICONS[category.name.downcase].html_safe + 
+          "<span class=\"sr-only\">#{category.name}</span>".html_safe %>
+      </li>
+      <% end %>
+    <% end %>
+  </ul>
+   <aside class="up-vote-widget">
+        <% if is_logged_in? && goal.user != current_user %>
+          <% upvote = goal.get_up_vote(current_user) %>
+          <% if upvote %>
+              <%= render "up_votes/delete", goal: goal, upvote: upvote %>
+          <% elsif current_user.has_up_votes_remaining? %>
+              <%= render "up_votes/form", goal: goal %>
+          <% end %>
+        <% else %>
+          <div class="dummy_up_vote"><%= ApplicationHelper::UP_VOTE_ICONS["up"].
+            html_safe %>
+          </div>
+        <% end %>
+        <data class="up-vote-count" value="<%= up_votes_count %>"><%= up_votes_count %>
+        </data>
+      </aside>
+  
+   <h4 class="goal-title"><%= link_to goal.title, goal_url(goal) %></h4>
+    <a class="container-link" href="<%= goal_url(goal) %>">
+      <p class="goal-details"><%= goal.details %></p>
+    </a>
+  <footer class="clearfix">
+    <p class="goal-status"><%= 
+      (GoalsHelper::STATUS_ICONS[goal.status.downcase.gsub(" ", "-")] + " " + 
+      goal.status).html_safe %>
+    </p >
+      <% if index_goal %>
+      <a class="comment-count" href="<%= goal_url(goal)+"#comments"%>">
+        <%= goal.comments_count.to_s + (goal.comments_count == 1 ? 
+            " comment" : " comments") %>
+      </a>
+      <% end %>
+  </footer>
+</article>

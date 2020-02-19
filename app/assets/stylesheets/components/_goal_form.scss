@@ -1,66 +1,165 @@
-.goal-form {
-  width: max-content;
-  margin: 0 auto;
+section.new-goal { background-color: $lightest-pink;}
+
+form.goal {
+  box-sizing: border-box;
+  max-width: 640px;
+  margin: 4rem auto;
+  padding: 1.75em;
+  
+  border-radius: 1.75em;
+  background-color: $lightest-grey;
+  color: $font-grey;
+
+  -moz-box-shadow:    6px 6px 25px $shadow-grey;
+  -webkit-box-shadow: 6px 6px 25px $shadow-grey;
+  box-shadow:         6px 6px 25px $shadow-grey;
+  
+
 }
 
-.goal-form input[type="submit"] {
+form.goal input[type="submit"] {
   display: block;
   width: 20%;
-  margin: 0 auto;
+  min-width: fit-content;
+  margin: 1em auto;
+  font-size: 1.25em;
+  font-weight: 700;
 }
 
-.goal-form input, .goal-form textarea {
+form.goal input, form.goal textarea {
   display: block;
   width: 100%;
   box-sizing: border-box;
   margin-left: 0;
 }
 
-.goal-form > * {
-  border: solid 1px red;
-}
-
-.goal-form > label {
+form.goal > label {
   width: 100%;
   margin-left: 0;
   margin-right: 0;
   text-align: left;
+  font-size: 1.25em;
 }
 
-/* -----------Radio ---------*/
-.goal-form .goal-status {
+form.goal .public-tick {
+  display: block;
+  max-width: fit-content;
+  margin: 0 auto;
+  font-family: $sans-serif;
+
+}
+
+form.goal .public-tick input {
+  display: inline-block;
+  width: fit-content;
+  margin-left: 1em;
+}
+
+
+
+
+/* ---------------Categories and Statuses--------------*/
+form.goal .goal-status, form.goal ul.category-flex {
   display: flex;
 }
 
-.goal-status .icon::before {
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
+form.goal ul.category-flex {
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
-.goal-form .goal-status > label > .icon::before {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  content: "\f007";
+form.goal fieldset {
+  background-color: $logo-grey;
+  position: relative;
+  margin-top: 2em;
+}
+
+form.goal legend {
+  position: absolute;
+  top: -1.5em;
+}
+
+form.goal .goal-status {
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  
+}
+
+form.goal .categories input[type="checkbox"] { 
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+form.goal .goal-status label > *, 
+form.goal li.category label > * {
+  display: block;
+  text-align: center;
+}
+
+form.goal i {
+  font-size: 2.5em;
+}
+
+form.goal .radio-text, 
+form.goal .checkbox-text {
+  margin-top: 0.25em;
+  font-size: 0.85em;
+}
+
+form.goal .goal-status input:checked ~ label {
+  color: white;
 }
 
 
-.goal-status > label > i:last-of-type {
-  display: absolute;
+form.goal .goal-status input:hover ~ label,
+form.goal .categories label:hover {
+  color: white;
 }
 
-.goal-form .details-box, 
-.goal-form .public-tick {
-  display: inline-block;
-  box-sizing: border-box;
-  vertical-align: top;
+/*----------------- Category Icon Colours ------------*/
+
+form.goal .categories input:checked ~ .pink, 
+form.goal .categories input:checked ~ .pink ~ .checkbox-text 
+{ color: $pink; }
+form.goal .categories input:checked ~ .blue, 
+form.goal .categories input:checked ~ .blue ~ .checkbox-text 
+{ color: $light-blue; }
+form.goal .categories input:checked ~ .green, 
+form.goal .categories input:checked ~ .green ~ .checkbox-text 
+{ color: $green; }
+form.goal .categories input:checked ~ .grey, 
+form.goal .categories input:checked ~ .grey ~ .checkbox-text 
+{ color: $hover-grey; }
+form.goal .categories input:checked ~ .orange, 
+form.goal .categories input:checked ~ .orange ~ .checkbox-text 
+{ color: $orange; }
+form.goal .categories input:checked ~ .purple, 
+form.goal .categories input:checked ~ .purple ~ .checkbox-text 
+{ color: $purple; }
+form.goal .categories input:checked ~ .turquoise, 
+form.goal .categories input:checked ~ .turquoise ~ .checkbox-text 
+{ color: $turquoise; }
+form.goal .categories input:checked ~ .pink, 
+form.goal .categories input:checked ~ .pink ~ .checkbox-text 
+{ color: $pink; }
+
+
+/*----------------- Media Queries ----------------*/
+
+@media all and (max-width: 696px) {
+  form.goal {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 }
 
-.goal-form .details-box { width: 75%;}
-.goal-form .public-tick { 
-  width: 25%;
-  text-align: left;
-}
+@media all and (max-width: 386px) {
+  form.goal {
+    margin: 3rem 0.5rem;
+  }
 
+  form.goal { font-size: 0.85rem; }
+  
+}

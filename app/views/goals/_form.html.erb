@@ -1,7 +1,7 @@
 <form 
    action="<%= goal.persisted? ? goal_url(goal) : goals_url %>" 
    method="post"
-   class="goal-form"
+   class="goal"
    >
    <%= auth_token %>
    <% if goal.persisted? %>
@@ -13,51 +13,62 @@
       type="text"><!--
 --></label>
 
-   <fieldset>
+   <fieldset class="categories">
       <legend>Categories:</legend>
+      <ul class="category-flex">
       <% Category.all.each do |category| %>
-         <label for="category-<%= category.name %>"><!--
-         --><input 
-               type="checkbox" 
-               name="goal[category_ids][]"
-               value="<%= category.id %>"
-               id="category-<%= category.name %>"
-               <%= "checked" if @goal.category_ids.include?(category.id) %>
-               ><%= category.name %><!--
-      --></label>
+         <li class="category">
+            <label for="category-<%= category.name %>">
+               <input 
+                  type="checkbox" 
+                  name="goal[category_ids][]"
+                  value="<%= category.id %>"
+                  id="category-<%= category.name %>"
+                  <%= "checked" if @goal.category_ids.include?(category.id) %>
+                  >
+            
+            <%= GoalsHelper::CATEGORY_ICONS[category.name.downcase].html_safe %><!--
+         --><span class="checkbox-text"><%= category.name %></span>
+         </label>
+         </li>
       <% end %>
+      </ul>
    </fieldset>
 
    <fieldset>
       <legend>Status:</legend>
-      <div class="goal-status">
+      <ul class="goal-status">
          <% Goal::STATUSES.each_with_index do |status, i| %>
-            <label for="<%= "goal_status_#{i}" %>" ><!--
-            --><input
+         <li>
+            <input
                   id="<%= "goal_status_#{i}" %>"
                   name="goal[status]"
                   value="<%= status %>"
-                  type="radio" <%= "checked" if status == goal.status %>><!--
-            --><%= status %><!--
-         --></label>
+                  type="radio" <%= "checked" if status == goal.status %>>
+            <label for="<%= "goal_status_#{i}" %>" >
+            <%= GoalsHelper::STATUS_ICONS[status.downcase.gsub(" ","-")].html_safe %>
+            <span class="radio-text"><%= status %></span><!--
+        --></label>
+         </li>
          <% end  %>
-      </div>
+      </ul>
    </fieldset>
-   <input type="hidden" name="goal[public]" value="false">
-   <label for="goal_public" class="public-tick">Public Goal?<input id="goal_public"
-         name="goal[public]"
-         value="true"
-         type="checkbox"
-         <%= "checked" if goal.public %>>
-      </label><!--
-   --><label for="goal_details" class="details-box">Details:<!--
+   <label for="goal_details" class="details-box">Details:<!--
    --><textarea 
             id="goal_details" 
             name="goal[details]"
-            rows="3"
+            rows="4"
             cols="20"
             ><%= goal.details %></textarea><!--
-   --></label>
+   --></label>   
 
    <input type="submit" value="<%= goal.persisted? ? "Save!" : "Set!" %>">
+   
+   <input type="hidden" name="goal[public]" value="false">
+   <label for="goal_public" class="public-tick">Visible to other users?<input id="goal_public"
+      name="goal[public]"
+      value="true"
+      type="checkbox"
+      <%= "checked" unless !goal.public %>>
+   </label>
 </form>

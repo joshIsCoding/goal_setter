@@ -1,0 +1,170 @@
+article.other-goal {
+  max-width: $max-width;
+  margin: 1.5rem auto;
+  padding: 1rem 1.75rem;
+  background-color: $lightest-grey;
+  border-radius: 1.75em;
+}
+
+article.other-goal:hover { background-color: $light-grey; }
+
+article.other-goal ul.category-icons {
+  display: inline-flex;
+  justify-content: flex-end;
+  float: right;
+
+  
+  max-width: calc(30% - 4.5rem);
+  font-size: 2em;
+}
+
+article.other-goal ul.category-icons i {
+  margin-left: 0.25em;
+}
+
+article.other-goal .up-vote-widget i {
+  line-height: 1.6;
+}
+
+article.other-goal .goal-title {
+  display: inline-block;
+  width: fit-content;
+  max-width: calc(70% - 4.5rem);
+}
+
+article.other-goal .creation-time {
+  float: right;
+  display: inline-block;
+}
+
+article.other-goal .goal-status { margin-right: 3rem}
+
+.other-goal .up-vote-widget { 
+  position: relative;
+  float: left;
+  box-sizing: border-box;
+
+  height: 5rem;
+  min-width: 5rem;
+  margin-right: 1.25em;
+  margin-bottom: 0.75em;
+  padding: 0.05em;
+
+  vertical-align: middle;
+  background-color: $hover-grey;
+  border-radius: 0.55rem;
+  color: white;
+}
+
+.other-goal .up-vote-widget > * { 
+  position: relative;
+  display: inline-block;
+  
+  top: 50%;
+  transform: translatey(-50%);
+  text-align: center;
+  line-height: 1;
+  vertical-align: middle;
+  margin: auto;
+  
+}
+
+.other-goal .up-vote-widget .up-vote-count {
+  font-size: 1.7em;
+  font-weight: 700;
+}
+
+.other-goal .up-vote-widget i {
+  margin-left: 0.25em;
+  font-size: 1.2em;
+  color: $logo-grey;
+}
+
+.other-goal .up-vote-widget form.upvote button i { color: $pink;}
+.other-goal header, .other-goal footer {
+  clear: both;
+  display: block;
+  font-size: 0.9em;
+  
+}
+
+.other-goal header { margin-bottom: 0.75rem;}
+.other-goal footer { margin-top: 0.75rem;}
+.other-goal header > *, .other-goal footer > * { display: inline-block;}
+
+/*------------------------- Icon Colours --------------------*/
+article.other-goal .pink,
+.filters a:hover .pink,
+.filters a:hover .pink ~ .category-name,
+.active-filter .pink,
+.active-filter .pink ~ .category-name
+{ color: $pink; }
+article.other-goal .blue,
+.filters a:hover .blue,
+.filters a:hover .blue ~ .category-name,
+.active-filter .blue,
+.active-filter .blue ~ .category-name
+{ color: $light-blue; }
+article.other-goal .green,
+.filters a:hover .green,
+.filters a:hover .green ~ .category-name,
+.active-filter .green,
+.active-filter .green ~ .category-name
+{ color: $green; }
+article.other-goal .grey,
+.filters a:hover .grey,
+.filters a:hover .grey ~ .category-name,
+.active-filter .grey,
+.active-filter .grey ~ .category-name
+{ color: $font-grey; }
+article.other-goal .orange,
+.filters a:hover .orange,
+.filters a:hover .orange ~ .category-name,
+.active-filter .orange,
+.active-filter .orange ~ .category-name
+{ color: $orange; }
+article.other-goal .purple,
+.filters a:hover .purple,
+.filters a:hover .purple ~ .category-name,
+.active-filter .purple,
+.active-filter .purple ~ .category-name
+{ color: $purple; }
+article.other-goal .turquoise,
+.filters a:hover .turquoise,
+.filters a:hover .turquoise ~ .category-name,
+.active-filter .turquoise,
+.active-filter .turquoise ~ .category-name
+{ color: $turquoise; }
+article.other-goal .pink,
+.filters a:hover .pink,
+.filters a:hover .pink ~ .category-name,
+.active-filter .pink,
+.active-filter .pink ~ .category-name
+{ color: $pink; }
+
+
+@media all and (max-width: 450px ) {
+  .other-goal .up-vote-widget { 
+    margin-right: 0.5em; 
+    margin-bottom: 0.5rem;
+  }
+  .other-goal header { margin-bottom: 0.5rem;}
+  .other-goal footer { margin-top: 0.5rem;}
+
+  article.other-goal ul.category-icons {
+    display: flex;
+    justify-content: space-evenly;
+    float: none;
+    
+    max-width: 100%;
+    width: 100%;
+    margin: 0.5rem auto;
+    border-radius: 0.55rem;
+
+    font-size: 1.5em;
+    background-color: $logo-grey;
+  }
+
+  article.other-goal p.goal-details { clear: both;}
+  article.other-goal a.comment-count { float: right; }
+}

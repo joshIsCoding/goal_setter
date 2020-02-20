@@ -1,48 +1,14 @@
-<div class="<%= "background #{@goal.status}" %>">
-   <h2><%= @goal.title %></h2>
-   <% is_current_user = @goal.user == current_user %>
-   <h4><%= is_current_user ? "Your goal" : "A goal by #{@goal.user.username}" %></h4>
-   <h3><%= @goal.status %></h3>
-   
-   <%= render "shared/notices", notices: flash[:success], type: "success" %>
-   
-   <table>
-      <tbody>
-      <% if is_current_user %>
-         <tr>
-            <th>Public Goal?</th><td><%= "&#10004;".html_safe if @goal.public %></td>
-         </tr>
-      <% end %>
-         <tr>
-            <th>Upvotes</th> 
-            <td><%= @goal.up_votes.count %></td>
-         <% unless is_current_user %>
-            <% upvote = @goal.get_up_vote(current_user) %>
-            <% if upvote %>
-            <td><%= render "up_votes/delete", goal: @goal, upvote: upvote %></td>
-            <% else %>
-            <td><%= render "up_votes/form", goal: @goal %></td>
-            <% end %>
-         <% end %>
-         </tr>
-         <tr>
-            <th>Created on:</th><td><%= @goal.created_at.strftime("%-d/%m/%Y") %></td>
-         </tr>
-         <tr>
-            <th>Last Update:</th><td><%= time_ago_in_words(@goal.updated_at) %> ago</td>
-         </tr>
-      </tbody>
-   </table>
+<h1>Goal Details</h1>
+<%= render "other_user_goal", 
+   goal: @goal, 
+   up_votes_count: @goal.up_votes.count,
+   index_goal: false,
+   current_user_goal: false %>
+<% if @goal.belongs_to?(current_user) %>
+   <div class="goal-show-controls">
+      <%= button_to "Update Goal", edit_goal_url(@goal), method: "get" %>
+      <%= button_to "Delete Goal", goal_url(@goal), method: "delete" %>
+   </div>
+<% end %>
 
-   <h5>Details:</h5>
-   <p><%= @goal.details %></p>
-   <% if is_current_user %>
-      <div class="controls">
-         <%= button_to "Update Goal", edit_goal_url(@goal), method: "get" %>
-         <%= button_to "Delete Goal", goal_url(@goal), method: "delete" %>
-      </div>
-   <% end %>
-
-   <%= render "comments/comments", comments: @goal.sorted_authored_comments %>
-   <%= render "comments/form", type: "Goal", target_id: @goal.id %>
-</div>
+<%= render "comments/comments", target: @goal %>

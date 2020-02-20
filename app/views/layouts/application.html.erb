@@ -36,7 +36,7 @@
         <ul class="user-info">
           <% if is_logged_in? %>
           <li class="dash-upvotes">
-            <i class="fas fa-chevron-circle-up"></i>
+            <%= ApplicationHelper::UP_VOTE_ICONS["up"].html_safe %>
             <strong class="upvotes-left"><%= current_user.up_votes_left %></strong>
           </li>
           <li class="notifications-hover">

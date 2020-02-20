@@ -2,7 +2,7 @@
   <%= auth_token %>
   <input type="hidden" name="_method" value="patch">
   <input type="hidden" name="goal[status]" value="Complete">
-  <button type="submit">
+  <button type="submit" class="complete-goal">
     <%= ("<span class=\"control-text\">complete </span>" + 
       ApplicationHelper::ACTION_ICONS["complete"]).html_safe %>
   </button>

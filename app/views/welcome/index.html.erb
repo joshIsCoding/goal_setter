@@ -6,7 +6,10 @@
          Set a <%= link_to "new goal", new_user_goal_url(current_user) %>!
       </li>
       <li>
-         View all <%= link_to "your goals", user_url(current_user) %> and the goals you're supporting.
+         View all <%= link_to "your goals", user_url(current_user) %> and comments on your profile.
+      </li>
+      <li>
+         Keep an eye on the number of upvotes <%= ApplicationHelper::UP_VOTE_ICONS["up"].html_safe %> you have left to give out on the main toolbar.
       </li>
    </ul>
 </section>

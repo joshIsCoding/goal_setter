@@ -187,6 +187,13 @@ div.goal-show-controls input {
   width: 11rem;
 }
 
+ul.notices.success {
+  max-width: $max-width;
+  margin: 0 auto;
+  text-align: center;
+  color: $turquoise;
+}
+
 
 /*------------------------- Icon Colours --------------------*/
 article.index-goal .pink,

@@ -2,7 +2,14 @@
 <% curr_user_headings = ["Goal", "Status", "Public?", "Upvotes", "Created", "Details"] %>
 <% other_user_headings = ["Goal", "Status", "Upvotes", "Created", "Details"] %>
 <section class="user-header l-panel top">
-   <h1><%= is_current_user ? "Your" : @user.username + "'s Public" %> Goals</h1>
+   <% if is_current_user %>
+   <h1>Your Goals</h1>
+   <p>Add a new goal <%= link_to ApplicationHelper::ACTION_ICONS["new_goal"].
+         html_safe, new_user_goal_url(current_user), class: "new-goal" %></p>
+   <% else %>
+   <h1><%= @user.username %>'s Goals</h1>
+   <p><%= link_to "jump to comments", user_url(@user)+"#comments" %></p>
+   <% end %>
 </section>
 
 <%= render "shared/notices", notices: flash[:success], type: "success" %>

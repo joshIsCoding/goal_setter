@@ -174,14 +174,17 @@ article.user-show-goal .creation-time { margin-left: 2rem;}
 }
 
 div.goal-show-controls {
-  width: min-content;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
   margin: 1rem auto;
 }
 
 div.goal-show-controls input { 
   box-sizing: border-box;
-  margin-bottom: 1em;
-  width: 100%;
+  margin: 0.5em;
+  width: 11rem;
 }
 
 

@@ -88,6 +88,7 @@
 }
 
 .hamburger:hover .full-menu,
+.hamburger:focus .full-menu,
 .full-menu:hover {
    display: block;
 }
@@ -176,7 +177,9 @@
 }
 
 .user-hover:hover .user-menu, 
+.user-hover:focus .user-menu, 
 .notifications-hover:hover ~ .notification-menu, 
+.notifications-hover:focus ~ .notification-menu, 
 .notification-menu:hover {
    display: flex;
 }

@@ -1,5 +1,7 @@
 <form action="<%= up_votes_url %>" method="post" class="upvote">
    <%= auth_token %>
    <input type="hidden" name="up_vote[goal_id]" value ="<%= goal.id %>">
-   <input id="uv-<%=goal.id%>" type="submit" value="&#11014;">
+   <button id="uv-<%=goal.id%>" type="submit">
+      <%= ApplicationHelper::UP_VOTE_ICONS["up"].html_safe %>
+   </button>
 </form>

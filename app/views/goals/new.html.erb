@@ -1,3 +1,6 @@
-<h1>Set a new goal!</h1>
+<section class="new-goal l-panel top">
+  <h1>Set a New Goal!</h1>
+  <p>Add a new goal to your profile to track and share your progress. If you prefer, you can hide the goal from other users.</p>
+</section>
 <%= render "shared/notices", notices: flash[:errors], type: "errors" %>
 <%= render "goals/form", goal: @goal %>

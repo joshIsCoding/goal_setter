@@ -1,7 +1,13 @@
-section.all-notifications > ul > .notification {
+section.all-notifications {
   max-width: $max-width;
+  margin: 2.25rem auto;
+  padding: 0 0.6rem;
+}
+
+section.all-notifications > ul > .notification {
+  box-sizing: border-box;
+  width: 100%;
   padding: 1rem 1.75rem;
-  margin: 1rem auto;
   background-color: white;
   border-radius: 1.75em;
 }
@@ -30,4 +36,8 @@ section.all-notifications > ul > .notification.seen { background-color: $light-g
 section.all-notifications > ul > .notification:hover {
   background-color: $hover-grey;
   color: white;
+}
+
+@media all and (max-width: 360px) {
+  h1.notifications-index { font-size: 2.3rem;}
 }

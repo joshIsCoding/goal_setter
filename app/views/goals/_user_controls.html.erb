@@ -3,13 +3,15 @@
     <%= link_to ("<span class=\"control-text\">edit </span>" + 
         ApplicationHelper::ACTION_ICONS["edit"]
       ).html_safe, 
-      edit_goal_url(goal) %>
+      edit_goal_url(goal),
+      class: "edit-goal" %>
   </li>
   <li>
     <%= link_to ("<span class=\"control-text\">delete </span>" + 
       ApplicationHelper::ACTION_ICONS["delete"]).html_safe, 
       goal_url(goal), 
-      method: "delete" %>
+      method: "delete",
+      class: "delete-goal" %>
   </li>
   <% unless goal.status == "Complete" %>
   <li>

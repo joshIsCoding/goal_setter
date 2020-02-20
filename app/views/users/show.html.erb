@@ -1,83 +1,15 @@
 <% is_current_user = (current_user == @user) ? true : false %>
 <% curr_user_headings = ["Goal", "Status", "Public?", "Upvotes", "Created", "Details"] %>
 <% other_user_headings = ["Goal", "Status", "Upvotes", "Created", "Details"] %>
-<h2><%= is_current_user ? "Your" : @user.username + "'s" %> Goals</h2>
+<section class="user-header l-panel top">
+   <h1><%= is_current_user ? "Your" : @user.username + "'s Public" %> Goals</h1>
+</section>
 
 <%= render "shared/notices", notices: flash[:success], type: "success" %>
+<% goals = is_current_user ? @user.goals.with_up_votes_count.with_comments_count :
+   @user.goals.with_up_votes_count.with_comments_count.set_public %>
+<%= render  "goals/user_show_goals", 
+      goals: goals,
+      is_current_user: is_current_user %>
 
-<table id="goals_table">
-   <thead>
-      <tr>
-         <% (is_current_user ? curr_user_headings : other_user_headings)
-            .each do |heading| %>
-               <th <% if heading == "Upvotes" &&  !is_current_user %>
-                     <%= "colspan=\"2\"".html_safe %>
-                  <% end %>>
-                  <%= heading %>
-               </th>
-            <% end %>
-      </tr>
-   </thead>
-   <tbody>
-      <% @user.goals_with_up_votes.each do |goal| %>
-         
-         <% if is_current_user %>
-            <tr id="<%= "g-#{goal.id}" %>">
-               <td>
-                  <%= link_to goal.title, goal_url(goal) %>
-               </td>   
-               <td>
-                  <%= goal.status %>
-               </td>
-               <td>
-                  <%= "&#10004;".html_safe if goal.public %>
-               </td>
-               <td>
-                  <%= goal.up_vote_count %>
-               </td>
-               <td>
-                  <%= time_ago_in_words(goal.created_at) %> ago
-               </td>   
-               <td>
-                  <%= goal.details %>
-               </td>
-               <td>
-                  <%= button_to "Update", edit_goal_url(goal), method: "get" %>
-               </td>
-               <td>
-                  <%= button_to "Delete", goal_url(goal), method: "delete" %>
-               </td>
-            </tr>
-         <% elsif goal.public %>
-            <tr id="<%= "g-#{goal.id}" %>">
-               <td>
-                  <%= link_to goal.title, goal_url(goal) %>
-               </td>   
-               <td>
-                  <%= goal.status %>
-               </td>
-               <td>
-                  <%= goal.up_vote_count %>
-               </td>
-               <td>
-                  <% upvote = goal.get_up_vote(current_user) %>
-                  <% if upvote %>
-                     <%= render "up_votes/delete", goal: goal, upvote: upvote %>
-                  <% elsif current_user.has_up_votes_remaining? %>
-                     <%= render "up_votes/form", goal: goal %>
-                  <% end %>
-               </td>
-               <td>
-                  <%= time_ago_in_words(goal.created_at) %> ago
-               </td>   
-               <td>
-                  <%= goal.details %>
-               </td>
-            </tr>
-         <% end %>
-      <% end %>
-   </tbody>
-</table>
-
-<%= render "comments/comments", comments: @user.sorted_authored_comments %>
-<%= render "comments/form", type: "User", target_id: @user.id %>
+<%= render "comments/comments", target: @user %>

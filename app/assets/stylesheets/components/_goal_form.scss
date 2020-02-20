@@ -55,8 +55,13 @@ form.goal .public-tick input {
   margin-left: 1em;
 }
 
+form.goal ul.notices {
+   width: max-content;
+   margin: 0 auto;
+   color: $turquoise;
+}
 
-
+form.goal ul.notices.errors { color: $pink;}
 
 /* ---------------Categories and Statuses--------------*/
 form.goal .goal-status, form.goal ul.category-flex {

@@ -8,7 +8,8 @@ module ApplicationHelper
       "edit" => "<i aria-hidden=\"true\" class=\"fas fa-pen-square\" title=\"Edit\"></i><span class=\"sr-only\">Edit goal</span>",
       "delete" => "<i aria-hidden=\"true\" class=\"fas fa-minus-square\" title=\"Delete\"></i><span class=\"sr-only\">Delete goal</span>",
       "complete" => "<i aria-hidden=\"true\" class=\"fas fa-check-square\" title=\"Mark as complete\"></i><span class=\"sr-only\">Mark goal as complete</span>",
-      "trash" => "<i aria-hidden=\"true\" class=\"fas fa-trash-alt\" title=\"Delete comment\"></i><span class=\"sr-only\">Delete comment</span>"
+      "trash" => "<i aria-hidden=\"true\" class=\"fas fa-trash-alt\" title=\"Delete comment\"></i><span class=\"sr-only\">Delete comment</span>",
+      "new_goal" => "<i aria-hidden=\"true\" title=\"Add a New Goal\" class=\"fas fa-plus-circle\"></i>"
    }
    
    def auth_token

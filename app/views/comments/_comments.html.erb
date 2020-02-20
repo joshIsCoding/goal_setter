@@ -1,16 +1,22 @@
 <section class="comments" id="comments">
-   <% comments.each do |comment| %>
-   <article class="comment" id="<%= "c-#{comment.id}" %>">
+   <% target.sorted_authored_comments.each do |comment| %>
+   <article <%= comment.author_id == current_user.id ? "class=\"user comment\"".
+      html_safe : "class=comment" %> 
+      id="<%= "c-#{comment.id}" %>">
       <header>
          <h6><%= link_to comment.author_name, user_url(comment.author_id) %>
-          commented <%= time_ago_in_words(comment.created_at) %> ago</h6>
+            commented <%= time_ago_in_words(comment.created_at).sub("about","") %> ago</h6>
       </header>
       <p><%= comment.contents %></p>
-      <footer>
+      <aside>
          <% if comment.author_id == current_user.id %>
-            <%= button_to "&#128465;".html_safe, comment_url(comment), {method: :delete, form_class: "delete-comment"} %>
+            <%= link_to ApplicationHelper::ACTION_ICONS["trash"].html_safe,
+               comment_url(comment), 
+               method: :delete, 
+               class: "delete-comment" %>
          <% end %>
-      </footer>
+      </aside>
    </article>
    <% end %>
+   <%= render "comments/form", target: target %>
 </section>

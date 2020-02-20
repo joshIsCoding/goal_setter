@@ -1,0 +1,48 @@
+section.comments {
+  box-sizing: border-box;
+  max-width: calc(900px + 0.6rem);
+  margin: 1rem auto;
+  padding-left: 30%;
+  padding-right: 0.6rem;
+}
+
+form.comments { padding-left: 30%;}
+
+article.comment, form.comments textarea {
+  box-sizing: border-box;
+  background-color: $lightest-grey;
+  width: 100%;
+  border-radius: 1em;
+  padding: 0.5em 0.75em;
+  margin: 1em auto;
+
+  position: relative;
+}
+
+form.comments textarea { background-color: white; }
+form.comments { text-align: right; }
+
+article.comment p { width: 90%;}
+
+article.comment a.delete-comment { 
+  display: none;
+  position: absolute;
+  left: 93%;
+  bottom: 50%;
+  transform: translateY(50%);
+
+  font-size: 1.2em;
+}
+
+article.comment.user:hover { background-color: white; }
+article.comment.user:hover a.delete-comment { display: block; }
+
+article.comment header h6 {
+  font-size: 1rem;
+  font-family: $sans-serif;
+}
+
+@media all and (max-width: 430px) {
+  section.comments { padding-left: 0.6rem;}
+  form.comments { padding-left: 0;}
+}

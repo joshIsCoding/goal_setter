@@ -36,7 +36,7 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
   
     before(:each) { login(main_user) }
     it "should link to the notification index in the notification menu" do
-      find("li.notifications-hover").hover
+      find(".notifications-hover").hover
       click_on("View all notifications")
       expect(page).to have_current_path(notifications_path)
     end
@@ -54,8 +54,8 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
       before(:each) do
         login(other_user)
         visit(goal_path(goal))
-        find("form.upvote input[type=\"submit\"]").click
-        find("ul.user-info li.user-hover").hover
+        find("form.upvote button").click
+        find("ul.user-info .user-hover").hover
         click_on("Logout")
         login(main_user)
       end
@@ -63,21 +63,22 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
         expect(find("strong.notification-count")).to have_content("1")
       end
       it "shows the new notification in the dropdown menu" do
-        expect(find("li.notifications-hover").hover).
-        to have_content("other just upvoted your goal")
+        find(".notifications-hover").hover
+        expect(page).
+        to have_content("just upvoted your goal")
       end
       it "lets the user visit the record to which the notification refers" do
-        find("li.notifications-hover").hover
+        find("a.notifications-hover").hover
         click_on("other just upvoted your goal")
         expect(page).to have_current_path(goal_path(goal))
         expect(page).to have_content(goal.title)
       end
       it "after viewing, it marks the notification as seen and reduces the unseen count" do
-        find("li.notifications-hover").hover
+        find("a.notifications-hover").hover
         click_on("other just upvoted your goal")
         #strong.notification-count is empty when the notification count is 0; this
         #seems to cause issues for capybara, hence the use of the parent selector here
-        expect(find("li.notifications-hover")).not_to have_content("1")
+        expect(find("li.notifications")).not_to have_content("1")
       end
     end
   end
@@ -89,16 +90,17 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
       visit(edit_goal_path(goal))
       fill_in("goal[title]", with: "I've updated my goal!")
       click_on("Save!")
-      find("ul.user-info li.user-hover").hover
+      find("ul.user-info .user-hover").hover
       click_on("Logout")
       login(other_user)
     end
     it "shows the new notification in the dropdown menu" do
-      expect(find("li.notifications-hover").hover).
+      find(".notifications-hover").hover
+      expect(page).
       to have_content("main_user has updated their goal.")
     end
     it "lets the user visit the record to which the notification refers" do
-      find("li.notifications-hover").hover
+      find(".notifications-hover").hover
       click_on("main_user has updated their goal.")
       expect(page).to have_current_path(goal_path(goal))
       expect(page).to have_content("I've updated my goal!")
@@ -119,16 +121,17 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
         visit(goal_path(goal))
         fill_in("comment_contents", with: "second comment!")
         click_on("Comment")
-        find("ul.user-info li.user-hover").hover
+        find("ul.user-info .user-hover").hover
         click_on("Logout")
         login(other_user)
       end
       it "shows the new notification in the dropdown menu" do
-        expect(find("li.notifications-hover").hover).
+        find(".notifications-hover").hover
+        expect(page).
         to have_content("main_user commented after you.")
       end
       it "lets the user visit the record to which the notification refers" do
-        find("li.notifications-hover").hover
+        find(".notifications-hover").hover
         click_on("main_user commented after you.")
         expect(page).to have_current_path(goal_path(goal))
         expect(page).to have_content("second comment!")
@@ -153,11 +156,12 @@ RSpec.describe "Receiving, Viewing and Generating Notifications", type: :system 
         login(other_user)
       end
       it "shows the new notification in the dropdown menu" do
-        expect(find("li.notifications-hover").hover).
+        find(".notifications-hover").hover
+        expect(page).
         to have_content("main_user commented after you.")
       end
       it "lets the user visit the record to which the notification refers" do
-        find("li.notifications-hover").hover
+        find(".notifications-hover").hover
         click_on("main_user commented after you.")
         expect(page).to have_current_path(user_path(main_user))
         expect(page).to have_content("second comment!")

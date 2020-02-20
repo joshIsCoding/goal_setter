@@ -144,8 +144,8 @@ RSpec.describe "User Authentication", type: :system do
                categories: category,
                public: true)
             visit(user_path(other_user))
-            expect(page).not_to have_content("Smashing life")
-            expect(page).to have_content("Smashing pumpkins")
+            expect(page).not_to have_content("Private Goal")
+            expect(page).to have_content("Public Goal")
          end
 
          it "redirects to the home page if a user tries to re-register without logging out first" do
@@ -170,7 +170,7 @@ RSpec.describe "User Authentication", type: :system do
 
             it "should show all active sessions for the user" do
                expect(page).to have_text("Your Active Sessions")
-               within("table#sessions_table") do
+               within("table.sessions") do
                   expect(find_all("tr.remote_session").count).to eq(3)
                end
             end
@@ -178,11 +178,11 @@ RSpec.describe "User Authentication", type: :system do
             it "should allow the user to remotely logout of each session other than the current one" do
                find(".remote_session", match: :first)
                all(".remote_session").each do 
-                  click_on("End Session", match: :first)
+                  click_on("Delete Session", match: :first)
                   expect(page).to have_current_path(account_sessions_path(user))
                end
-               expect(find("table#sessions_table"))
-               .not_to have_button("End Session")
+               expect(find("table.sessions"))
+               .not_to have_button("Delete Session")
             end
          end
       end

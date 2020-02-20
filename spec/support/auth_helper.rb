@@ -2,7 +2,7 @@ module AuthHelper
 
   def register(username, pass_override = nil)
     visit register_path
-    within 'form.user-form' do
+    within 'form.user' do
       fill_in 'user_username', with: username 
       fill_in(
         'user_password', with: pass_override ? pass_override : "password"
@@ -13,7 +13,7 @@ module AuthHelper
   
   def login(user, pass_override = nil)
     visit login_path
-    within 'form.user-form' do
+    within 'form.user' do
       fill_in 'user_username', with: user.username 
       fill_in(
         'user_password', with: pass_override ? pass_override : user.password

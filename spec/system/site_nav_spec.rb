@@ -16,6 +16,7 @@ RSpec.describe "Using the Navigation Menu", type: :system do
       it "should not have a 'your profile' or manage account links" do
          visit(root_path)
          within("header.site-header-bar") do
+            expect(page).not_to have_selector("ul.user-info .user-hover")
             expect(find("nav")).to have_no_link(
                "Your Profile", 
                href: /#{user_path(main_user)}$/
@@ -43,9 +44,10 @@ RSpec.describe "Using the Navigation Menu", type: :system do
                "Your Profile", 
                href: /#{user_path(main_user)}$/
             )
-            expect(find("nav")).to have_link(
+            find("ul.user-info .user-hover").hover
+            expect(page).to have_link(
                "Manage Account", 
-               href: /#{account_sessions_path(main_user)}$/
+               href: /#{account_sessions_path}$/
             )
          end
       end

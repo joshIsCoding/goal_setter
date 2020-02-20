@@ -140,24 +140,24 @@ RSpec.describe User, type: :model do
       let!(:user_1_upvote_C) { UpVote.create!(goal: user_2_goal_C, user: user) }
       let!(:user_3_upvote_C) { UpVote.create!(goal: user_2_goal_C, user: user_3) }
 
-      describe "#goals_with_up_votes" do    
+      describe "#goals.with_up_votes_count" do    
         
         it "returns a sorted relation of the user's goals by creation time" do          
           user_goals = [user_goal_A, user_goal_B]
           user_2_goals = [user_2_goal_A, user_2_goal_B, user_2_goal_C]
-          expect(user.goals_with_up_votes).to match_array(user_goals)
-          expect(user_2.goals_with_up_votes).to match_array(user_2_goals)
+          expect(user.goals.with_up_votes_count).to match_array(user_goals)
+          expect(user_2.goals.with_up_votes_count).to match_array(user_2_goals)
         end
 
         it "returns goals with 'up_vote_count' properties" do
-          user_2.goals_with_up_votes.each_with_index do |goal, i|
-            expect(goal).to respond_to(:up_vote_count)
-            expect(goal.up_vote_count).to eq(i)
+          user_2.goals.with_up_votes_count.each_with_index do |goal, i|
+            expect(goal).to respond_to(:up_votes_count)
+            expect(goal.up_votes_count).to eq(2-i)
           end
         end
 
         it "doesn't raise an error when treated like an enumerable but user has no goals" do
-          expect{user_3.goals_with_up_votes.each}.not_to raise_error
+          expect{user_3.goals.with_up_votes_count.each}.not_to raise_error
         end
       end
 

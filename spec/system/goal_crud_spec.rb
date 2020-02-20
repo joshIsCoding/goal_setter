@@ -19,17 +19,11 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
    end
 
    describe "Goal Creation" do
-      it "lets a user create a new goal for themselves" do
-         visit(new_user_goal_path(main_user))
-         expect(page).to have_content("Set a new goal!")
-
-      end
-
-      it "Saves the goal and displays it on the user's profile" do
+         it "Let's a user create a goal and displays it on their profile" do
          visit(new_user_goal_path(main_user))
          fill_in("goal[title]", with: "Write more specs!")
          fill_in("goal[details]", with: "Use model and integration tests when creating your web apps.")
-         check("Relationships")
+         find('label', text: 'Relationships').set(true)
          click_on("Set!")
          expect(page).to have_content("Goal Set!")
          expect(page).to have_content(main_user.username)
@@ -40,7 +34,7 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
             visit(new_user_goal_path(other_user))
             fill_in("goal[title]", with: "Write more specs!")
             fill_in("goal[details]", with: "Use model and integration tests when creating your web apps.")
-            check("Work")
+            find('label', text: 'Work').set(true)
             click_on("Set!")
             expect(page).to have_current_path(user_path(main_user))
             expect(page).to have_content("Write more specs!")
@@ -130,9 +124,9 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
 
       it "allows the user to update their own goals from their page" do 
          visit(user_path(main_user))
-         click_on("Update")
-         expect(find("form.goal-form")).
-         to have_checked_field(main_users_goal.categories.first.name)
+         click_on("Edit goal")
+         expect(find("form.goal")).
+         to have_checked_field(main_users_goal.categories.first.name, visible: false)
          fill_in("goal[title]", with: "Updated Goal")
          click_on("Save!")
          expect(page).to have_content("Goal Updated!")
@@ -141,7 +135,7 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
 
       it "allows the user to update their own goals from the goal page" do 
          visit(goal_path(main_users_goal))
-         click_on("Update")
+         click_on("Update Goal")
          fill_in("goal[title]", with: "Updated Goal")
          click_on("Save!")
          expect(page).to have_content("Goal Updated!")
@@ -151,25 +145,25 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
 
       it "doesn't allow users to edit other users' goals from the users' pages" do
          visit(user_path(other_user))
-         expect(page).not_to have_button("Update")
+         expect(page).not_to have_selector("Update Goal")
       end
 
 
       it "doesn't allow users to edit other users' goals from the goal pages" do
          visit(goal_path(other_users_goal))
-         expect(page).not_to have_button("Update Goal")
+         expect(page).not_to have_selector("Update Goal")
       end
 
       it "doesn't allow users to edit other users' goals with the direct, edit-goal url" do
          visit(edit_goal_path(other_users_goal))
          expect(page).not_to have_current_path(edit_goal_path(other_users_goal))
-         expect(page).not_to have_button("Update Goal")
+         expect(page).not_to have_button("Save!")
       end
 
    end
 
    describe "Goal Deletion" do
-      let!(:main_users_goal) { Goal.create!(title: "New Goal", details: "Smashing life", user_id: main_user.id, public: true)}
+      let!(:main_users_goal) { Goal.create!(title: "Main New Goal", details: "Smashing life", user_id: main_user.id, public: true)}
       let!(:other_users_goal) { Goal.create!(title: "Other Goal", details: "Smashing pumpkins", user_id: other_user.id, public: true)}
       
       it "allows a user to delete their own goal from the goal page" do
@@ -182,7 +176,7 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
 
       it "also allows a user to delete goals from their own page" do
          visit(user_path(main_user))
-         click_on("Delete")
+         click_on("Delete goal")
          expect(page).to have_current_path(user_path(main_user))
          expect(page).to have_content("Goal Deleted")
          expect(page).not_to have_content(main_users_goal.title)
@@ -196,7 +190,7 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
       it "doesn't allow a user to delete another user's goal from the user's page" do
          visit(user_path(other_user))
          expect(page).to have_content(other_users_goal.title)
-         expect(page).not_to have_button("Delete")
+         expect(page).not_to have_selector("a.delete-goal")
       end
    end
 

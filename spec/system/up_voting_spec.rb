@@ -39,58 +39,56 @@ RSpec.describe "Up and Down Voting Goals", type: :system do
       end
       
       it "let's a user add an upvote to any of the listed goals" do
-         within("table#goals_table") do
-            expect(find("tr#g-#{goals.last.id}")).to have_button("uv-#{goals.last.id}")
+         within("section.user-show-goals") do
+            expect(find("aside.up-vote-widget", match: :first)).to have_button("uv-#{bonus_goal.id}")
             # total upvotes for the target goal should be zero
-            expect(find("tr#g-#{goals.last.id}")).to have_text("0")
-            find("tr#g-#{goals.last.id}").click_on("uv-#{goals.last.id}")
-            expect(find("tr#g-#{goals.last.id}")).to have_text("1")
+            expect(find("aside.up-vote-widget", match: :first)).to have_text("0")
+            find("aside.up-vote-widget", match: :first).click_on("uv-#{bonus_goal.id}")
+            expect(find("aside.up-vote-widget", match: :first)).to have_text("1")
             # total upvotes for the target goal should now be one
          end
       end
 
       it "shows the user how many upvotes they have remaining" do
-         expect(find("li.dash-upvotes")).to have_text("#{UpVote::UP_VOTE_LIMIT}")
+         expect(find("strong.upvotes-left")).to have_text("#{UpVote::UP_VOTE_LIMIT}")
       end
 
       it "allows the user to downvote a prior upvote to recoup a new potential upvote" do
-         expect(find("li.dash-upvotes")).to have_text("#{UpVote::UP_VOTE_LIMIT}")
+         expect(find("strong.upvotes-left")).to have_text("#{UpVote::UP_VOTE_LIMIT}")
          
-         within("table#goals_table") do
+         within("section.user-show-goals") do
             # click up vote
-            find("tr#g-#{goals.first.id}").click_on("uv-#{goals.first.id}")
-            expect(find("tr#g-#{goals.first.id}")).to have_text("1")
+            find("aside.up-vote-widget", match: :first).click_on("uv-#{bonus_goal.id}")
+            expect(find("aside.up-vote-widget", match: :first)).to have_text("1")
          end
 
-         expect(find("li.dash-upvotes")).to have_text("#{UpVote::UP_VOTE_LIMIT-1}")
+         expect(find("strong.upvotes-left")).to have_text("#{UpVote::UP_VOTE_LIMIT-1}")
          
-         within("table#goals_table") do
+         within("section.user-show-goals") do
             # click down vote
-            find("tr#g-#{goals.first.id}").click_on("dv-#{goals.first.id}")
-            expect(find("tr#g-#{goals.first.id}")).to have_text("0")
+            find("aside.up-vote-widget", match: :first).click_on("dv-#{bonus_goal.id}")
+            expect(find("aside.up-vote-widget", match: :first)).to have_text("0")
          end
          
-         expect(find("li.dash-upvotes")).to have_text("#{UpVote::UP_VOTE_LIMIT}")
+         expect(find("strong.upvotes-left")).to have_text("#{UpVote::UP_VOTE_LIMIT}")
       end
 
       it "does not allow a user to upvote any single goal more than once" do
-         within("table#goals_table") do
-            goals.each do |goal|
-               find("tr#g-#{goal.id}").click_on("uv-#{goal.id}")
-               # no upvote button after goal upvoted
-               expect(find("tr#g-#{goal.id}")).not_to have_button("uv-#{goal.id}")
-            end
+         within("section.user-show-goals") do
+            find("aside.up-vote-widget", match: :first).click_on("uv-#{bonus_goal.id}")
+            # no upvote button after goal upvoted
+            expect(find("aside.up-vote-widget", match: :first)).not_to have_button("uv-#{bonus_goal.id}")
          end
       end
 
       it "does not allow a user to upvote more than their allotted number of upvotes" do
-         within("table#goals_table") do
-            expect(find("tr#g-#{bonus_goal.id}")).to have_button("uv-#{bonus_goal.id}")
+         within("section.user-show-goals") do
+            expect(find("aside.up-vote-widget", match: :first)).to have_button("uv-#{bonus_goal.id}")
             goals.each do |goal|
-               find("tr#g-#{goal.id}").click_on("uv-#{goal.id}")
+               click_on("uv-#{goal.id}")
             end
             # upvote button for last goal should dissappear after user's upvotes used up
-            expect(find("tr#g-#{bonus_goal.id}")).not_to have_button("uv-#{bonus_goal.id}")
+            expect(find("aside.up-vote-widget", match: :first)).not_to have_button("uv-#{bonus_goal.id}")
          end
       end
 
@@ -102,22 +100,22 @@ RSpec.describe "Up and Down Voting Goals", type: :system do
       end
       it "lets a user upvote the goal" do
          expect(page).to have_button("uv-#{token_goal.id}")
-         within("table") { click_on("uv-#{token_goal.id}") }
-         expect(find("li.dash-upvotes")).to have_text("#{UpVote::UP_VOTE_LIMIT - 1}")
+         click_on("uv-#{token_goal.id}")
+         expect(find("strong.upvotes-left")).to have_text("#{UpVote::UP_VOTE_LIMIT - 1}")
       end
 
       it "does not let the user upvote the goal more than once" do
-         within("table") { click_on("uv-#{token_goal.id}") }
+         click_on("uv-#{token_goal.id}")
          expect(page).not_to have_button("uv-#{token_goal.id}")
       end
 
       it "allows the user to downvote their upvote, recouperating that upvote" do
          #click upvote
-         within("table") { click_on("uv-#{token_goal.id}") }
-         expect(find("li.dash-upvotes")).to have_text("#{UpVote::UP_VOTE_LIMIT - 1}")
+         click_on("uv-#{token_goal.id}")
+         expect(find("strong.upvotes-left")).to have_text("#{UpVote::UP_VOTE_LIMIT - 1}")
          #click downvote
-         within("table") { click_on("dv-#{token_goal.id}") }
-         expect(find("li.dash-upvotes")).to have_text("#{UpVote::UP_VOTE_LIMIT}")
+         click_on("dv-#{token_goal.id}")
+         expect(find("strong.upvotes-left")).to have_text("#{UpVote::UP_VOTE_LIMIT}")
          
       end
 

@@ -3,7 +3,7 @@
 <p>Browse by Username:</p>
 <ul class="letter-links">
    <% letters = ("a".."z").to_a.select do |char| 
-         !@users.where("username LIKE ?", "#{char}%").empty?
+         !@users.where("LOWER(username) LIKE ?", "#{char}%").empty?
       end %>
    <% letters.each do |letter| %>
       <li>
@@ -17,7 +17,7 @@
    <h3 class="index-letter"><%= letter.upcase %></h3>
    <%= link_to "Back to Top", "#", class: "back-to-top" %>
    <ol class="user-list">
-   <% @users.where("username LIKE ?", "#{letter}%").each do |user| %>
+   <% @users.where("LOWER(username) LIKE ?", "#{letter}%").each do |user| %>
       <li>
          <a class="container-link" href="<%= user_url(user) %>">
          <ol class="user-record">

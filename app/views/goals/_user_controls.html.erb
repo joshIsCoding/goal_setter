@@ -1,0 +1,19 @@
+<ul class="goal-controls">
+  <li>
+    <%= link_to ("<span class=\"control-text\">edit </span>" + 
+        ApplicationHelper::ACTION_ICONS["edit"]
+      ).html_safe, 
+      edit_goal_url(goal) %>
+  </li>
+  <li>
+    <%= link_to ("<span class=\"control-text\">delete </span>" + 
+      ApplicationHelper::ACTION_ICONS["delete"]).html_safe, 
+      goal_url(goal), 
+      method: "delete" %>
+  </li>
+  <% unless goal.status == "Complete" %>
+  <li>
+    <%= render "goals/complete_button", goal: goal %>
+  </li>
+  <% end %>
+</ul>

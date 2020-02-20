@@ -79,7 +79,9 @@
                   <%= link_to goal.user.username, user_url(goal.user) %>
                </td>
                <td><%= goal.up_votes_count %></td>
-               <td><%= goal.status %></td>
+               <td><%= GoalsHelper::STATUS_ICONS[goal.status.downcase.gsub(" ", "-")].
+               html_safe + "<span class=\"sr-only\">#{goal.status}</span>".
+               html_safe %></td>
             </tr>
             <% end %>
          </tbody>

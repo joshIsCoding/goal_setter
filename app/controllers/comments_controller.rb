@@ -6,10 +6,13 @@ class CommentsController < ApplicationController
          :commentable_type, 
          :commentable_id))
       @comment.author = current_user
-
-      flash[:errors] = @comment.errors.full_messages unless @comment.save         
-      redirect_to anchored_redirect_url(comment_params[:commentable_type], 
-         comment_params[:commentable_id])
+      if@comment.save   
+         redirect_to anchored_redirect_url(@comment)
+      else
+         flash[:errors] = @comment.errors.full_messages
+         redirect_back(fallback_location: root_url) 
+      end   
+      
    end
 
    def destroy
@@ -24,9 +27,12 @@ class CommentsController < ApplicationController
       params.require(:comment)
    end
 
-   def anchored_redirect_url(target_class, target_id)
-      return goal_url(target_id, anchor: "c-#{@target_id}") if target_class == "Goal"
-      user_url(target_id, anchor: "c-#{@target_id}")
+   def anchored_redirect_url(new_comment)
+      if new_comment.commentable_type == "Goal"
+         return goal_url(new_comment.commentable, anchor: "c-#{new_comment.id}")
+      elsif new_comment.commentable_type == "User"
+         return user_url(new_comment.commentable, anchor: "c-#{new_comment.id}")
+      end
    end
 
 end

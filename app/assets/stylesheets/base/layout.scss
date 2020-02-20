@@ -46,6 +46,7 @@ main > h1, main > h2, main > h3, main > h4, main > h5 {
 
 h1 {
    font-size: 2.75rem;
+   line-height: 1.25;
 }
 
 h3 {
@@ -57,11 +58,11 @@ h4 {
    line-height: inherit;
 }
 
-p {
+p.main {
    padding: 0 1rem;
    max-width: $max-width;
    margin: 0 auto;
-}
+} 
 
 main > h1 { margin-top: 5.75rem; }
 
@@ -129,11 +130,11 @@ main > h1 { margin-top: 5.75rem; }
 
 /*-------------------LINKS, FORMS and BUTTONS----------------- */
 
-a {
+a:not(.container-link) {
    font-weight: 700;
 }
 
-a:hover {
+a:hover:not(.container-link) {
    color: $hover-grey;
    transition: color .5s;
 }
@@ -141,7 +142,7 @@ a:hover {
 input[type="submit"], 
 input[type="text"],
 input[type="password"],
-textarea {
+textarea, fieldset {
    border-radius: 0.55rem;
 }
 
@@ -252,5 +253,5 @@ td {
 }
 
 @media all and (max-width: 505px) {
-   .l-panel > * { margin: 1rem 1.5rem; }
+   .l-panel > *, .r-panel > * { margin: 1rem 1.5rem; }
 }

@@ -1,9 +1,11 @@
 .site-header-bar {
+   box-sizing: border-box;
    width: 100%;
-   min-width: calc(320px - 1.2rem);
+   min-width: 320px;
+   min-height: 3.2rem;
    position: fixed;
    top: 0;
-   z-index: 1;
+   z-index: 2;
 
    opacity: 0.9;
    background-color: white;
@@ -68,19 +70,21 @@
 }
 
 .user-info > li:not(.notifications) {
-   padding: 0.75em 0 0.75em 2em;
+   padding: 0.75rem 1em 0.75rem 1em;
 }
 
-.notifications-hover { padding: 0.76em 0 0.76em 2em}
+.notifications-hover { padding: 0.8rem 1em 1rem 1em}
 
 .user-info > li:first-of-type {
    padding-left: 0.75em;
 }
 
+.user-info > li.user-hover { padding-right: 0; }
+
 .hamburger {
    display: none;
    fill: $font-grey;
-   z-index: 2;
+   z-index: 3;
 }
 
 .hamburger:hover .full-menu,
@@ -197,21 +201,30 @@
    }
 
    .hamburger {
+      box-sizing: border-box;
+      min-height: 3.2rem;
       display: block;
       position: relative;
       right: 0;
-      padding: 0.6em 0 0.3em 1.25em;
+      padding: 0.6em 0 0.6rem 1.25em;
    }
 
    .user-menu, .full-menu, .notification-menu {
       width: 90vw;
-      font-size: 1.5rem;
-      top: 2em;
+      overflow-y: auto;
+      top: 3.55rem;
+   }
+
+   .user-menu, .full-menu {
+      font-size: 1.3rem;
    }
 
    .notification-menu {
-      right: -3.75em;
+      right: -4.5rem;
+      font-size: 1rem;
    }
+
+   .full-menu { top: 3.45rem;}
 
 
 }

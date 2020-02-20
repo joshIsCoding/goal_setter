@@ -67,9 +67,11 @@
    padding: 0.75em 1.25em;
 }
 
-.user-info > li {
+.user-info > li:not(.notifications) {
    padding: 0.75em 0 0.75em 2em;
 }
+
+.notifications-hover { padding: 0.76em 0 0.76em 2em}
 
 .user-info > li:first-of-type {
    padding-left: 0.75em;
@@ -82,11 +84,11 @@
 }
 
 .hamburger:hover .full-menu,
-.hamburger:focus .full-menu {
+.full-menu:hover {
       display: block;
 }
 
-.user-hover, .notifications-hover {
+.user-hover, .notifications {
    position: relative;
 }
 
@@ -169,7 +171,9 @@
    display: none;
 }
 
-.user-hover:hover .user-menu, .notifications-hover:hover .notification-menu {
+.user-hover:hover .user-menu, 
+.notifications-hover:hover ~ .notification-menu, 
+.notification-menu:hover {
    display: flex;
 }
 

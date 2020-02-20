@@ -39,8 +39,10 @@
             <%= ApplicationHelper::UP_VOTE_ICONS["up"].html_safe %>
             <strong class="upvotes-left"><%= current_user.up_votes_left %></strong>
           </li>
-          <li class="notifications-hover">
-            <i class="fas fa-bell notification-icon"></i>
+          <li class="notifications">
+            <a href="#" class="notifications-hover">
+              <i class="fas fa-bell notification-icon"></i>
+            </a>
             <% if notification_count %><!--
          --><strong class="notification-count"><!--
          --><%= notification_count %></strong><!--
@@ -48,6 +50,7 @@
          --><%= render "notifications/menu" if current_user.notifications %>
           </li>
           <li class="user-hover">
+            
             <%= link_to current_user.username, user_url(current_user) %>
             <ul class="user-menu">
               <li class="menu-upvotes">

@@ -1,7 +1,8 @@
-<h2>Your Active Sessions</h2>
+<h1>Your Active Sessions</h1>
+<p class="main">Manage your current, active user sessions for the Resolute app across all devices, locations and browsers.</p>
 
-<caption>Manage your current, active user sessions for the Resolute app across all devices, locations and browsers.</caption>
-<table id="sessions_table">
+<table class="sessions">
+   <caption>Track and remove unfamiliar or unrequired login sessions.</caption>
    <thead>
       <% headings = ["Browser", "Device", "IP Address", "Location", "Launched"] %>
       <% headings.each_with_index do |heading, i| %>
@@ -31,9 +32,13 @@
          </td>
          <% else %>
          <td>
-            <%= button_to "End Session", session_url(session), method: :delete %>
+            <%= link_to ("<i class=\"fas fa-minus-circle\" aria-hidden=\"true\" title=\"Delete Session\"></i>" +
+            "<span class=\"sr-only\">Delete Session</span>").html_safe, 
+            session_url(session), 
+            method: :delete %>
          </td>
          <% end %>
       </tr>
       <% end %>
    </tbody>
+</table>

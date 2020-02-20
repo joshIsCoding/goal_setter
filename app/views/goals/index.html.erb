@@ -14,7 +14,7 @@
 
 <section class="other-goals">
   <% @goals.each do |goal| %>
-    <%= render "other_user_goal", 
+    <%= render "index_goal", 
     goal: goal, 
     index_goal: true,
     up_votes_count: goal.up_votes_count %>

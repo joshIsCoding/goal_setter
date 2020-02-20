@@ -2,14 +2,22 @@
 <form 
    action="<%= mode == :new_user ? users_url : sessions_url %>" 
    method="post"
-   class="user-form"
+   class="user"
    >
    <%= auth_token %>
    <label for="user_username">Username:
-      <input id="user_username" type="text" name="user[username]">
+      <input 
+      id="user_username" 
+      type="text" 
+      name="user[username]"
+      <%= "placeholder=goal_champ" if mode == :new_user %>>
    </label>
    <label for="user_password">Password:
-      <input id="user_password" type="password" name="user[password]">
+      <input 
+      id="user_password" 
+      type="password" 
+      name="user[password]"
+      <%= "placeholder=forgetMeNot568" if mode == :new_user %>>
    </label>
    <input type="submit" value="<%= mode == :new_user ? "Sign Up!" : "Sign In" %>">
 </form>

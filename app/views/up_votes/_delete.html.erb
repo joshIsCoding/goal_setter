@@ -1,5 +1,7 @@
-<%= button_to("&#11015;".html_safe,
-   up_vote_url(upvote),
-   method: :delete,
-   id: "dv-#{goal.id}")
-%>
+<form action="<%= up_vote_url(upvote) %>" method="post" class="upvote">
+   <%= auth_token %>
+   <input type="hidden" name="_method" value ="delete">
+   <button id="dv-<%=goal.id%>" type="submit">
+      <%= ApplicationHelper::UP_VOTE_ICONS["down"].html_safe %>
+   </button>
+</form>

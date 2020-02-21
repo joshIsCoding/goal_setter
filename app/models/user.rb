@@ -38,12 +38,12 @@ class User < ApplicationRecord
    )
 
    scope :with_goals_count, -> do
-      select("users.*, COUNT(goals.id) AS \"goals_count\"")
+      select("users.*, COUNT(DISTINCT goals.id) AS \"goals_count\"")
       .left_outer_joins(:goals)
       .group(:id)
    end
    scope :with_upvotes_count, -> do
-      select("users.*, COUNT(up_votes.id) AS \"upvotes_count\"")
+      select("users.*, COUNT(DISTINCT up_votes.id) AS \"upvotes_count\"")
       .left_outer_joins(:received_up_votes)
       .group(:id)
    end
@@ -115,12 +115,6 @@ class User < ApplicationRecord
 
    def has_up_votes_remaining?
       self.up_votes_left > 0
-   end
-
-   def goals_with_up_votes
-      self.goals.select("goals.*, COUNT(up_votes.id) AS up_vote_count")
-      .left_outer_joins(:up_votes)
-      .group("goals.id")
    end
 
    private

@@ -12,12 +12,13 @@ class Goal < ApplicationRecord
 
    scope :set_public, -> { where(public: true) }
    scope :with_up_votes_count, -> do
-      select("goals.*, COUNT(up_votes.id) AS \"up_votes_count\"")
+      select("goals.*, COUNT(DISTINCT up_votes.id) AS \"up_votes_count\"")
       .left_outer_joins(:up_votes)
+      .left_outer_joins(:comments)
       .group(:id)
    end
    scope :with_comments_count, -> do
-      select("goals.*, COUNT(comments.id) AS \"comments_count\"")
+      select("goals.*, COUNT(DISTINCT comments.id) AS \"comments_count\"")
       .left_outer_joins(:comments)
       .group(:id)
    end

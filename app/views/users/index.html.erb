@@ -23,8 +23,9 @@
          <ol class="user-record">
             <li><strong><%= user.username %></strong></li>
             <li>has <data value="<%= user.goals_count %>"><%= user.goals_count %>
-            </data> goals,</li>
-            <li><data value="<%= user.upvotes_count %>"><%= user.upvotes_count %></data> total upvotes</li>
+            </data> goal<%= "s" unless user.goals_count == 1 %>,</li>
+            <li><data value="<%= user.upvotes_count %>"><%= user.upvotes_count %>
+            </data> total upvote<%= "s" unless user.upvotes_count == 1 %></li>
             <li>and joined <time datetime="<%= 
             user.created_at.strftime("%Y-%m-%dT%H:%M") %>"%><!--
             --><%= user.created_at.strftime("%B %Y") %></time></li>

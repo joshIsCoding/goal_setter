@@ -4,11 +4,20 @@ table.sessions caption {
    caption-side: bottom;
 }
 
+figure.sessions-table { 
+   padding: 0 0.6rem;
+   overflow-x: auto;
+}
+
 table.sessions i {
    color: $pink;
    font-size: 1.5em;
    vertical-align: middle;
    line-height: 0;
+}
+
+@media all and (max-width: $max-width) {
+   table.sessions { max-width: calc(900px - 1.2rem); }
 }
 
 

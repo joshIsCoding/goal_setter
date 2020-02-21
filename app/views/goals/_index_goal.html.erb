@@ -16,22 +16,7 @@
       <% end %>
     <% end %>
   </ul>
-   <aside class="up-vote-widget">
-        <% if is_logged_in? && goal.user != current_user %>
-          <% upvote = goal.get_up_vote(current_user) %>
-          <% if upvote %>
-              <%= render "up_votes/delete", goal: goal, upvote: upvote %>
-          <% elsif current_user.has_up_votes_remaining? %>
-              <%= render "up_votes/form", goal: goal %>
-          <% end %>
-        <% else %>
-          <div class="dummy_up_vote"><%= ApplicationHelper::UP_VOTE_ICONS["up"].
-            html_safe %>
-          </div>
-        <% end %>
-        <data class="up-vote-count" value="<%= up_votes_count %>"><%= up_votes_count %>
-        </data>
-      </aside>
+   <%= render "up_votes/up_votes_widget", goal: goal, up_votes_count: up_votes_count %>
   
    <h4 class="goal-title"><%= link_to goal.title, goal_url(goal) %></h4>
     <a class="container-link" href="<%= goal_url(goal) %>">

@@ -1,44 +1,46 @@
 <h1>Your Active Sessions</h1>
 <p class="main">Manage your current, active user sessions for the Resolute app across all devices, locations and browsers.</p>
 
-<table class="sessions">
-   <caption>Track and remove unfamiliar or unrequired login sessions.</caption>
-   <thead>
-      <% headings = ["Browser", "Device", "IP Address", "Location", "Launched"] %>
-      <% headings.each_with_index do |heading, i| %>
-      <th <%= "colspan=2" if i == headings.length-1 %>><%= heading %></th>
-      <% end %>
-   </thead>
-   <tbody>
-      <% current_user.sessions.each do |session| %>
-      <tr class="<%= session == current_session ? "this_session" : "remote_session" %>">
-         <td>
-            <%= session.browser %>
-         </td>
-         <td>
-            <%= session.device %>
-         </td>
-         <td>
-            <%= session.remote_ip %>
-         </td>
-         <td>
-            <%= session.city ? session.city : "Unknown" %>
-         </td>
-         <td>
-            <%= time_ago_in_words(session.created_at) %> ago
-         </td>
-         <% if current_session == session %>
-         <td>
-         </td>
-         <% else %>
-         <td>
-            <%= link_to ("<i class=\"fas fa-minus-circle\" aria-hidden=\"true\" title=\"Delete Session\"></i>" +
-            "<span class=\"sr-only\">Delete Session</span>").html_safe, 
-            session_url(session), 
-            method: :delete %>
-         </td>
+<figure class="sessions-table">
+   <table class="sessions">
+      <caption>Track and remove unfamiliar or unrequired login sessions.</caption>
+      <thead>
+         <% headings = ["Browser", "Device", "IP Address", "Location", "Launched"] %>
+         <% headings.each_with_index do |heading, i| %>
+         <th <%= "colspan=2" if i == headings.length-1 %>><%= heading %></th>
          <% end %>
-      </tr>
-      <% end %>
-   </tbody>
-</table>
+      </thead>
+      <tbody>
+         <% current_user.sessions.each do |session| %>
+         <tr class="<%= session == current_session ? "this_session" : "remote_session" %>">
+            <td>
+               <%= session.browser %>
+            </td>
+            <td>
+               <%= session.device %>
+            </td>
+            <td>
+               <%= session.remote_ip %>
+            </td>
+            <td>
+               <%= session.city ? session.city : "Unknown" %>
+            </td>
+            <td>
+               <%= time_ago_in_words(session.created_at) %> ago
+            </td>
+            <% if current_session == session %>
+            <td>
+            </td>
+            <% else %>
+            <td>
+               <%= link_to ("<i class=\"fas fa-minus-circle\" aria-hidden=\"true\" title=\"Delete Session\"></i>" +
+               "<span class=\"sr-only\">Delete Session</span>").html_safe, 
+               session_url(session), 
+               method: :delete %>
+            </td>
+            <% end %>
+         </tr>
+         <% end %>
+      </tbody>
+   </table>
+</figure>

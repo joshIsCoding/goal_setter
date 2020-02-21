@@ -1,0 +1,23 @@
+<% up_votes_count ||= goal.up_votes_count %>
+<aside class="up-vote-widget">
+  <% if is_logged_in? %>
+    <% upvote = goal.get_up_vote(current_user) %>
+    <% if upvote %>
+        <%= render "up_votes/delete", goal: goal, upvote: upvote %>
+    <% elsif  goal.user != current_user && current_user.
+          has_up_votes_remaining? %>
+        <%= render "up_votes/form", goal: goal %>
+    <% else %>
+        <div class="dummy_up_vote">
+        <%= ApplicationHelper::UP_VOTE_ICONS["up"].html_safe %>
+        </div>
+    <% end %>
+  <% else %>
+    <div class="dummy_up_vote"><%= ApplicationHelper::UP_VOTE_ICONS["up"].
+      html_safe %>
+    </div>
+  <% end %>
+  <data class="up-vote-count" value="<%= up_votes_count %>">
+    <%= up_votes_count %>
+  </data>
+</aside>

@@ -4,22 +4,7 @@
   <% goals.incomplete.each do |goal| %>
   <li>
     <article class="user-show-goal">
-      <aside class="up-vote-widget">
-          <% if is_logged_in? && goal.user != current_user %>
-            <% upvote = goal.get_up_vote(current_user) %>
-            <% if upvote %>
-                <%= render "up_votes/delete", goal: goal, upvote: upvote %>
-            <% elsif current_user.has_up_votes_remaining? %>
-                <%= render "up_votes/form", goal: goal %>
-            <% end %>
-          <% else %>
-            <div class="dummy_up_vote"><%= ApplicationHelper::UP_VOTE_ICONS["up"].
-              html_safe %>
-            </div>
-          <% end %>
-          <data class="up-vote-count" value="<%= goal.up_votes_count %>"><%= goal.up_votes_count %>
-          </data>
-        </aside>
+      <%= render "up_votes/up_votes_widget", goal: goal %>
       <header>
       <p class="goal-status">
         <%= (GoalsHelper::STATUS_ICONS[goal.status.downcase.gsub(" ", "-")] + 
@@ -58,28 +43,16 @@
   </li>
   <% end %>
   </ul>
+  <% if goals.incomplete.empty? %>
+  <h5 class="no-goals">No active goals.</h5>
+  <% end %>
 
   <h3 class="show-goals-heading">Completed Goals</h3>
   <ul class="completed-goals">
 <% goals.complete.each do |goal| %>
     <li>
       <article class="user-show-goal completed">
-      <aside class="up-vote-widget">
-          <% if is_logged_in? && goal.user != current_user %>
-            <% upvote = goal.get_up_vote(current_user) %>
-            <% if upvote %>
-                <%= render "up_votes/delete", goal: goal, upvote: upvote %>
-            <% elsif current_user.has_up_votes_remaining? %>
-                <%= render "up_votes/form", goal: goal %>
-            <% end %>
-          <% else %>
-            <div class="dummy_up_vote"><%= ApplicationHelper::UP_VOTE_ICONS["up"].
-              html_safe %>
-            </div>
-          <% end %>
-          <data class="up-vote-count" value="<%= goal.up_votes_count %>"><%= goal.up_votes_count %>
-          </data>
-        </aside>
+      <%= render "up_votes/up_votes_widget", goal: goal %>
       <header>
       <p class="goal-status">
         <%= (GoalsHelper::STATUS_ICONS[goal.status.downcase.gsub(" ", "-")] + 
@@ -118,5 +91,8 @@
     </li>
     <% end %>
   </ul>
+  <% if goals.complete.empty? %>
+  <h5 class="no-goals">No completed goals.</h5>
+  <% end %>
   
 </section>

@@ -16,6 +16,8 @@ section.user-show-goals {
   background-color: $font-grey;
 }
 
+section.other-goals { padding: 0 0.6rem; }
+
 ul.active-goals, ul.completed-goals {
   display: flex;
   justify-content: center;
@@ -194,6 +196,11 @@ ul.notices.success {
   color: $turquoise;
 }
 
+
+h5.no-goals {
+  color: white;
+  text-align: center;
+}
 
 /*------------------------- Icon Colours --------------------*/
 article.index-goal .pink,

@@ -14,10 +14,8 @@ section.leaderboard > * {
 }
 
 section.leaderboard > figure{
-   width: 45%;
+   width: calc(50% - 0.75rem - 0.45rem);
    display: inline-block;
-   padding-left: 0.3rem;
-   padding-right: 0.3rem;
    
 }
 
@@ -84,6 +82,7 @@ section.leaderbaord table tr:last-of-type td {
    section.leaderboard > figure {
       padding-left: 0;
       padding-right: 0;
+      width: min-content;
    }
 
    section.leaderboard .mobile-hide { display: none; }

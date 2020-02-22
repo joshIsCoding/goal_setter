@@ -1,5 +1,5 @@
 <section class="comments" id="comments">
-   <% target.sorted_authored_comments.each do |comment| %>
+   <% target.authored_comments.each do |comment| %>
    <article <%= comment.author_id == current_user.id ? "class=\"user comment\"".
       html_safe : "class=comment" %> 
       id="<%= "c-#{comment.id}" %>">

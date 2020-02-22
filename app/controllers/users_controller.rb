@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-   skip_before_action :ensure_login, except: [:show, :index]
+   skip_before_action :ensure_login, except: [:show]
    before_action :already_logged_in, only: [:create, :new]
    
    def new

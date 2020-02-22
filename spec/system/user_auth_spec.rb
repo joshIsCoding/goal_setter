@@ -48,12 +48,13 @@ RSpec.describe "User Authentication", type: :system do
             expect(page).to have_content("Please login to view this page")
          end
 
-         it "asks the user to login if they try to access the users index" do
+         it "doesn't ask the user to login if they try to access the users index" do
             within("header.site-header-bar nav") do
                click_on("Browse Users")
             end
-            expect(page).to have_current_path(login_path)
-            expect(page).to have_content("Please login to view this page")
+            expect(page).to have_current_path(users_path)
+            expect(page).to have_content(user.username)
+            expect(page).to have_content(other_user.username)
             
          end
       end

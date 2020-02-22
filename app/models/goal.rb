@@ -10,6 +10,8 @@ class Goal < ApplicationRecord
    validates :title, uniqueness: { scope: :user_id },  presence: true
    validates :status, inclusion: { in: STATUSES }
 
+   default_scope { order("created_at DESC")}
+
    scope :set_public, -> { where(public: true) }
    scope :with_up_votes_count, -> do
       select("goals.*, COUNT(DISTINCT up_votes.id) AS \"up_votes_count\"")

@@ -37,6 +37,7 @@ class Goal < ApplicationRecord
    def self.leaderboard
       self.all.set_public
       .with_up_votes_count
+      .unscope(:order)
       .order(up_votes_count: :desc).limit(10)
    end
 

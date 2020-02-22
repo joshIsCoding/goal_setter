@@ -10,6 +10,8 @@ class Comment < ApplicationRecord
     primary_key: :id
   )
 
+  default_scope { order("created_at ASC")}
+
   def prior_comments
     self.commentable.comments.where("created_at < ? ", self.created_at)
   end

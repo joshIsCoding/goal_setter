@@ -102,8 +102,6 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
    end
 
    describe "Goal Updates" do
-      let!(:main_users_goal) { Goal.create!(title: "New Goal", details: "Smashing life", user_id: main_user.id, public: true)}
-      let!(:other_users_goal) { Goal.create!(title: "Other Goal", details: "Smashing pumpkins", user_id: other_user.id, public: true)}
       let!(:main_users_goal) do 
             Goal.create!(
                title: "Big Goal", 
@@ -163,8 +161,23 @@ RSpec.describe "Goal Creation, Updates and Deletion", type: :system do
    end
 
    describe "Goal Deletion" do
-      let!(:main_users_goal) { Goal.create!(title: "Main New Goal", details: "Smashing life", user_id: main_user.id, public: true)}
-      let!(:other_users_goal) { Goal.create!(title: "Other Goal", details: "Smashing pumpkins", user_id: other_user.id, public: true)}
+      let!(:main_users_goal) do 
+            Goal.create!(
+               title: "Big Goal", 
+               details: "Smashing life", 
+               categories: [categories[0]],
+               user_id: main_user.id, 
+               public: true
+            )
+            end
+         let!(:other_users_goal) do
+            Goal.create!(
+               title: "Mini Goal", 
+               details: "Smashing pumpkins",
+               categories: [categories[1]],
+               user_id: other_user.id, 
+               public: true)
+         end 
       
       it "allows a user to delete their own goal from the goal page" do
          visit(goal_path(main_users_goal))

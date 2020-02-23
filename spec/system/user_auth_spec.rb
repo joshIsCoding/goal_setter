@@ -137,13 +137,15 @@ RSpec.describe "User Authentication", type: :system do
                details: "Smashing life", 
                user: other_user, 
                categories: category,
-               public: false)
+               public: false
+            )
             Goal.create!(
                title: "Public Goal", 
                details: "Smashing pumpkins", 
                user: other_user, 
                categories: category,
-               public: true)
+               public: true
+            )
             visit(user_path(other_user))
             expect(page).not_to have_content("Private Goal")
             expect(page).to have_content("Public Goal")
@@ -200,7 +202,6 @@ RSpec.describe "User Authentication", type: :system do
             end
             visit(user_path(user))
             expect(page).to have_content("Please login to view this page")
-
          end
       end
    end

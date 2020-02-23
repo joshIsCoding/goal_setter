@@ -114,6 +114,8 @@ article.user-show-goal .creation-time { margin-left: 2rem;}
   color: white;
 }
 
+.user-show-goal .up-vote-widget { margin-bottom: 0.5rem; }
+
 .index-goal .up-vote-widget > *,
 .user-show-goal .up-vote-widget > * { 
   position: relative;
@@ -144,7 +146,8 @@ article.user-show-goal .creation-time { margin-left: 2rem;}
 .index-goal .up-vote-widget form.upvote button i,
 .user-show-goal .up-vote-widget form.upvote button i { color: $pink;}
 
-.index-goal header, .index-goal footer, 
+.index-goal header, 
+.index-goal footer, 
 .user-show-goal footer {
   clear: both;
   display: block;
@@ -153,7 +156,10 @@ article.user-show-goal .creation-time { margin-left: 2rem;}
 
 .user-show-goal footer { font-size: 1em; }
 
-.user-show-goal .goal-title { clear: right;}
+.user-show-goal .goal-title { 
+  clear: right;
+  line-height: 1.5;
+}
 
 .index-goal header { margin-bottom: 0.75rem;}
 .index-goal footer { margin-top: 0.75rem;}
@@ -285,6 +291,7 @@ article.user-show-goal .pink,
   }
 
   article.index-goal p.goal-details { clear: both;}
+  article.index-goal .goal-title { line-height: 1.5; }
   article.index-goal a.comment-count { float: right; }
 
   article.user-show-goal, article.user-show-goal.completed {
